@@ -1,9 +1,9 @@
-//===== Hercules Script =======================================
+//===== RagEmu Script =======================================
 //= Sample: Getiteminfo
 //===== By: ==================================================
 //= Lupus
 //===== Current Version: =====================================
-//= 20131225
+//= 20160626
 //===== Description: =========================================
 //= Demonstrates the 'getiteminfo' command.
 //============================================================
@@ -14,10 +14,10 @@ prontera,156,179,6	script	test_getiteminfo	4_F_KAFRA1,{
 
 	// This line uses an INTERNAL function of your client to show item name by its ID!
 	// ^nItemID^XXXX -> Item Name
-	mes "Item ID: "+.@value+" ^nItemID^"+.@value;
+	mes "Item ID: " + .@value + " ^nItemID^" + .@value;
 
 	mes "Current item info:";
 	for (.@id = 0; .@id < 14; ++.@id)
-		mes " getiteminfo("+.@value+","+.@id+") = "+getiteminfo(.@value,.@id);
+		mes " getiteminfo(" + .@value + ", " + .@id + ") = " + getiteminfo(.@value, .@id);
 	close;
 }

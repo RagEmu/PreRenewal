@@ -1,18 +1,18 @@
-//===== Hercules Script ======================================
+//===== RagEmu Script ======================================
 //= Sample: NPC Timers
 //===== By: ==================================================
-//= Hercules Dev Team
+//= RagEmu Dev Team
 //===== Current Version: =====================================
-//= 20131225
+//= 20160626
 //===== Description: =========================================
 //= Demonstrates NPC timer commands.
 //============================================================
 
 prontera,156,183,0	script	NPCtimerTest::npctimerX0000	4_F_KAFRA2,{
 	mes "Timer value" + getnpctimer(0);
-	mes "State timer" + getnpctimer(1,"npctimerX0000");
+	mes "State timer" + getnpctimer(1, "npctimerX0000");
 	mes "Number of events" + getnpctimer(2);
-	switch(select("Initialization:Stop:Start:Settings")) {
+	switch(select("Initialization", "Stop", "Start", "Settings")) {
 	case 1:
 		initnpctimer;
 		close;

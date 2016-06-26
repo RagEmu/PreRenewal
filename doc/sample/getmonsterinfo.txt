@@ -1,9 +1,9 @@
-//===== Hercules Script =======================================
+//===== RagEmu Script =======================================
 //= Sample: Getmonsterinfo
 //===== By: ==================================================
 //= Lupus
 //===== Current Version: =====================================
-//= 20131225
+//= 20160626
 //===== Description: =========================================
 //= Demonstrates the 'getmonsterinfo' command.
 //============================================================
@@ -11,13 +11,13 @@
 prontera,156,179,6	script	test_getmonsterinfo	4_F_KAFRA1,{
 	mes "Please enter a monster ID.";
 	input .@value;
-	if(getmonsterinfo(.@value,MOB_LV)<0 || getmonsterinfo(.@value,MOB_NAME)=="Dummy") {
+	if (getmonsterinfo(.@value, MOB_LV) < 0 || getmonsterinfo(.@value, MOB_NAME) == "Dummy") {
 		mes "Invalid monster ID.";
 		close;
 	}
-	mes "Monster ID: "+.@value+" '"+getmonsterinfo(.@value,MOB_NAME)+"'";
+	mes "Monster ID: " + .@value + " '" + getmonsterinfo(.@value, MOB_NAME) + "'";
 	mes "Current Monster info:";
 	for (.@id = 0; .@id < 23; ++.@id)
-		mes " getmonsterinfo("+.@value+","+@id+") = "+getmonsterinfo(.@value,@id);
+		mes " getmonsterinfo(" + .@value + ", " + .@id + ") = " + getmonsterinfo(.@value, .@id);
 	close;
 }

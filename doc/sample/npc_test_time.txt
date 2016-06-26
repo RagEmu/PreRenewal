@@ -1,9 +1,9 @@
-//===== Hercules Script =======================================
+//===== RagEmu Script =======================================
 //= Sample: Time Test
 //===== By: ==================================================
-//= rAthena Dev Team
+//= RagEmu Dev Team
 //===== Current Version: =====================================
-//= 20151115
+//= 20160626
 //===== Description: =========================================
 //= Demonstrates time commands.
 //============================================================
@@ -20,6 +20,6 @@ prontera,157,181,6	script	Time Sample	8W_SOLDIER,{
 	mes "     GETTIME_MONTH : " + gettime(GETTIME_MONTH)      + " (Month)";
 	mes "      GETTIME_YEAR : " + gettime(GETTIME_YEAR)       + " (Year)";
 	mes " GETTIME_DAYOFYEAR : " + gettime(GETTIME_DAYOFYEAR)  + " (Day of Year)";
-	mes "        gettimestr : " + gettimestr("%Y-%m/%d %H:%M:%S",19);
+	mes "        gettimestr : " + gettimestr("%Y-%m/%d %H:%M:%S", 19);
 	close;
 }

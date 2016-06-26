@@ -1,9 +1,9 @@
-//===== Hercules Script =======================================
+//===== RagEmu Script =======================================
 //= Sample: Duplicate Test
 //===== By: ==================================================
-//= Hercules Dev Team
+//= RagEmu Dev Team
 //===== Current Version: =====================================
-//= 20140320
+//= 20160626
 //===== Description: =========================================
 //= An example of how duplicate NPCs are handled:
 //=  NPC variables are shared between all duplicates.
@@ -14,7 +14,7 @@
 
 -	script	Test Script	FAKE_NPC,1,1,{
 	mes "Hi.";
-	mes "My coords are "+ .map$ +", "+ .x +"/" +.y ;
+	mes "My coords are " + .map$ + ", " + .x + "/" +.y ;
 	close;
 
 OnInit:

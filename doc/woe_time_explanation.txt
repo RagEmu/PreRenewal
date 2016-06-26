@@ -1,9 +1,9 @@
-//===== Hercules Documentation ===============================
+//===== RagEmu Documentation ===============================
 //= WoE Time Explanation
 //===== By: ==================================================
 //= erKURITA
 //===== Current Version: =====================================
-//= 20151115
+//= 20160626
 //===== Description: =========================================
 //= Details on the behavior of the default WoE controller.
 //============================================================
@@ -77,7 +77,7 @@ An example of how to set the WoE so it starts on Monday, at 4 pm and ends up at 
 
 	OnAgitInit: // This label should appear once and only once in the script
 
-	// starting time checks
+	// Starting time checks
 	if (gettime(GETTIME_WEEKDAY) == MONDAY && gettime(GETTIME_HOUR) >= 16 && gettime(GETTIME_HOUR) < 22) {
 		if (!agitcheck()) {
 			agitstart;
@@ -86,7 +86,7 @@ An example of how to set the WoE so it starts on Monday, at 4 pm and ends up at 
 		end;
 	}
 
-	// end time checks
+	// End time checks
 	if (gettime(GETTIME_WEEKDAY) == MONDAY && gettime(GETTIME_HOUR) == 22) {
 		if (agitcheck()) {
 			agitend;

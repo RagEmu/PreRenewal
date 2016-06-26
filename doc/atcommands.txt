@@ -1,9 +1,9 @@
-//===== Hercules Documentation ===============================
+//===== RagEmu Documentation ===============================
 //= Atcommand List
 //===== By: ==================================================
-//= Hercules Dev Team
+//= RagEmu Dev Team
 //===== Current Version: =====================================
-//= 20130115
+//= 20160626
 //===== Description: =========================================
 //= List of available atcommands and their functions.
 //============================================================
@@ -31,7 +31,7 @@ The format of this file is as follows:
 
 @version
 
-Displays SVN version of the server.
+Displays GIT version of the server.
 
 ---------------------------------------
 
@@ -40,7 +40,7 @@ Displays SVN version of the server.
 Displays the server rates.
 
 Output Example:
-Experience rates: Base 1.00x / Job 1.00x
+Experience Rates: Base 1.00x / Job 1.00x
 Normal Drop Rates: Common 1.00x / Healing 1.00x / Usable 1.00x Equipment 1.00x / Card 1.00x
 Boss Drop Rates:  Common 1.00x / Healing 1.00x / Usable 1.00x Equipment 1.00x / Card 1.00x
 Other Drop Rates: MvP 1.00x / Card-Based 1.00x / Treasure 1.00x
@@ -105,9 +105,21 @@ Toggles Kill Steal Protection.
 
 ---------------------------------------
 
-@font <0-9>
+@font <type>
 
-Sets client font (0 is the default).
+Sets the client font.
+
+Available types:
+ -- 0: Default
+ -- 1: RixLoveangel
+ -- 2: RixSquirrel
+ -- 3: NHCgogo
+ -- 4: RixDiary
+ -- 5: RixMiniHeart
+ -- 6: RixFreshman
+ -- 7: RixKid
+ -- 8: RixMagic
+ -- 9: RixJJangu
 
 ---------------------------------------
 
@@ -246,9 +258,15 @@ Value: <type=B(default),W,L><number> or S<length>"<string>"
 
 ---------------------------------------
 
-@mapinfo
+@mapinfo {<type> {<map>}}
 
-Displays information about the current map.
+Displays information about the current map or the one specified.
+
+Available types:
+ -- 0: General information and mapflags (always shown).
+ -- 1: Players.
+ -- 2: NPCs.
+ -- 3: Chatrooms.
 
 Output Example:
 ------ Map Info ------
@@ -345,7 +363,6 @@ Type List: healing, usable, etc, weapon, armor, card, petegg, petarmor, ammo.
 Typing "reset" will clear the autoloot item list.
 
 ---------------------------------------
-
 
 @mobsearch <monster name>
 
@@ -875,9 +892,14 @@ Summons the specified amount of spirit spheres around you.
 ---------------------------------------
 
 @mount
-@mount2
 
-Toggles mounting/unmounting a peco (@mount) or cash mount (@mount2).
+Toggles mounting/unmounting a peco or a dragon.
+
+---------------------------------------
+
+@cashmount
+
+Toggles mounting/unmounting a cash mount.
 
 ---------------------------------------
 

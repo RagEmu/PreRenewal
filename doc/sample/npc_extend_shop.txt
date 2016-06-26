@@ -1,9 +1,9 @@
-//===== Hercules Script ======================================
+//===== RagEmu Script ======================================
 //= Sample: Extended Shops
 //===== By: ==================================================
-//= Hercules Dev Team
+//= RagEmu Dev Team
 //===== Current Version: =====================================
-//= 20131225
+//= 20160626
 //===== Description: =========================================
 //= An example of shop NPCs.
 //============================================================
@@ -19,6 +19,7 @@ OnInit:
 	sellitem Novice_Armlet;
 	sellitem Novice_Egg_Cap;
 }
+
 prontera,149,139,5	trader	Whips Merchant	1_M_MERCHANT,{
 OnInit:
 	sellitem Rope_;
@@ -31,6 +32,7 @@ OnInit:
 	sellitem Rapture_Rose;
 	sellitem Chemeti;
 }
+
 prontera,162,175,3	trader	Headgears Merchant 1	1_F_MERCHANT_01,{
 OnInit:
 	sellitem Ribbon_;
@@ -44,6 +46,7 @@ OnInit:
 	sellitem Goggle_;
 	sellitem Helm_;
 }
+
 prontera,162,172,3	trader	Headgears Merchant 2	1_F_MERCHANT_01,{
 OnInit:
 	sellitem Glasses;
@@ -60,6 +63,7 @@ OnInit:
 	sellitem Masquerade;
 	sellitem Goblini_Mask;
 }
+
 prontera,162,169,3	trader	Armours Merchant	1_F_MERCHANT_01,{
 OnInit:
 	sellitem Mink_Coat;
@@ -79,6 +83,7 @@ OnInit:
 	sellitem Ninja_Suit;
 	sellitem Full_Plate_Armor_;
 }
+
 prontera,162,166,3	trader	Shields Merchant	1_F_MERCHANT_01,{
 OnInit:
 	sellitem Guard_;
@@ -89,6 +94,7 @@ OnInit:
 	sellitem Holy_Guard;
 	sellitem Herald_Of_GOD;
 }
+
 prontera,162,163,3	trader	Boots Merchant	1_F_MERCHANT_01,{
 OnInit:
 	sellitem Sandals_;
@@ -98,6 +104,7 @@ OnInit:
 	sellitem Grave_;
 	sellitem Safty_Boots;
 }
+
 prontera,162,160,3	trader	Robes Merchant	1_F_MERCHANT_01,{
 OnInit:
 	sellitem Hood_;
@@ -107,6 +114,7 @@ OnInit:
 	sellitem Ragamuffin_Cape;
 	sellitem Clack_Of_Servival;
 }
+
 prontera,162,157,3	trader	Accessory Merchant	1_F_MERCHANT_01,{
 OnInit:
 	sellitem Ring;
@@ -121,6 +129,7 @@ OnInit:
 	sellitem Matyr's_Flea_Guard;
 	sellitem Thimble_Of_Archer;
 }
+
 prontera,162,154,3	trader	Arrows Merchant	1_F_MERCHANT_01,{
 OnInit:
 	sellitem Arrow;
@@ -144,6 +153,7 @@ OnInit:
 	sellitem Sleep_Arrow;
 	sellitem Silence_Arrow;
 }
+
 prontera,162,151,3	trader	Alchemist Shop	1_F_MERCHANT_01,{
 OnInit:
 	sellitem Alcol_Create_Book;
@@ -157,6 +167,7 @@ OnInit:
 	sellitem Medicine_Bowl;
 	sellitem Empty_Potion;
 }
+
 prontera,162,148,3	trader	Taming Merchant	1_F_MERCHANT_01,{
 OnInit:
 	sellitem Unripe_Apple;
@@ -185,6 +196,7 @@ OnInit:
 	sellitem Book_Of_Devil;
 	sellitem Heart_Of_Her;
 }
+
 prontera,162,145,3	trader	Pet Equipment	1_F_MERCHANT_01,{
 OnInit:
 	sellitem Skull_Helm;
@@ -208,6 +220,7 @@ OnInit:
 	sellitem Red_Muffler;
 	sellitem Sword_Of_Grave_Keeper;
 }
+
 prontera,148,234,5	trader	Weapon Card Merchant	1_F_PUBGIRL,{
 OnInit:
 	sellitem Drops_Card,            100000;
@@ -250,6 +263,7 @@ OnInit:
 	sellitem Side_Winder_Card,      100000;
 	sellitem Deviace_Card,          100000;
 }
+
 prontera,148,231,5	trader	Headgear Card Merchant	1_F_PUBGIRL,{
 OnInit:
 	sellitem Wilow_Card,       100000;
@@ -262,6 +276,7 @@ OnInit:
 	sellitem Deviruchi_Card,   100000;
 	sellitem Nightmare_Card,   100000;
 }
+
 prontera,146,229,5	trader	Armor Card Merchant	1_F_PUBGIRL,{
 OnInit:
 	sellitem Pupa_Card,             100000;
@@ -283,6 +298,7 @@ OnInit:
 	sellitem Cornutus_Card,         100000;
 	sellitem Marc_Card,             100000;
 }
+
 prontera,144,227,5	trader	Shield Card Merchant	1_F_PUBGIRL,{
 OnInit:
 	sellitem Andre_Egg_Card,     100000;
@@ -301,6 +317,7 @@ OnInit:
 	sellitem Argos_Card,         100000;
 	sellitem Munak_Card,         100000;
 }
+
 prontera,142,225,5	trader	Robe Card Merchant	1_F_PUBGIRL,{
 OnInit:
 	sellitem Dustiness_Card,  100000;
@@ -317,6 +334,7 @@ OnInit:
 	sellitem Whisper_Card,    100000;
 	sellitem Baphomet__Card,  100000;
 }
+
 prontera,140,223,5	trader	Shoes Card Merchant	1_F_PUBGIRL,{
 OnInit:
 	sellitem Chonchon_Card,       100000;
@@ -327,6 +345,7 @@ OnInit:
 	sellitem Sohee_Card,          100000;
 	sellitem Verit_Card,          100000;
 }
+
 prontera,138,221,5	trader	Accessory Card Merchant	1_F_PUBGIRL,{
 OnInit:
 	sellitem Spore_Card,         100500;

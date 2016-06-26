@@ -1,9 +1,9 @@
-//===== Hercules Script =======================================
+//===== RagEmu Script =======================================
 //= Sample: Chat Test
 //===== By: ==================================================
-//= Hercules Dev Team
+//= RagEmu Dev Team
 //===== Current Version: =====================================
-//= 20121003
+//= 20160626
 //===== Description: ========================================= 
 //= Demonstrates waitingroom commands.
 //============================================================
@@ -11,7 +11,7 @@
 prontera,158,182,0	script	Chat Test::test0001	4_F_KAFRA2,{
 	mes "Trigger Number: " + getwaitingroomstate(2);
 	mes "Trigger State: " + getwaitingroomstate(3);
-	switch(select("Enable:Disable:Delete:Create")) {
+	switch (select("Enable", "Disable", "Delete", "Create")) {
 	case 1:
 		enablewaitingroomevent;
 		close;
@@ -22,16 +22,16 @@ prontera,158,182,0	script	Chat Test::test0001	4_F_KAFRA2,{
 		delwaitingroom;
 		close;
 	case 4:
-		waitingroom "Test",15,"test0001::OnChatEvent",1;
+		waitingroom "Test", 15, "test0001::OnChatEvent", 1;
 		close;
 	}
 
 OnInit:
-	waitingroom "Test",15,"test0001::OnChatEvent",1;
+	waitingroom "Test", 15, "test0001::OnChatEvent", 1;
 	end;
 
 OnChatEvent:
 	disablewaitingroomevent;
-	warpwaitingpc "prontera",160,180;
+	warpwaitingpc "prontera", 160, 180;
 	end;
 }

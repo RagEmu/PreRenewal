@@ -1,9 +1,9 @@
-//===== Hercules Documentation ===============================
+//===== RagEmu Documentation ===============================
 //= Permanent Quest Variables
 //===== By: ==================================================
 //= Lupus
 //===== Current Version: =====================================
-//= 20120826
+//= 20160626
 //===== Description: =========================================
 //= This file should help to understand and manage bit-wise 
 //= quest variables. You can store up to 31 boolean value into 

@@ -1,9 +1,9 @@
-//===== Hercules Script ======================================
+//===== RagEmu Script ======================================
 //= Sample localized NPC
 //===== By: ==================================================
-//= Hercules Dev Team
+//= RagEmu Dev Team
 //===== Current Version: =====================================
-//= v1.1
+//= v1.2
 //===== Description: =========================================
 //= Example of a localized NPC.
 //=
@@ -57,11 +57,11 @@ function	script	setmes2	{
 	.@mes2_name$  = getarg(0);
 	.@mes2_langid = getarg(1);
 	.@mes2_text$  = getarg(2);
-	.@mes2_var$   = "$@__"+ .@mes2_name$ +"_"+ .@mes2_langid +"$";
+	.@mes2_var$   = "$@__" + .@mes2_name$ + "_" + .@mes2_langid + "$";
 
-	//debugmes "setmes2 \""+ .@mes2_var$ +"\", \""+ .@mes2_text$ +"\";";
+	//debugmes "setmes2 \"" + .@mes2_var$ + "\", \"" + .@mes2_text$ + "\";";
 
-	// set the localized text
+	// Set the localized text
 	setd .@mes2_var$, .@mes2_text$;
 	return;
 }
@@ -75,10 +75,10 @@ function	script	setmes2	{
 function	script	getmes2	{
 	.@mes2_name$  = getarg(0);
 	.@mes2_langid = getarg(1);
-	.@mes2_var$   = "$@__"+ .@mes2_name$ +"_"+ .@mes2_langid +"$";
+	.@mes2_var$   = "$@__" + .@mes2_name$ + "_" + .@mes2_langid + "$";
 	.@mes2_text$  = getd(.@mes2_var$);
 
-	//debugmes "getmes2(\""+ .@mes2_var$ +"\")=\""+ .@mes2_text$ +"\"";
+	//debugmes "getmes2(\"" + .@mes2_var$ + "\")=\"" + .@mes2_text$ + "\"";
 
 	return .@mes2_text$;
 }
@@ -91,20 +91,21 @@ function	script	getmes2	{
 function	script	mes2	{
 	.@mes2_index$ = getarg(0);
 
-	if( getstrlen(.@mes2_index$) == 0 )
-		return; // invalid index
+	if (getstrlen(.@mes2_index$) == 0)
+		return; // Invalid index
 
-	// print localized text
-	.@mes2_text$ = callfunc("getmes2",.@mes2_index$,##_langid_);
-	if( getstrlen(.@mes2_text$) == 0 ) {
-		if( ##_langid_ != 0 ) {
-			// revert to default language
-			.@mes2_text$ = callfunc("getmes2",.@mes2_index$,0);
-			if( getstrlen(.@mes2_text$) != 0 )
-				mes .@mes2_text$; // default text
+	// Print localized text
+	.@mes2_text$ = callfunc("getmes2", .@mes2_index$, ##_langid_);
+	if (getstrlen(.@mes2_text$) == 0) {
+		if (##_langid_ != 0) {
+			// Revert to default language
+			.@mes2_text$ = callfunc("getmes2", .@mes2_index$, 0);
+			if (getstrlen(.@mes2_text$) != 0)
+				mes .@mes2_text$; // Default text
 		}
-	} else
-		mes .@mes2_text$; // localized text
+	}
+	else
+		mes .@mes2_text$; // Localized text
 	return;
 }
 
@@ -112,26 +113,26 @@ function	script	mes2	{
 /// Sample localized NPC
 prontera,155,183,4	script	LocalizedNPC	4_M_GEF_SOLDIER,{
 	// Get text for specific languages
-	.@menu1$ = callfunc("getmes2","LNPC_lang",0);
-	.@menu2$ = callfunc("getmes2","LNPC_lang",1);
+	.@menu1$ = callfunc("getmes2", "LNPC_lang", 0);
+	.@menu2$ = callfunc("getmes2", "LNPC_lang", 1);
 	do {
-		// get text that fallbacks to language 0
+		// Get text that fallbacks to language 0
 		callfunc "mes2", "LNPC_name";
-		// localized mes
+		// Localized mes
 		callfunc "mes2", "LNPC_lang";
 		callfunc "mes2", "LNPC_text";
 		next;
 
-		switch(select(.@menu1$,.@menu2$,"Cancel"))
-		{
-			case 1:
-			case 2:
-				// Set player language
-				callfunc "setlang",@menu-1;
-				break;
+		switch (select(.@menu1$, .@menu2$, "Cancel")) {
+		case 1:
+		case 2:
+			// Set player language
+			callfunc "setlang", @menu - 1;
+			break;
 		}
-	} while( @menu != 3 );
-	close;
+	}
+	while (@menu != 3);
+		close;
 	end;
 
 OnInterIfInitOnce:

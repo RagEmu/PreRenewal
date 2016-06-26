@@ -1,11 +1,11 @@
-//===== Hercules Documentation ===============================
-//= Hercules Monster Modes Reference
+//===== RagEmu Documentation ===============================
+//= RagEmu Monster Modes Reference
 //===== By: ==================================================
-//= Hercules Dev Team
+//= RagEmu Dev Team
 //===== Current Version: =====================================
-//= 20120630
+//= 20160626
 //===== Description: =========================================
-//= A reference description of Hercules' mob_db 'mode' field.
+//= A reference description of RagEmu's mob_db 'mode' field.
 //============================================================
 
 Bit Legend:
@@ -77,8 +77,7 @@ Target Weak: Allows aggressive monsters to only be aggressive against
 
 NoKnockback: Monsters will be immune to Knockback's.
 
-Random Target: Picks a new random target in range on each attack / skill.
-	(not implemented)
+Random Target: Picks a new random target in range on each attack / skill. (not implemented)
 
 Aegis Mob Types:
 -------------------------------------------------------------------------------

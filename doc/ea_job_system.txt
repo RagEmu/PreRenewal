@@ -1,9 +1,9 @@
-//===== Hercules Documentation ===============================
+//===== RagEmu Documentation ===============================
 //= eAthena Job System
 //===== By: ==================================================
 //= Skotlex
 //===== Current Version: =====================================
-//= 2013-02-10
+//= 20160626
 //===== Description: =========================================
 //= A reference description of eA's inner job system (for use 
 //= in scripts through the eaclass and roclass script commands).
@@ -43,11 +43,10 @@ The eA Job System:
 	EAJL_2_2	0x200
 	EAJL_2	0x300
 
-- The third category is type. Classes can either be normal, rebirth/advanced, adopted, or third class.
+- The third category is type. Classes can either be normal, rebirth/advanced, or adopted class.
 
 	EAJL_UPPER	0x1000
 	EAJL_BABY	0x2000
-	EAJL_THIRD	0x4000
 
 So using these three categories, any job class can be constructed from the others. Let's take a swordman, for example.
 
@@ -57,27 +56,22 @@ The first step is basic swordman, with nothing else:
 
 If a swordman is adopted...
 
-	EAJ_SWORDMAN|EAJL_BABY -> EAJ_BABY_SWORDMAN
+	EAJ_SWORDMAN | EAJL_BABY -> EAJ_BABY_SWORDMAN
 
 The next step is to either become a 2-1 or a 2-2 job:
 
-	EAJ_SWORDMAN|EAJL_2_1 -> EAJ_KNIGHT
-	EAJ_SWORDMAN|EAJL_2_2 -> EAJ_CRUSADER
+	EAJ_SWORDMAN | EAJL_2_1 -> EAJ_KNIGHT
+	EAJ_SWORDMAN | EAJL_2_2 -> EAJ_CRUSADER
 
 Getting out the rebirth versions of a swordman:
 
-	EAJ_SWORDMAN|EAJL_UPPER 		-> EAJ_SWORDMAN_HIGH
-	EAJ_SWORDMAN|EAJL_2_1|EAJL_UPPER	-> EAJ_LORD_KNIGHT
-	EAJ_SWORDMAN|EAJL_2_2|EAJL_UPPER	-> EAJ_PALADIN
-
-Or getting the third job versions:
-
-	EAJ_SWORDMAN|EAJL_2_1|EAJL_THIRD	-> EAJ_RUNE_KNIGHT
-	EAJ_SWORDMAN|EAJL_2_2|EAJL_THIRD	-> EAJ_ROYAL_GUARD
+	EAJ_SWORDMAN | EAJL_UPPER 		-> EAJ_SWORDMAN_HIGH
+	EAJ_SWORDMAN | EAJL_2_1|EAJL_UPPER	-> EAJ_LORD_KNIGHT
+	EAJ_SWORDMAN | EAJL_2_2|EAJL_UPPER	-> EAJ_PALADIN
 
 Why are we using the bitwise OR operand ('|') rather than just adding? Because the OR is wreck-proof:
 
-	EAJ_SWORDMAN_HIGH|EAJL_UPPER -> EAJ_SWORDMAN_HIGH
+	EAJ_SWORDMAN_HIGH | EAJL_UPPER -> EAJ_SWORDMAN_HIGH
 
 If we had used addition, we would have gotten a completely different result.
 
@@ -113,11 +107,6 @@ EAJL_BABY:
 	if (@eac&EAJL_BABY)
 		mes "Don't you hate being weak?";
 
-EAJL_THIRD:
-	Checks if a class is a third job.
-	if(@eac&EAJL_THIRD)
-		mes "Wow, you've really grown!";
-
 EAJ_UPPERMASK:
 	The upper mask can be used to "strip" the upper/baby characteristics of a class, used when you want to know if someone is a certain class regardless of rebirth/adopted status. For example, the following code would go through for Monks, Champions and Baby Monks:
 	if ((@eac&EAJ_UPPERMASK) == EAJ_MONK)
@@ -132,48 +121,44 @@ EAJ_BASEMASK:
 
 	Note that, like before, if you try to check versus any of the other classes (High merchant, blacksmith, etc) instead of basic merchant, the check will always fail for the same reasons previously explained.
 
-EAJ_THIRDMASK:
-	This mask strips 3rd class attributes.  It will give the "normal" class of a third job, regardless of rebirth/adopted status.  When used on non-third class characters, it will return the second job, or, if that also doesn't exist, the first.
-	if ((@eac&EAJ_THIRDMASK) == EAJ_WARLOCK_T)
-		mes "You've gone through rebirth, I see.";
-
 The script commands eaclass, roclass:
 -------------------------------------------------------------------------------
 
 	These script commands are what you can use in scripts to convert between the RO classic job id, and eA's job system. The following script code demonstrates how to use these script commands to guess what your next job will be:
 
 	set @eac, eaclass();
-	if (@eac&EAJL_2)
-	{	//2nd class
-		//If upper or baby, you can't rebirth
-		if (@eac&(EAJL_UPPER|EAJL_BABY)) {
+	if (@eac&EAJL_2) { // 2nd class
+		// If upper or baby, you can't rebirth
+		if (@eac&(EAJL_UPPER | EAJL_BABY)) {
 			mes "You can't go anywhere, can you?";
 			close;
 		}
-		//Note that if we remove the EAJL_BABY check up there, the following check
-		//will also fail, because there's no such thing as Rebirth-Baby classes.
-		set @newclass, roclass(@eac|EAJL_UPPER);
+		// Note that if we remove the EAJL_BABY check up there, the following check
+		// will also fail, because there's no such thing as Rebirth-Baby classes.
+		set @newclass, roclass(@eac | EAJL_UPPER);
 		if (@newclass == -1) {
-			//Don't you hate this of SG and SL?
+			// Don't you hate this of SG and SL?
 			mes "Haha, your class doesn't has a rebirth version yet!";
 			close;
 		}
-		mes "Still dreaming of the day you become a "+jobname(@newclass)+"?";
+		mes "Still dreaming of the day you become a " + jobname(@newclass) + "?";
 		close;
 	}
-	set @class1, roclass(@eac|EAJL_2_1);
-	set @class2, roclass(@eac|EAJL_2_2);
+	
+	@class1 = roclass(@eac | EAJL_2_1);
+	@class2 = roclass(@eac | EAJL_2_2);
+	
 	if (@class1 == -1) {
-		//NJ/GS are the only classes who get stuck on their 1st class forever.
+		// NJ/GS are the only classes who get stuck on their 1st class forever.
 		mes "Looks like you are stuck forever on that class.";
 		close;
 	}
 	if (@class2 == -1) {
-		//Not quite true, currently the only 1st class that doesn't has two choices is Novice -> Supernovice (see s.novice section below)
-		mes "Looks like you have no choice but to be a "+jobname(@class1)+".";
+		// Not quite true, currently the only 1st class that doesn't has two choices is Novice -> Supernovice (see s.novice section below)
+		mes "Looks like you have no choice but to be a " + jobname(@class1) + ".";
 		close;
 	}
-	mes "Have you decided yet if you want to be a "+jobname(@class1)+" or a "+jobname(@class2)+"?";
+	mes "Have you decided yet if you want to be a " + jobname(@class1) + " or a " + jobname(@class2) + "?";
 	close;
 
 
@@ -186,12 +171,12 @@ About Novices and Super Novices:
 	These are treated a bit differently from you'd expect. Because.. for instance, a novice is not supposed to be a 1st class, but it is considered as one on this tree system:
 
 	EAJ_NOVICE                    -> Novice
-	EAJ_NOVICE|EAJL_2_1           -> EAJ_SUPER_NOVICE
-	EAJ_NOVICE|EAJL_UPPER         -> EAJ_NOVICE_HIGH
-	EAJ_NOVICE|EAJL_BABY          -> EAJ_BABY
-	EAJ_NOVICE|EAJL_BABY|EAJL_2_1 -> EAJ_SUPER_BABY
+	EAJ_NOVICE | EAJL_2_1           -> EAJ_SUPER_NOVICE
+	EAJ_NOVICE | EAJL_UPPER         -> EAJ_NOVICE_HIGH
+	EAJ_NOVICE | EAJL_BABY          -> EAJ_BABY
+	EAJ_NOVICE | EAJL_BABY | EAJL_2_1 -> EAJ_SUPER_BABY
 
 	So as you can see, on this job system, the Super Novice is treated as the 2-1 job of a Novice, and the Novice job it's at the same level of the other 1st jobs. Even though that may seem like a hindrance, it makes it very easy to add a check to discard Novice types from a quest:
 
 	if ((eaclass()&EAJ_BASEMASK) == EAJ_NOVICE)
-		//Novice class detected.
+		// Novice class detected.

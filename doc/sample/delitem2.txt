@@ -1,9 +1,9 @@
-//===== Hercules Script =======================================
+//===== RagEmu Script =======================================
 //= Sample: Delitem2
 //===== By: ==================================================
-//= Hercules Dev Team
+//= RagEmu Dev Team
 //===== Current Version: =====================================
-//= 20131225
+//= 20160626
 //===== Description: =========================================
 //= Demonstrates the 'delitem2' command.
 //============================================================
@@ -31,9 +31,9 @@ prontera,160,182,5	script	Delitem2	1_M_BARD,{
 	input .@c3;
 	input .@c4;
 	mes "Your command is:";
-	mes "delitem2 "+.@nameid+","+.@amount+","+.@iden+","+.@ref+","+.@attr+","+.@c1+","+.@c2+","+.@c3+","+.@c4;
+	mes "delitem2 " + .@nameid + ", " + .@amount + ", " + .@iden + ", " + .@ref + ", " + .@attr + ", " +.@c1 + ", " + .@c2 + ", " + .@c3 + ", " + .@c4;
 	next;
-	delitem2 .@nameid,.@amount,.@iden,.@ref,.@attr,.@c1,.@c2,.@c3,.@c4;
+	delitem2 .@nameid, .@amount, .@iden, .@ref, .@attr, .@c1, .@c2, .@c3, .@c4;
 	mes "And here is the moment when your item should disappear! :P";
 	close;
 }

@@ -1,11 +1,11 @@
-//===== Hercules Documentation ===============================
+//===== RagEmu Documentation ===============================
 //= NPC Whisper System
 //===== By: ==================================================
 //= lordalfa
 //===== Current Version: =====================================
-//= 20120904
+//= 20160626
 //===== Description: =========================================
-//= A description of Hercules' NPC whispering system.
+//= A description of RagEmu' NPC whispering system.
 //============================================================
 
 This piece of code to allows characters to execute events in NPCs by whispering 
@@ -33,7 +33,7 @@ be processed accordingly:
 OnWhisperGlobal:
 	// Inform player "Lordalfa" that he has been reported for killstealing.
 	if (@whispervar0$ == "Report")
-		message @whispervar2$,"You have been reported for "+@whispervar1$+".";
+		message @whispervar2$, "You have been reported for "+@whispervar1$+".";
 	end;
 }
 
