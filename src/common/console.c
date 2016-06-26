@@ -67,23 +67,28 @@ struct {
 /*======================================
  * CORE : Display title
  *--------------------------------------*/
-void display_title(void) {
+void display_title(void)
+{
 	const char *vcstype = sysinfo->vcstype();
 
 	ShowMessage("\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"                                                                      "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"                 Hercules Development Team presents                   "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"                _   _                     _                           "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"               | | | |                   | |                          "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"               | |_| | ___ _ __ ___ _   _| | ___  ___                 "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"               |  _  |/ _ \\ '__/ __| | | | |/ _ \\/ __|                "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"               | | | |  __/ | | (__| |_| | |  __/\\__ \\                "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"               \\_| |_/\\___|_|  \\___|\\__,_|_|\\___||___/                "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"                                                                      "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"                      http://herc.ws/board/                           "CL_CLL""CL_NORMAL"\n");
-	ShowMessage(""CL_BG_RED""CL_BT_WHITE"                                                                      "CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"                 "CL_BOLD"                                                              "CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"                 "CL_BT_WHITE"               RagEmu Team presents              "CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"                 "CL_BOLD"                                                         "CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"                 "CL_BOLD"     ______            _____                "CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"                 "CL_BOLD"     | ___ \\          |  ___|               "CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"                 "CL_BOLD"     | |_/ /__ _  __ _| |__ _ __ ___  _   _ "CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"                 "CL_BOLD"     |    // _` |/ _` |  __| '_ ` _ \\| | | |"CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"                 "CL_BOLD"     | |\\ \\ (_| | (_| | |__| | | | | | |_| |"CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"                 "CL_BOLD"     \\_| \\_\\__,_|\\__, \\____/_| |_| |_|\\__,_|"CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"                 "CL_BOLD"                  __/ |                     "CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"                 "CL_BOLD"                 |___/                      "CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"                 "CL_BOLD"                                                          "CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"	              "CL_BT_YELLOW"        Ragnarok Pre-Renewal Emulator                         "CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"                 "CL_BOLD"                                                         "CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
+	ShowMessage(""CL_BG_GREEN"                 "CL_BOLD"                                                         "CL_BG_GREEN""CL_CLL""CL_NORMAL"\n");
 
-	ShowInfo("Hercules %d-bit for %s\n", sysinfo->is64bit() ? 64 : 32, sysinfo->platform());
+	ShowInfo("RagEmu %d-bit for %s\n", sysinfo->is64bit() ? 64 : 32, sysinfo->platform());
 	ShowInfo("%s revision (src): '"CL_WHITE"%s"CL_RESET"'\n", vcstype, sysinfo->vcsrevision_src());
 	ShowInfo("%s revision (scripts): '"CL_WHITE"%s"CL_RESET"'\n", vcstype, sysinfo->vcsrevision_scripts());
 	ShowInfo("OS version: '"CL_WHITE"%s"CL_RESET" [%s]'\n", sysinfo->osversion(), sysinfo->arch());
@@ -98,7 +103,7 @@ void display_title(void) {
  */
 void display_gplnotice(void)
 {
-	ShowInfo("Hercules, Copyright (C) 2012-2015, Hercules Dev Team and others.\n");
+	ShowInfo("RagEmu, Copyright (C) 2016, RagEmu Dev Team and others.\n");
 	ShowInfo("Licensed under the GNU General Public License, version 3 or later.\n");
 }
 
@@ -129,21 +134,24 @@ int console_parse_key_pressed(void)
 /**
  * Stops server
  **/
-CPCMD_C(exit,server) {
+CPCMD_C(exit,server)
+{
 	core->runflag = 0;
 }
 
 /**
  * Displays ERS-related statistics (Entry Reusage System)
  **/
-CPCMD_C(ers_report,server) {
+CPCMD_C(ers_report,server)
+{
 	ers_report();
 }
 
 /**
  * Displays memory usage
  **/
-CPCMD_C(mem_report,server) {
+CPCMD_C(mem_report,server)
+{
 #ifdef USE_MEMMGR
 	memmgr_report(line?atoi(line):0);
 #endif
@@ -170,17 +178,19 @@ CPCMD(help)
  * [Ind/Hercules]
  * Displays current malloc usage
  */
-CPCMD_C(malloc_usage,server) {
+CPCMD_C(malloc_usage,server)
+{
 	unsigned int val = (unsigned int)iMalloc->usage();
-	ShowInfo("malloc_usage: %.2f MB\n",(double)(val)/1024);
+	ShowInfo("malloc_usage: %.2f MB\n", (double)(val) / 1024);
 }
 
 /**
  * Skips an sql update
  * Usage: sql update skip UPDATE-FILE.sql
  **/
-CPCMD_C(skip,update) {
-	if( !line ) {
+CPCMD_C(skip,update)
+{
+	if (!line) {
 		ShowDebug("usage example: sql update skip 2013-02-14--16-15.sql\n");
 		return;
 	}
@@ -252,7 +262,7 @@ void console_load_defaults(void)
 
 	VECTOR_ENSURE(console->input->commands, len, 1);
 
-	for(i = 0; i < len; i++) {
+	for (i = 0; i < len; i++) {
 		CREATE(cmd, struct CParseEntry, 1);
 
 		safestrncpy(cmd->cmd, default_list[i].name, CP_CMD_LENGTH);
@@ -311,7 +321,7 @@ void console_parse_create(char *name, CParseFunc func)
 	struct CParseEntry *cmd;
 
 	safestrncpy(sublist, name, CP_CMD_LENGTH * 5);
-	tok = strtok(sublist,":");
+	tok = strtok(sublist, ":");
 
 	ARR_FIND(0, VECTOR_LENGTH(console->input->command_list), i, strcmpi(tok, VECTOR_INDEX(console->input->command_list, i)->cmd) == 0);
 
@@ -333,7 +343,7 @@ void console_parse_create(char *name, CParseFunc func)
 		}
 		Assert_retv(cmd->type == CPET_CATEGORY);
 
-		ARR_FIND(0, VECTOR_LENGTH(cmd->u.children), i, strcmpi(VECTOR_INDEX(cmd->u.children, i)->cmd,tok) == 0);
+		ARR_FIND(0, VECTOR_LENGTH(cmd->u.children), i, strcmpi(VECTOR_INDEX(cmd->u.children, i)->cmd, tok) == 0);
 		if (i == VECTOR_LENGTH(cmd->u.children)) {
 			struct CParseEntry *entry;
 			CREATE(entry, struct CParseEntry, 1);
@@ -369,10 +379,10 @@ void console_parse_list_subs(struct CParseEntry *cmd, unsigned char depth)
 		memset(msg, '-', depth);
 		snprintf(msg + depth, (CP_CMD_LENGTH * 2) - depth, " '"CL_WHITE"%s"CL_RESET"'", child->cmd);
 		if (child->type == CPET_FUNCTION) {
-			ShowInfo("%s\n",msg);
+			ShowInfo("%s\n", msg);
 		} else {
-			ShowInfo("%s subs\n",msg);
-			console->input->parse_list_subs(child,depth + 1);
+			ShowInfo("%s subs\n", msg);
+			console->input->parse_list_subs(child, depth + 1);
 		}
 	}
 }
@@ -395,7 +405,7 @@ void console_parse_sub(char *line)
 
 	ARR_FIND(0, VECTOR_LENGTH(console->input->command_list), i, strcmpi(tok, VECTOR_INDEX(console->input->command_list, i)->cmd) == 0);
 	if (i == VECTOR_LENGTH(console->input->command_list)) {
-		ShowError("'"CL_WHITE"%s"CL_RESET"' is not a known command, type '"CL_WHITE"help"CL_RESET"' to list all commands\n",line);
+		ShowError("'"CL_WHITE"%s"CL_RESET"' is not a known command, type '"CL_WHITE"help"CL_RESET"' to list all commands\n", line);
 		return;
 	}
 
@@ -418,15 +428,15 @@ void console_parse_sub(char *line)
 		if (i == VECTOR_LENGTH(cmd->u.children)) {
 			if (strcmpi("help", tok) == 0) {
 				if (VECTOR_LENGTH(cmd->u.children)) {
-					ShowInfo("- '"CL_WHITE"%s"CL_RESET"' subs\n",sublist);
-					console->input->parse_list_subs(cmd,2);
+					ShowInfo("- '"CL_WHITE"%s"CL_RESET"' subs\n", sublist);
+					console->input->parse_list_subs(cmd, 2);
 				} else {
-					ShowError("'"CL_WHITE"%s"CL_RESET"' doesn't possess any subcommands\n",sublist);
+					ShowError("'"CL_WHITE"%s"CL_RESET"' doesn't possess any subcommands\n", sublist);
 				}
 				return;
 			}
-			ShowError("'"CL_WHITE"%s"CL_RESET"' is not a known subcommand of '"CL_WHITE"%s"CL_RESET"'\n",tok,cmd->cmd);
-			ShowError("type '"CL_WHITE"%s help"CL_RESET"' to list its subcommands\n",sublist);
+			ShowError("'"CL_WHITE"%s"CL_RESET"' is not a known subcommand of '"CL_WHITE"%s"CL_RESET"'\n", tok, cmd->cmd);
+			ShowError("type '"CL_WHITE"%s help"CL_RESET"' to list its subcommands\n", sublist);
 			return;
 		}
 		entry = VECTOR_INDEX(cmd->u.children, i);
@@ -438,54 +448,60 @@ void console_parse_sub(char *line)
 
 		cmd = entry;
 
-		if (strlen(sublist) < sizeof(sublist)-1)
+		if (strlen(sublist) < sizeof(sublist) - 1)
 			snprintf(sublist+strlen(sublist), sizeof(sublist), " %s", cmd->cmd);
 	}
-	ShowError("Is only a category, type '"CL_WHITE"%s help"CL_RESET"' to list its subcommands\n",sublist);
+	ShowError("Is only a category, type '"CL_WHITE"%s help"CL_RESET"' to list its subcommands\n", sublist);
 }
-void console_parse(char* line) {
-	int c, i = 0, len = MAX_CONSOLE_INPUT - 1;/* we leave room for the \0 :P */
 
-	while( (c = fgetc(stdin)) != EOF ) {
-		if( --len == 0 )
+void console_parse(char* line)
+{
+	int c, i = 0, len = MAX_CONSOLE_INPUT - 1; /* we leave room for the \0 :P */
+
+	while ((c = fgetc(stdin)) != EOF) {
+		if (--len == 0)
 			break;
-		if( (line[i++] = c) == '\n') {
-			line[i-1] = '\0';/* clear, we skip the new line */
-			break;/* new line~! we leave it for the next cycle */
+		if ((line[i++] = c) == '\n') {
+			line[i - 1] = '\0'; /* clear, we skip the new line */
+			break; /* new line~! we leave it for the next cycle */
 		}
 	}
 
 	line[i++] = '\0';
 }
-void *cThread_main(void *x) {
-	while( console->input->ptstate ) {/* loopx */
-		if( console->input->key_pressed() ) {
+
+void *cThread_main(void *x)
+{
+	while (console->input->ptstate) { /* loopx */
+		if (console->input->key_pressed()) {
 			char input[MAX_CONSOLE_INPUT];
 
 			console->input->parse(input);
-			if( input[0] != '\0' ) {/* did we get something? */
+			if (input[0] != '\0') { /* did we get something? */
 				EnterSpinLock(&console->input->ptlock);
 
-				if( cinput.count == CONSOLE_PARSE_SIZE ) {
+				if (cinput.count == CONSOLE_PARSE_SIZE) {
 					LeaveSpinLock(&console->input->ptlock);
-					continue;/* drop */
+					continue; /* drop */
 				}
 
-				safestrncpy(cinput.queue[cinput.count++],input,MAX_CONSOLE_INPUT);
+				safestrncpy(cinput.queue[cinput.count++], input, MAX_CONSOLE_INPUT);
 				LeaveSpinLock(&console->input->ptlock);
 			}
 		}
-		ramutex_lock( console->input->ptmutex );
-		racond_wait( console->input->ptcond, console->input->ptmutex, -1 );
-		ramutex_unlock( console->input->ptmutex );
+		ramutex_lock(console->input->ptmutex);
+		racond_wait(console->input->ptcond, console->input->ptmutex, -1);
+		ramutex_unlock(console->input->ptmutex);
 	}
 
 	return NULL;
 }
-int console_parse_timer(int tid, int64 tick, int id, intptr_t data) {
+
+int console_parse_timer(int tid, int64 tick, int id, intptr_t data)
+{
 	int i;
 	EnterSpinLock(&console->input->ptlock);
-	for(i = 0; i < cinput.count; i++) {
+	for (i = 0; i < cinput.count; i++) {
 		console->input->parse_sub(cinput.queue[i]);
 	}
 	cinput.count = 0;
@@ -493,8 +509,10 @@ int console_parse_timer(int tid, int64 tick, int id, intptr_t data) {
 	racond_signal(console->input->ptcond);
 	return 0;
 }
-void console_parse_final(void) {
-	if( console->input->ptstate ) {
+
+void console_parse_final(void)
+{
+	if (console->input->ptstate) {
 		InterlockedDecrement(&console->input->ptstate);
 		racond_signal(console->input->ptcond);
 
@@ -505,7 +523,9 @@ void console_parse_final(void) {
 		ramutex_destroy(console->input->ptmutex);
 	}
 }
-void console_parse_init(void) {
+
+void console_parse_init(void)
+{
 	cinput.count = 0;
 
 	console->input->ptstate = 1;
@@ -515,14 +535,15 @@ void console_parse_init(void) {
 	console->input->ptmutex = ramutex_create();
 	console->input->ptcond = racond_create();
 
-	if( (console->input->pthread = rathread_create(console->input->pthread_main, NULL)) == NULL ){
+	if ((console->input->pthread = rathread_create(console->input->pthread_main, NULL)) == NULL) {
 		ShowFatalError("console_parse_init: failed to spawn console_parse thread.\n");
 		exit(EXIT_FAILURE);
 	}
 
 	timer->add_func_list(console->input->parse_timer, "console_parse_timer");
-	timer->add_interval(timer->gettick() + 1000, console->input->parse_timer, 0, 0, 500);/* start listening in 1s; re-try every 0.5s */
+	timer->add_interval(timer->gettick() + 1000, console->input->parse_timer, 0, 0, 500); /* start listening in 1s; re-try every 0.5s */
 }
+
 void console_setSQL(struct Sql *SQL_handle)
 {
 	console->input->SQL = SQL_handle;
