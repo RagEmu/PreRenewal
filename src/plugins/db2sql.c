@@ -46,11 +46,7 @@ HPExport struct hplugin_info pinfo = {
 	HPM_VERSION,     // HPM Version (don't change, macro is automatically updated)
 };
 
-#ifdef RENEWAL
-#define DBSUFFIX "_re"
-#else // not RENEWAL
 #define DBSUFFIX ""
-#endif
 
 /// Conversion state tracking.
 struct {
