@@ -1,11 +1,12 @@
 /**
- * This file is part of Hercules.
- * http://herc.ws - http://github.com/HerculesWS/Hercules
+ * This file is part of RagEmu.
+ * http://ragemu.org - https://github.com/RagEmu/PreRenewal
  *
+ * Copyright (C) 2016  RagEmu Dev Team
  * Copyright (C) 2012-2015  Hercules Dev Team
  * Copyright (C)  Athena Dev Teams
  *
- * Hercules is free software: you can redistribute it and/or modify
+ * RagEmu is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -20,7 +21,7 @@
  */
 #define HERCULES_CORE
 
-#include "config/core.h" // DBPATH
+#include "config/core.h"
 #include "int_guild.h"
 
 #include "char/char.h"
@@ -739,7 +740,7 @@ int inter_guild_sql_init(void)
 	inter_guild->castle_db = idb_alloc(DB_OPT_RELEASE_DATA);
 
 	//Read exp file
-	sv->readdb("db", DBPATH"exp_guild.txt", ',', 1, 1, MAX_GUILDLEVEL, inter_guild->exp_parse_row);
+	sv->readdb("db", "exp_guild.txt", ',', 1, 1, MAX_GUILDLEVEL, inter_guild->exp_parse_row);
 
 	timer->add_func_list(inter_guild->save_timer, "inter_guild->save_timer");
 	timer->add(timer->gettick() + 10000, inter_guild->save_timer, 0, 0);

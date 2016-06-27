@@ -1,11 +1,12 @@
 /**
- * This file is part of Hercules.
- * http://herc.ws - http://github.com/HerculesWS/Hercules
+ * This file is part of RagEmu.
+ * http://ragemu.org - https://github.com/RagEmu/PreRenewal
  *
+ * Copyright (C) 2016  RagEmu Dev Team
  * Copyright (C) 2012-2015  Hercules Dev Team
  * Copyright (C)  Athena Dev Teams
  *
- * Hercules is free software: you can redistribute it and/or modify
+ * RagEmu is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -20,7 +21,7 @@
  */
 #define HERCULES_CORE
 
-#include "config/core.h" // ANTI_MAYAP_CHEAT, DBPATH, DEFTYPE_MAX, DEFTYPE_MIN, DEVOTION_REFLECT_DAMAGE, RENEWAL, RENEWAL_ASPD, RENEWAL_EDP
+#include "config/core.h" // ANTI_MAYAP_CHEAT, DEFTYPE_MAX, DEFTYPE_MIN, DEVOTION_REFLECT_DAMAGE, RENEWAL, RENEWAL_ASPD, RENEWAL_EDP
 #include "status.h"
 
 #include "map/battle.h"
@@ -12800,11 +12801,7 @@ void status_read_job_db(void) { /* [malufett/Hercules] */
 	int i = 0;
 	struct config_t job_db_conf;
 	struct config_setting_t *jdb = NULL;
-#ifdef RENEWAL_ASPD
-	const char *config_filename = "db/re/job_db.conf";
-#else
-	const char *config_filename = "db/pre-re/job_db.conf";
-#endif
+	const char *config_filename = "db/job_db.conf";
 
 	if (!libconfig->load_file(&job_db_conf, config_filename))
 		return;
@@ -13049,8 +13046,8 @@ int status_readdb(void)
 	// read databases
 	//
 	sv->readdb(map->db_path, "job_db2.txt",         ',', 1,                 1+MAX_LEVEL,       -1,                       status->readdb_job2);
-	sv->readdb(map->db_path, DBPATH"size_fix.txt", ',', MAX_SINGLE_WEAPON_TYPE, MAX_SINGLE_WEAPON_TYPE, ARRAYLENGTH(status->dbs->atkmods), status->readdb_sizefix);
-	status->readdb_refine_libconfig(DBPATH"refine_db.conf");
+	sv->readdb(map->db_path, "size_fix.txt", ',', MAX_SINGLE_WEAPON_TYPE, MAX_SINGLE_WEAPON_TYPE, ARRAYLENGTH(status->dbs->atkmods), status->readdb_sizefix);
+	status->readdb_refine_libconfig("refine_db.conf");
 	sv->readdb(map->db_path, "sc_config.txt",       ',', 2,                 2,                 SC_MAX,                   status->readdb_scconfig);
 	status->read_job_db();
 

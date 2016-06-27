@@ -1,11 +1,12 @@
 /**
- * This file is part of Hercules.
- * http://herc.ws - http://github.com/HerculesWS/Hercules
+ * This file is part of RagEmu.
+ * http://ragemu.org - https://github.com/RagEmu/PreRenewal
  *
+ * Copyright (C) 2016  RagEmu Dev Team
  * Copyright (C) 2012-2015  Hercules Dev Team
  * Copyright (C)  Athena Dev Teams
  *
- * Hercules is free software: you can redistribute it and/or modify
+ * RagEmu is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -20,7 +21,7 @@
  */
 #define HERCULES_CORE
 
-#include "config/core.h" // DBPATH
+#include "config/core.h"
 #include "pet.h"
 
 #include "map/atcommand.h" // msg_txt()
@@ -1185,7 +1186,7 @@ int pet_skill_support_timer(int tid, int64 tick, int id, intptr_t data) {
 int read_petdb(void)
 {
 	const char *filename[] = {
-		DBPATH"pet_db.txt",
+		"pet_db.txt",
 		"pet_db2.txt",
 	};
 	int i,j;

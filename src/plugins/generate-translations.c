@@ -1,10 +1,11 @@
 /**
- * This file is part of Hercules.
- * http://herc.ws - http://github.com/HerculesWS/Hercules
+ * This file is part of RagEmu.
+ * http://ragemu.org - https://github.com/RagEmu/PreRenewal
  *
+ * Copyright (C) 2016  RagEmu Dev Team
  * Copyright (C) 2016  Hercules Dev Team
  *
- * Hercules is free software: you can redistribute it and/or modify
+ * RagEmu is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -73,7 +74,7 @@ CMDLINEARG(generatetranslations)
 				"#\n"
 				"# Copyright (C) 2013-%d  Hercules Dev Team\n"
 				"#\n"
-				"# Hercules is free software: you can redistribute it and/or modify\n"
+				"# RagEmu is free software: you can redistribute it and/or modify\n"
 				"# it under the terms of the GNU General Public License as published by\n"
 				"# the Free Software Foundation, either version 3 of the License, or\n"
 				"# (at your option) any later version.\n"

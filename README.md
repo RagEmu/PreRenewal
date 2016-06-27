@@ -3,11 +3,11 @@ RagEmu
 
 Build Status:  
 [![Build Status](https://travis-ci.org/RagEmu/PreRenewal.svg)](https://travis-ci.org/RagEmu/PreRenewal)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/vi0yrixr71wkn9x3?svg=true)](https://ci.appveyor.com/project/dastgir/renewal)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/bkmmcsn3pcx8lrpa?svg=true)](https://ci.appveyor.com/project/dastgir/prerenewal)
 
 Project Info:  
 ![Language](https://img.shields.io/badge/language-C-yellow.svg)
-[![License](https://img.shields.io/badge/license-GPLv3-663399.svg)](https://github.com/RagEmu/Renewal/blob/master/LICENSE)
+[![License](https://img.shields.io/badge/license-GPLv3-663399.svg)](https://github.com/RagEmu/PreRenewal/blob/master/LICENSE)
 
 Table of Contents
 ---------

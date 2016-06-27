@@ -1,11 +1,12 @@
 /**
- * This file is part of Hercules.
- * http://herc.ws - http://github.com/HerculesWS/Hercules
+ * This file is part of RagEmu.
+ * http://ragemu.org - https://github.com/RagEmu/PreRenewal
  *
+ * Copyright (C) 2016  RagEmu Dev Team
  * Copyright (C) 2012-2015  Hercules Dev Team
  * Copyright (C)  Athena Dev Teams
  *
- * Hercules is free software: you can redistribute it and/or modify
+ * RagEmu is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -20,7 +21,7 @@
  */
 #define HERCULES_CORE
 
-#include "config/core.h" // AUTOLOOT_DISTANCE, DBPATH, DEFTYPE_MAX, DEFTYPE_MIN, RENEWAL_DROP, RENEWAL_EXP
+#include "config/core.h" // AUTOLOOT_DISTANCE, sDEFTYPE_MAX, DEFTYPE_MIN, RENEWAL_DROP, RENEWAL_EXP
 #include "mob.h"
 
 #include "map/atcommand.h"
@@ -4481,7 +4482,7 @@ bool mob_get_const(const struct config_setting_t *it, int *value)
  *------------------------------------------*/
 void mob_readdb(void) {
 	const char* filename[] = {
-		DBPATH"mob_db.conf",
+		"mob_db.conf",
 		"mob_db2.conf" };
 	int i;
 
@@ -4609,9 +4610,9 @@ int mob_read_randommonster(void)
 	char *str[10],*p;
 	int i,j;
 	const char* mobfile[] = {
-		DBPATH"mob_branch.txt",
-		DBPATH"mob_poring.txt",
-		DBPATH"mob_boss.txt",
+		"mob_branch.txt",
+		"mob_poring.txt",
+		"mob_boss.txt",
 		"mob_pouch.txt",
 		"mob_classchange.txt"};
 
@@ -5050,7 +5051,7 @@ bool mob_parse_row_mobskilldb(char** str, int columns, int current)
  *------------------------------------------*/
 void mob_readskilldb(void) {
 	const char* filename[] = {
-		DBPATH"mob_skill_db.txt",
+		"mob_skill_db.txt",
 		"mob_skill_db2.txt" };
 	int fi;
 
@@ -5141,7 +5142,7 @@ void mob_load(bool minimal) {
 	mob->readskilldb();
 	sv->readdb(map->db_path, "mob_avail.txt", ',', 2, 12, -1, mob->readdb_mobavail);
 	mob->read_randommonster();
-	sv->readdb(map->db_path, DBPATH"mob_race2_db.txt", ',', 2, 20, -1, mob->readdb_race2);
+	sv->readdb(map->db_path, "mob_race2_db.txt", ',', 2, 20, -1, mob->readdb_race2);
 }
 
 void mob_reload(void) {
