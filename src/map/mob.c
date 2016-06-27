@@ -21,7 +21,7 @@
  */
 #define HERCULES_CORE
 
-#include "config/core.h" // AUTOLOOT_DISTANCE, sDEFTYPE_MAX, DEFTYPE_MIN, RENEWAL_DROP, RENEWAL_EXP
+#include "config/core.h" // AUTOLOOT_DISTANCE, sDEFTYPE_MAX, DEFTYPE_MIN
 #include "mob.h"
 
 #include "map/atcommand.h"
@@ -2338,11 +2338,6 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type) {
 		if(flag) {
 			if(base_exp || job_exp) {
 				if( md->dmglog[i].flag != MDLF_PET || battle_config.pet_attack_exp_to_master ) {
-#ifdef RENEWAL_EXP
-					int rate = pc->level_penalty_mod(md->level - (tmpsd[i])->status.base_level, md->status.race, md->status.mode, 1);
-					base_exp = (unsigned int)cap_value(base_exp * rate / 100, 1, UINT_MAX);
-					job_exp = (unsigned int)cap_value(job_exp * rate / 100, 1, UINT_MAX);
-#endif
 					pc->gainexp(tmpsd[i], &md->bl, base_exp, job_exp, false);
 				}
 			}
@@ -2366,12 +2361,6 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type) {
 		struct item_drop *ditem;
 		struct item_data* it = NULL;
 		int drop_rate;
-#ifdef RENEWAL_DROP
-		int drop_modifier = mvp_sd    ? pc->level_penalty_mod( md->level - mvp_sd->status.base_level, md->status.race, md->status.mode, 2)   :
-							second_sd ? pc->level_penalty_mod( md->level - second_sd->status.base_level, md->status.race, md->status.mode, 2):
-							third_sd  ? pc->level_penalty_mod( md->level - third_sd->status.base_level, md->status.race, md->status.mode, 2) :
-							100;/* no player was attached, we don't use any modifier (100 = rates are not touched) */
-#endif
 		dlist->m = md->bl.m;
 		dlist->x = md->bl.x;
 		dlist->y = md->bl.y;
@@ -2419,13 +2408,6 @@ int mob_dead(struct mob_data *md, struct block_list *src, int type) {
 				drop_rate = max(drop_rate, cap_value((int)(0.5 + drop_rate * (sd->sc.data[SC_CASH_RECEIVEITEM]->val1) / 100.), 0, 9000));
 			if (sd && sd->sc.data[SC_OVERLAPEXPUP])
 				drop_rate = max(drop_rate, cap_value((int)(0.5 + drop_rate * (sd->sc.data[SC_OVERLAPEXPUP]->val2) / 100.), 0, 9000));
-#ifdef RENEWAL_DROP
-			if( drop_modifier != 100 ) {
-				drop_rate = drop_rate * drop_modifier / 100;
-				if( drop_rate < 1 )
-					drop_rate = 1;
-			}
-#endif
 			if( sd && sd->status.mod_drop != 100 ) {
 				drop_rate = drop_rate * sd->status.mod_drop / 100;
 				if( drop_rate < 1 )
@@ -4057,11 +4039,6 @@ int mob_db_validate_entry(struct mob_db *entry, int n, const char *source)
 	entry->status.hp = entry->status.max_hp;
 	entry->status.sp = entry->status.max_sp;
 
-	/*
-	 * Disabled for renewal since difference of 0 and 1 still has an impact in the formulas
-	 * Just in case there is a mishandled division by zero please let us know. [malufett]
-	 */
-#ifndef RENEWAL
 	//All status should be min 1 to prevent divisions by zero from some skills. [Skotlex]
 	if (entry->status.str < 1) entry->status.str = 1;
 	if (entry->status.agi < 1) entry->status.agi = 1;
@@ -4069,7 +4046,6 @@ int mob_db_validate_entry(struct mob_db *entry, int n, const char *source)
 	if (entry->status.int_< 1) entry->status.int_= 1;
 	if (entry->status.dex < 1) entry->status.dex = 1;
 	if (entry->status.luk < 1) entry->status.luk = 1;
-#endif
 
 	if (entry->range2 < 1)
 		entry->range2 = 1;

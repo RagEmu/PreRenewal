@@ -21,7 +21,7 @@
  */
 #define HERCULES_CORE
 
-#include "config/core.h" // GP_BOUND_ITEMS, RENEWAL_EXP
+#include "config/core.h" // GP_BOUND_ITEMS
 #include "party.h"
 
 #include "map/atcommand.h" //msg_txt()
@@ -958,9 +958,6 @@ int party_exp_share(struct party_data* p, struct block_list* src, unsigned int b
 {
 	struct map_session_data* sd[MAX_PARTY];
 	unsigned int i, c;
-#ifdef RENEWAL_EXP
-	unsigned int job_exp_bonus, base_exp_bonus;
-#endif
 
 	nullpo_ret(p);
 	nullpo_ret(src);
@@ -988,21 +985,8 @@ int party_exp_share(struct party_data* p, struct block_list* src, unsigned int b
 			zeny = (unsigned int) cap_value(zeny * bonus/100, INT_MIN, INT_MAX);
 	}
 
-#ifdef RENEWAL_EXP
-	base_exp_bonus = base_exp;
-	job_exp_bonus  = job_exp;
-#endif
 
 	for (i = 0; i < c; i++) {
-#ifdef RENEWAL_EXP
-		struct mob_data *md = BL_CAST(BL_MOB, src);
-		if (md != NULL && md->db->mexp == 0) {
-			int rate = pc->level_penalty_mod(md->level - (sd[i])->status.base_level, md->status.race, md->status.mode, 1);
-
-			base_exp = (unsigned int)cap_value(base_exp_bonus * rate / 100, 1, UINT_MAX);
-			job_exp = (unsigned int)cap_value(job_exp_bonus * rate / 100, 1, UINT_MAX);
-		}
-#endif
 		pc->gainexp(sd[i], src, base_exp, job_exp, false);
 
 		if (zeny) // zeny from mobs [Valaris]

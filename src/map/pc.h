@@ -320,9 +320,6 @@ BEGIN_ZEROED_BLOCK; // this block will be globally zeroed at the beginning of st
 	short sp_gain_race[RC_MAX];
 	short sp_gain_race_attack[RC_MAX];
 	short hp_gain_race_attack[RC_MAX];
-#ifdef RENEWAL
-	int race_tolerance[RC_MAX];
-#endif
 	struct s_autospell autospell[15], autospell2[15], autospell3[15];
 	struct s_addeffect addeff[MAX_PC_BONUS], addeff2[MAX_PC_BONUS];
 	struct s_addeffectonskill addeff3[MAX_PC_BONUS];
@@ -663,16 +660,6 @@ END_ZEROED_BLOCK;
 	1<<(sd)->status.weapon:(1<<(sd)->weapontype1)|(1<<(sd)->weapontype2)|(1<<(sd)->status.weapon)))
 
 // clientside display macros (values to the left/right of the "+")
-#ifdef RENEWAL
-	#define pc_leftside_atk(sd) ((sd)->battle_status.batk)
-	#define pc_rightside_atk(sd) ((sd)->battle_status.rhw.atk + (sd)->battle_status.lhw.atk + (sd)->battle_status.rhw.atk2 + (sd)->battle_status.lhw.atk2 + (sd)->battle_status.equip_atk )
-	#define pc_leftside_def(sd) ((sd)->battle_status.def2)
-	#define pc_rightside_def(sd) ((sd)->battle_status.def)
-	#define pc_leftside_mdef(sd) ((sd)->battle_status.mdef2)
-	#define pc_rightside_mdef(sd) ((sd)->battle_status.mdef)
-	#define pc_leftside_matk(sd) (status->base_matk(&(sd)->bl, status->get_status_data(&(sd)->bl), (sd)->status.base_level))
-	#define pc_rightside_matk(sd) ((sd)->battle_status.rhw.matk+(sd)->battle_status.lhw.matk+(sd)->bonus.ematk)
-#else
 	#define pc_leftside_atk(sd) ((sd)->battle_status.batk + (sd)->battle_status.rhw.atk + (sd)->battle_status.lhw.atk)
 	#define pc_rightside_atk(sd) ((sd)->battle_status.rhw.atk2 + (sd)->battle_status.lhw.atk2)
 	#define pc_leftside_def(sd) ((sd)->battle_status.def)
@@ -689,7 +676,6 @@ END_ZEROED_BLOCK;
 		?((sd)->battle_status.matk_max * 100 + 50) / ((sd)->sc.data[SC_MAGICPOWER]->val3+100) \
 		:(sd)->battle_status.matk_max \
 )
-#endif
 
 #define pc_get_group_id(sd) ( (sd)->group_id )
 

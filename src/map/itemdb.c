@@ -21,7 +21,7 @@
  */
 #define HERCULES_CORE
 
-#include "config/core.h" // RENEWAL
+#include "config/core.h"
 #include "itemdb.h"
 
 #include "map/battle.h" // struct battle_config
