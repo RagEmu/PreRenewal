@@ -985,7 +985,6 @@ int party_exp_share(struct party_data* p, struct block_list* src, unsigned int b
 			zeny = (unsigned int) cap_value(zeny * bonus/100, INT_MIN, INT_MAX);
 	}
 
-
 	for (i = 0; i < c; i++) {
 		pc->gainexp(sd[i], src, base_exp, job_exp, false);
 
