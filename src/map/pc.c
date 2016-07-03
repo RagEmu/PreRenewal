@@ -6601,16 +6601,6 @@ void pc_calcexp(struct map_session_data *sd, unsigned int *base_exp, unsigned in
 	if (src != NULL) {
 		const struct status_data *st = status->get_status_data(src);
 
-#ifdef RENEWAL_EXP //should happen first before we caluclate any modifiers
-		if (src->type == BL_MOB) {
-			const struct mob_data *md = BL_UCAST(BL_MOB, src);
-			int re_mod;
-			re_mod = pc->level_penalty_mod(md->level - sd->status.base_level, md->status.race, md->status.mode, 1);
-			jexp = apply_percentrate64(jexp, re_mod, 100);
-			bexp = apply_percentrate64(bexp, re_mod, 100);
-		}
-#endif
-
 		//Race modifier
 		if (sd->expaddrace[st->race])
 			race_ratio += sd->expaddrace[st->race];
