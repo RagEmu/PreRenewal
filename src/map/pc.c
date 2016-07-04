@@ -4069,7 +4069,7 @@ bool pc_can_insert_card_into(struct map_session_data* sd, int idx_card, int idx_
 	ARR_FIND( 0, sd->inventory_data[idx_equip]->slot, i, sd->status.inventory[idx_equip].card[i] == 0);
 	if (i == sd->inventory_data[idx_equip]->slot)
 		return false; // no free slots
-        return true;
+	return true;
 }
 
 /**
@@ -4089,7 +4089,7 @@ bool pc_can_insert_card(struct map_session_data* sd, int idx_card)
 		return false; // target card missing
 	if (sd->inventory_data[idx_card]->type != IT_CARD)
 		return false; // must be a card
-        return true;
+	return true;
 }
 
 /*==========================================
@@ -6588,37 +6588,62 @@ int pc_checkjoblevelup(struct map_session_data *sd)
  * Alters EXP based on self bonuses that do not get shared with the party
  **/
 void pc_calcexp(struct map_session_data *sd, unsigned int *base_exp, unsigned int *job_exp, struct block_list *src) {
-	int bonus = 0;
-	struct status_data *st = status->get_status_data(src);
+	int buff_ratio = 0, buff_job_ratio = 0, race_ratio = 0, pk_ratio = 0;
+	int64 jexp, bexp;
 
 	nullpo_retv(sd);
 	nullpo_retv(base_exp);
 	nullpo_retv(job_exp);
-	if (sd->expaddrace[st->race])
-		bonus += sd->expaddrace[st->race];
-	bonus += sd->expaddrace[(st->mode&MD_BOSS) ? RC_BOSS : RC_NONBOSS];
 
-	if (battle_config.pk_mode
-	 && (int)(status->get_lv(src) - sd->status.base_level) >= 20)
-		bonus += 15; // pk_mode additional exp if monster >20 levels [Valaris]
+	jexp = *job_exp;
+	bexp = *base_exp;
 
-	if (sd->sc.data[SC_CASH_PLUSEXP])
-		bonus += sd->sc.data[SC_CASH_PLUSEXP]->val1;
-	if (sd->sc.data[SC_OVERLAPEXPUP])
-		bonus += sd->sc.data[SC_OVERLAPEXPUP]->val1;
+	if (src != NULL) {
+		const struct status_data *st = status->get_status_data(src);
 
-	*base_exp = (unsigned int) cap_value(*base_exp + apply_percentrate64(*base_exp, bonus, 100), 1, UINT_MAX);
+		//Race modifier
+		if (sd->expaddrace[st->race])
+			race_ratio += sd->expaddrace[st->race];
+		race_ratio += sd->expaddrace[(st->mode&MD_BOSS) ? RC_BOSS : RC_NONBOSS];
+	}
 
+
+	//PK modifier
+	/* this doesn't exist in Aegis, instead there's a CrazyKiller check which double all EXP from this point */
+	if (battle_config.pk_mode && (int)(status->get_lv(src) - sd->status.base_level) >= 20)
+		pk_ratio += 15; // pk_mode additional exp if monster >20 levels [Valaris]
+
+
+	//Buffs modifier
+	if (sd->sc.data[SC_CASH_PLUSEXP]) {
+		buff_job_ratio += sd->sc.data[SC_CASH_PLUSEXP]->val1;
+		buff_ratio += sd->sc.data[SC_CASH_PLUSEXP]->val1;
+	}
+	if (sd->sc.data[SC_OVERLAPEXPUP]) {
+		buff_job_ratio  += sd->sc.data[SC_OVERLAPEXPUP]->val1;
+		buff_ratio += sd->sc.data[SC_OVERLAPEXPUP]->val1;
+	}
 	if (sd->sc.data[SC_CASH_PLUSONLYJOBEXP])
-		bonus += sd->sc.data[SC_CASH_PLUSONLYJOBEXP]->val1;
+		buff_job_ratio += sd->sc.data[SC_CASH_PLUSONLYJOBEXP]->val1;
 
-	*job_exp = (unsigned int) cap_value(*job_exp + apply_percentrate64(*job_exp, bonus, 100), 1, UINT_MAX);
+	//Applying Race and PK modifier First then Premium (Perment modifier) and finally buff modifier
+	jexp += apply_percentrate64(jexp, race_ratio, 100);
+	jexp += apply_percentrate64(jexp, pk_ratio, 100);
+
+	bexp += apply_percentrate64(bexp, race_ratio, 100);
+	bexp += apply_percentrate64(bexp, pk_ratio, 100);
+
 
 	if (sd->status.mod_exp != 100) {
-		*base_exp = (unsigned int) cap_value(apply_percentrate64(*base_exp, sd->status.mod_exp, 100), 1, UINT_MAX);
-		*job_exp  = (unsigned int) cap_value(apply_percentrate64(*job_exp, sd->status.mod_exp, 100), 1, UINT_MAX);
-
+		jexp = apply_percentrate64(jexp, sd->status.mod_exp, 100);
+		bexp = apply_percentrate64(bexp, sd->status.mod_exp, 100);
 	}
+
+	bexp += apply_percentrate64(bexp, buff_ratio, 100);
+	jexp += apply_percentrate64(jexp, buff_ratio + buff_job_ratio, 100);
+
+	*job_exp = (unsigned int)cap_value(jexp, 1, UINT_MAX);
+	*base_exp = (unsigned int)cap_value(bexp, 1, UINT_MAX);
 }
 
 /**
@@ -6632,24 +6657,25 @@ bool pc_gainexp(struct map_session_data *sd, struct block_list *src, unsigned in
 	unsigned int nextb=0, nextj=0;
 	nullpo_ret(sd);
 
-	if(sd->bl.prev == NULL || pc_isdead(sd))
+	if (sd->bl.prev == NULL || pc_isdead(sd))
 		return false;
 
-	if(!battle_config.pvp_exp && map->list[sd->bl.m].flag.pvp)  // [MouseJstr]
+	if (!battle_config.pvp_exp && map->list[sd->bl.m].flag.pvp)  // [MouseJstr]
 		return false; // no exp on pvp maps
 
-	if( pc_has_permission(sd,PC_PERM_DISABLE_EXP) )
+	if (pc_has_permission(sd,PC_PERM_DISABLE_EXP))
 		return false;
 
-	if(sd->status.guild_id>0)
-		base_exp-=guild->payexp(sd,base_exp);
+	if (src)
+		pc->calcexp(sd, &base_exp, &job_exp, src);
 
-	if(src) pc->calcexp(sd, &base_exp, &job_exp, src);
+	if (sd->status.guild_id > 0)
+		base_exp -= guild->payexp(sd,base_exp);
 
 	nextb = pc->nextbaseexp(sd);
 	nextj = pc->nextjobexp(sd);
 
-	if(sd->state.showexp || battle_config.max_exp_gain_rate){
+	if (sd->state.showexp || battle_config.max_exp_gain_rate) {
 		if (nextb > 0)
 			nextbp = (float) base_exp / (float) nextb;
 		if (nextj > 0)
@@ -9556,7 +9582,7 @@ int pc_equipitem(struct map_session_data *sd,int n,int req_pos)
 
 	if(battle_config.battle_log)
 		ShowInfo("equip %d(%d) %x:%x\n", sd->status.inventory[n].nameid, n, (unsigned int)(id ? id->equip : 0), (unsigned int)req_pos);
-	if(!pc->isequip(sd,n) || !(pos&req_pos) || sd->status.inventory[n].equip != 0 || sd->status.inventory[n].attribute==1 ) { // [Valaris]
+	if(!pc->isequip(sd,n) || !(pos&req_pos) || sd->status.inventory[n].equip != 0 || (sd->status.inventory[n].attribute & ATTR_BROKEN) != 0 ) { // [Valaris]
 		// FIXME: pc->isequip: equip level failure uses 2 instead of 0
 		clif->equipitemack(sd,n,0,EIA_FAIL); // fail
 		return 0;
@@ -11909,6 +11935,6 @@ void pc_defaults(void) {
 
 	pc->check_job_name = pc_check_job_name;
 	pc->update_idle_time = pc_update_idle_time;
-	
+
 	pc->have_magnifier = pc_have_magnifier;
 }

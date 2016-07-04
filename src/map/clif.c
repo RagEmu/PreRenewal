@@ -2389,7 +2389,7 @@ void clif_additem(struct map_session_data *sd, int n, int amount, int fail) {
 			p.nameid = sd->status.inventory[n].nameid;
 
 		p.IsIdentified = sd->status.inventory[n].identify ? 1 : 0;
-		p.IsDamaged = sd->status.inventory[n].attribute ? 1 : 0;
+		p.IsDamaged = (sd->status.inventory[n].attribute & ATTR_BROKEN) != 0 ? 1 : 0;
 		p.refiningLevel =sd->status.inventory[n].refine;
 		clif->addcards2(&p.slot.card[0], &sd->status.inventory[n]);
 		p.location = pc->equippoint(sd,n);
@@ -2504,7 +2504,7 @@ void clif_item_equip(short idx, struct EQUIPITEM_INFO *p, struct item *i, struct
 	p->location = eqp_pos;
 	p->WearState = i->equip;
 #if PACKETVER < 20120925
-	p->IsDamaged = i->attribute ? 1 : 0;
+	p->IsDamaged = (i->attribute & ATTR_BROKEN) != 0 ? 1 : 0;
 #endif
 	p->RefiningLevel = i->refine;
 
@@ -2524,7 +2524,7 @@ void clif_item_equip(short idx, struct EQUIPITEM_INFO *p, struct item *i, struct
 
 #if PACKETVER >= 20120925
 	p->Flag.IsIdentified = i->identify ? 1 : 0;
-	p->Flag.IsDamaged    = i->attribute ? 1 : 0;
+	p->Flag.IsDamaged    = (i->attribute & ATTR_BROKEN) != 0 ? 1 : 0;
 	p->Flag.PlaceETCTab  = i->favorite ? 1 : 0;
 	p->Flag.SpareBits    = 0;
 #endif
@@ -6004,7 +6004,7 @@ void clif_item_repair_list(struct map_session_data *sd,struct map_session_data *
 	WFIFOW(fd,0)=0x1fc;
 	for (i = c = 0; i < MAX_INVENTORY; i++) {
 		int nameid = dstsd->status.inventory[i].nameid;
-		if (nameid > 0 && dstsd->status.inventory[i].attribute != 0) { // && skill_can_repair(sd,nameid)) {
+		if (nameid > 0 && (dstsd->status.inventory[i].attribute & ATTR_BROKEN) != 0) { // && skill_can_repair(sd,nameid)) {
 			WFIFOW(fd,c*13+4) = i;
 			WFIFOW(fd,c*13+6) = nameid;
 			WFIFOB(fd,c*13+8) = dstsd->status.inventory[i].refine;
@@ -11160,7 +11160,7 @@ void clif_parse_UseSkillToId(int fd, struct map_session_data *sd)
 
 	sd->skillitem = sd->skillitemlv = 0;
 
-	if( skill_id >= GD_SKILLBASE ) {
+	if (skill_id >= GD_SKILLBASE && skill_id < GD_MAX) {
 		if( sd->state.gmaster_flag )
 			skill_lv = guild->checkskill(sd->guild, skill_id);
 		else
@@ -11527,10 +11527,10 @@ void clif_parse_OneClick_ItemIdentify(int fd, struct map_session_data *sd)
 	int cmd = RFIFOW(fd,0);
 	short idx = RFIFOW(fd, packet_db[cmd].pos[0]) - 2;
 	int n;
-	
+
 	if (idx < 0 || idx >= MAX_INVENTORY || sd->inventory_data[idx] == NULL || sd->status.inventory[idx].nameid <= 0)
 		return;
-	
+
 	if ((n = pc->have_magnifier(sd) ) != INDEX_NOT_FOUND &&
 		pc->delitem(sd, n, 1, 0, DELITEM_NORMAL, LOG_TYPE_CONSUME) == 0)
 		skill->identify(sd, idx);

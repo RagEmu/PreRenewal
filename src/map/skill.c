@@ -1951,7 +1951,7 @@ int skill_break_equip (struct block_list *bl, unsigned short where, int rate, in
 	if (sd) {
 		for (i = 0; i < EQI_MAX; i++) {
 			int j = sd->equip_index[i];
-			if (j < 0 || sd->status.inventory[j].attribute == 1 || !sd->inventory_data[j])
+			if (j < 0 || (sd->status.inventory[j].attribute & ATTR_BROKEN) != 0 || !sd->inventory_data[j])
 				continue;
 
 			switch(i) {
@@ -1977,7 +1977,7 @@ int skill_break_equip (struct block_list *bl, unsigned short where, int rate, in
 					continue;
 			}
 			if (flag) {
-				sd->status.inventory[j].attribute = 1;
+				sd->status.inventory[j].attribute |= ATTR_BROKEN;
 				pc->unequipitem(sd, j, PCUNEQUIPITEM_RECALC|PCUNEQUIPITEM_FORCE);
 			}
 		}
@@ -2014,12 +2014,12 @@ int skill_strip_equip(struct block_list *bl, unsigned short where, int rate, int
 	return where?1:0;
 }
 /*=========================================================================
- Used to knock back players, monsters, traps, etc
- - 'count' is the number of squares to knock back
- - 'direction' indicates the way OPPOSITE to the knockback direction (or -1 for default behavior)
- - if 'flag&0x1', position update packets must not be sent.
- - if 'flag&0x2', skill blown ignores players' special_state.no_knockback
- -------------------------------------------------------------------------*/
+ * Used to knock back players, monsters, traps, etc
+ * 'count' is the number of squares to knock back
+ * 'direction' indicates the way OPPOSITE to the knockback direction (or -1 for default behavior)
+ * if 'flag&0x1', position update packets must not be sent.
+ * if 'flag&0x2', skill blown ignores players' special_state.no_knockback
+ */
 int skill_blown(struct block_list* src, struct block_list* target, int count, int8 dir, int flag)
 {
 	int dx = 0, dy = 0;
@@ -2832,11 +2832,11 @@ void skill_attack_display_unknown(int *attack_type, struct block_list* src, stru
 }
 
 int skill_attack_copy_unknown(int *attack_type, struct block_list* src, struct block_list *dsrc, struct block_list *bl, uint16 *skill_id, uint16 *skill_lv, int64 *tick, int *flag) {
-    return *skill_id;
+	return *skill_id;
 }
 
 int skill_attack_dir_unknown(int *attack_type, struct block_list* src, struct block_list *dsrc, struct block_list *bl, uint16 *skill_id, uint16 *skill_lv, int64 *tick, int *flag) {
-    return -1;
+	return -1;
 }
 
 void skill_attack_blow_unknown(int *attack_type, struct block_list* src, struct block_list *dsrc, struct block_list *bl, uint16 *skill_id, uint16 *skill_lv, int64 *tick, int *flag, int *type, struct Damage *dmg, int64 *damage, int8 *dir) {
@@ -5146,7 +5146,7 @@ int skill_castend_id(int tid, int64 tick, int id, intptr_t data) {
 
 bool skill_castend_id_unknown(struct unit_data *ud, struct block_list *src, struct block_list *target)
 {
-    return false;
+	return false;
 }
 
 /*==========================================
@@ -5382,7 +5382,7 @@ int skill_castend_nodamage_id(struct block_list *src, struct block_list *bl, uin
 					heal_get_jobexp = heal_get_jobexp * battle_config.heal_exp / 100;
 					if (heal_get_jobexp <= 0)
 						heal_get_jobexp = 1;
-					pc->gainexp (sd, bl, 0, heal_get_jobexp, false);
+					pc->gainexp(sd, bl, 0, heal_get_jobexp, false);
 				}
 			}
 			break;
@@ -5458,7 +5458,7 @@ int skill_castend_nodamage_id(struct block_list *src, struct block_list *bl, uin
 							if (jexp < 1) jexp = 1;
 						}
 						if(exp > 0 || jexp > 0)
-							pc->gainexp (sd, bl, exp, jexp, false);
+							pc->gainexp(sd, bl, exp, jexp, false);
 					}
 				}
 			}
@@ -9808,17 +9808,17 @@ int skill_castend_nodamage_id(struct block_list *src, struct block_list *bl, uin
 
 bool skill_castend_nodamage_id_dead_unknown(struct block_list *src, struct block_list *bl, uint16 *skill_id, uint16 *skill_lv, int64 *tick, int *flag)
 {
-    return true;
+	return true;
 }
 
 bool skill_castend_nodamage_id_undead_unknown(struct block_list *src, struct block_list *bl, uint16 *skill_id, uint16 *skill_lv, int64 *tick, int *flag)
 {
-    return true;
+	return true;
 }
 
 bool skill_castend_nodamage_id_mado_unknown(struct block_list *src, struct block_list *bl, uint16 *skill_id, uint16 *skill_lv, int64 *tick, int *flag)
 {
-    return false;
+	return false;
 }
 
 bool skill_castend_nodamage_id_unknown(struct block_list *src, struct block_list *bl, uint16 *skill_id, uint16 *skill_lv, int64 *tick, int *flag)
@@ -13923,22 +13923,22 @@ int skill_check_condition_castbegin(struct map_session_data* sd, uint16 skill_id
 
 int skill_check_condition_castbegin_off_unknown(struct status_change *sc, uint16 *skill_id)
 {
-    return -1;
+	return -1;
 }
 
 int skill_check_condition_castbegin_mount_unknown(struct status_change *sc, uint16 *skill_id)
 {
-    return 0;
+	return 0;
 }
 
 int skill_check_condition_castbegin_madogear_unknown(struct status_change *sc, uint16 *skill_id)
 {
-    return 0;
+	return 0;
 }
 
 int skill_check_condition_castbegin_unknown(struct status_change *sc, uint16 *skill_id)
 {
-    return -1;
+	return -1;
 }
 
 int skill_check_condition_castend(struct map_session_data* sd, uint16 skill_id, uint16 skill_lv) {
@@ -14561,12 +14561,12 @@ struct skill_condition skill_get_requirement(struct map_session_data* sd, uint16
 
 bool skill_get_requirement_off_unknown(struct status_change *sc, uint16 *skill_id)
 {
-    return false;
+	return false;
 }
 
 bool skill_get_requirement_item_unknown(struct status_change *sc, struct map_session_data* sd, uint16 *skill_id, uint16 *skill_lv, uint16 *idx, int *i)
 {
-    return false;
+	return false;
 }
 
 void skill_get_requirement_unknown(struct status_change *sc, struct map_session_data* sd, uint16 *skill_id, uint16 *skill_lv, struct skill_condition *req)
@@ -14947,7 +14947,7 @@ void skill_repairweapon (struct map_session_data *sd, int idx) {
 		return; //Invalid index??
 
 	item = &target_sd->status.inventory[idx];
-	if( item->nameid <= 0 || item->attribute == 0 )
+	if( item->nameid <= 0 || (item->attribute & ATTR_BROKEN) == 0 )
 		return; //Again invalid item....
 
 	if( sd != target_sd && !battle->check_range(&sd->bl,&target_sd->bl, skill->get_range2(&sd->bl, sd->menuskill_id,sd->menuskill_val2) ) ){
@@ -14966,7 +14966,8 @@ void skill_repairweapon (struct map_session_data *sd, int idx) {
 
 	clif->skill_nodamage(&sd->bl,&target_sd->bl,sd->menuskill_id,1,1);
 
-	item->attribute = 0;/* clear broken state */
+	item->attribute |= ATTR_BROKEN;
+	item->attribute ^= ATTR_BROKEN; /* clear broken state */
 
 	clif->equiplist(target_sd);
 
