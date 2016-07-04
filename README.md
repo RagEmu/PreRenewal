@@ -165,8 +165,6 @@ pages on the Wiki or topics within the RagEmu forum.
 * RagEmu Forums:
 	http://ragemu.org/board/
 
-* RagEmu Wiki:
-	PlaceHolder
 
 * GIT Repository URL:
 	https://github.com/RagEmu/PreRenewal
