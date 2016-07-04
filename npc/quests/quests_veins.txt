@@ -56,7 +56,7 @@
 //=========================================================================
 
 //== Stone Quest :: veins_stone ============================
--	script	::WincingOldMan_veins	FAKE_NPC,{
+ve_fild05,257,130,4	script	Wincing Old Man#ve	4_M_DST_GRAND,{
 	if ((MaxWeight - Weight) < 2000 || checkweight(Knife,1) == 0) {
 		mes "- Wait a moment! -";
 		mes "- Currently you are carrying -";

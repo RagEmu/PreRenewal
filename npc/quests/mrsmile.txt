@@ -46,7 +46,7 @@
 	mes "This is Smile Assistance.";
 	mes "How may I help you ?";
 	next;
-	switch(select("^3355FFMr. Smile^000000 ?", "Construct ^3355FFMr. Smile^000000 ", "Quit")) {
+	switch (select("^3355FFMr. Smile^000000 ?", "Construct ^3355FFMr. Smile^000000 ", "Quit")) {
 	case 1:
 		mes "[Smile Girl]";
 		mes "National Event held by the command of ^5577FFHis majesty Tristram the 3rd^000000,";
@@ -74,15 +74,15 @@
 		mes "And will try to make Ragnarok the most enjoyable game in the world.";
 		close;
 	case 2:
-		if (countitem(Jellopy) > 9 && countitem(Fluff) > 9 && countitem(Clover) > 9) {
+		if (countitem(Jellopy) >= 10 && countitem(Fluff) >= 10 && countitem(Clover) >= 10) {
 			mes "[Smile Girl]";
 			mes "Congratulations !";
 			mes "Now please take this Mr.Smile.";
 			next;
-			delitem Jellopy,10;
-			delitem Fluff,10;
-			delitem Clover,10;
-			getitem Mr_Smile,1;
+			delitem Jellopy, 10;
+			delitem Fluff, 10;
+			delitem Clover, 10;
+			getitem Mr_Smile, 1;
 			mes "[Smile Girl]";
 			mes "His majesty,Tristram the 3rd";
 			mes "has promised to try his best to make Ragnarok better and more enjoyable.";
@@ -127,3 +127,4 @@ geffen,119,107,4	duplicate(SmileHelper)	Smile Assistance#gef	4_F_03
 moc_ruins,59,154,3	duplicate(SmileHelper)	Smile Assistance#moc	4_F_03
 payon,186,104,5	duplicate(SmileHelper)	Smile Assistance#pay	4_F_03
 prontera,157,187,4	duplicate(SmileHelper)	Smile Assistance#prt	4_F_03
+izlude,129,118,4	duplicate(SmileHelper)	Smile Assistance#iz	4_F_03

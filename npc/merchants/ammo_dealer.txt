@@ -39,7 +39,7 @@
 //================= Description ===========================================
 //= Bullet trader.
 //================= Current Version =======================================
-//= 1.5
+//= 1.6
 //=========================================================================
 
 alberta,118,160,3	script	Bullet Dealer Tony#alb::bdt	4_M_04,{
@@ -52,11 +52,11 @@ alberta,118,160,3	script	Bullet Dealer Tony#alb::bdt	4_M_04,{
 		mes "you the bullets you need.";
 		next;
 		switch(select("Poison Sphere", "Flare Sphere", "Lighting Sphere", "Blind Sphere", "Freezing Sphere", "Cancel")) {
-		case 1: callfunc "Bullet_Trade",937,10,13205; break;
-		case 2: callfunc "Bullet_Trade",7097,2,13203; break;
-		case 3: callfunc "Bullet_Trade",7053,3,13204; break;
-		case 4: callfunc "Bullet_Trade",1024,5,13206; break;
-		case 5: callfunc "Bullet_Trade",7054,2,13207; break;
+		case 1: callfunc "Bullet_Trade", Posionous_Canine, 10, Poison_Sphere; break;
+		case 2: callfunc "Bullet_Trade", Burning_Heart, 2, Flare_Sphere; break;
+		case 3: callfunc "Bullet_Trade", Cyfar, 3, Lighting_Sphere; break;
+		case 4: callfunc "Bullet_Trade", Chinese_Ink, 5, Blind_Sphere; break;
+		case 5: callfunc "Bullet_Trade", Brigan, 2, Freezing_Sphere; break;
 		case 6:
 			mes "[Tony]";
 			mes "Changed your mind?";
@@ -87,11 +87,11 @@ alberta,118,160,3	script	Bullet Dealer Tony#alb::bdt	4_M_04,{
 function	script	Bullet_Trade	{
 	mes "[Tony]";
 	mes "For every set of";
-	mes "30 "+getitemname(getarg(2))+"s,";
+	mes "30 " + getitemname(getarg(2)) + "s,";
 	mes "you must give me";
 	mes "1 Emveretarcon,";
 	mes "1 Phracon, and";
-	mes ""+getarg(1)+" "+getitemname(getarg(0))+".";
+	mes getarg(1) + " " + getitemname(getarg(0)) + ".";
 	next;
 	mes "[Tony]";
 	mes "Remember that I can give";
@@ -112,8 +112,8 @@ function	script	Bullet_Trade	{
 		mes "items for some bullets.";
 		close;
 	}
-	if (countitem(Phracon) >= .@amount && countitem(Emveretarcon) >= .@amount && countitem(getarg(0)) >= (.@amount*getarg(1))) {
-		if (checkweight(getarg(2),.@amount * 30) == 0) {
+	if (countitem(Phracon) >= .@amount && countitem(Emveretarcon) >= .@amount && countitem(getarg(0)) >= (.@amount * getarg(1))) {
+		if (checkweight(getarg(2), .@amount * 30) == 0) {
 			mes "[Tony]";
 			mes "Eh? Your Inventory doesn't";
 			mes "have enough space for this";
@@ -122,20 +122,22 @@ function	script	Bullet_Trade	{
 			mes "available. Try putting some of";
 			mes "your things into Kafra Storage.";
 			close;
-		} else {
+		}
+		else {
 			mes "[Tony]";
 			mes "Great, everything seems";
 			mes "to be in order. Let me take";
 			mes "these materials, and here are";
 			mes "your bullets. It's a pleasure";
 			mes "to do business with you~";
-			delitem 1010,.@amount;
-			delitem 1011,.@amount;
-			delitem getarg(0),.@amount * getarg(1);
-			getitem getarg(2),.@amount * 30;
+			delitem Phracon, .@amount;
+			delitem Emveretarcon, .@amount;
+			delitem getarg(0), .@amount * getarg(1);
+			getitem getarg(2), .@amount * 30;
 			close;
 		}
-	} else {
+	}
+	else {
 		mes "[Tony]";
 		mes "Huh. It looks like you";
 		mes "don't have enough materials";
@@ -146,3 +148,5 @@ function	script	Bullet_Trade	{
 		close;
 	}
 }
+
+izlude,171,133,3	duplicate(bdt)	Bullet Dealer Tony#iz	4_M_04

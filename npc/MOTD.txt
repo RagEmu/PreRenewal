@@ -32,7 +32,7 @@
 //=========================================================================
 
 // run when any character logs in, attached to them.
--	script	HerculesMOTD	FAKE_NPC,{
-	message strcharinfo(0),"Welcome to Hercules! Enjoy! Please report any bugs you find.";
+-	script	RagEmuMOTD	FAKE_NPC,{
+	message strcharinfo(0), "Welcome to RagEmu! Enjoy! Please report any bugs you find.";
 	end;
 }

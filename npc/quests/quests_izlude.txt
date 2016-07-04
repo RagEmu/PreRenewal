@@ -37,11 +37,11 @@
 //= Edgar's Offer:
 //= - Variables in use: MISC_QUEST (Bit 16)
 //================= Current Version =======================================
-//= 1.1
+//= 1.2
 //=========================================================================
 
 //== Edgar's Offer :: iz_npc ===============================
--	script	::Edgar_izlude	FAKE_NPC,{
+izlude,182,186,2	script	Edgar#izlude	1_M_03,{
 	if (MISC_QUEST & 16) {
 		mes "[Edgar]";
 		mes "So are you heading to Alberta again? Let me give you the same discount and only charge 250 Zeny, just like the last time.";
@@ -58,7 +58,7 @@
 				close ;
 			}
 			Zeny -= 250;
-			warp "alberta",195,164;
+			warp "alberta", 195, 164;
 			end;
 		}
 		mes "[Edgar]";
@@ -105,7 +105,7 @@
 				close;
 			}
 			Zeny -= 250;
-			warp "alberta",195,164;
+			warp "alberta", 195, 164;
 			end;
 		}
 		mes "[Edgar]";

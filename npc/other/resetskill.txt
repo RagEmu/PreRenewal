@@ -35,7 +35,7 @@
 //= First Class characters and expanded classes only.
 //= Baby Classes and First Class trans can't use this service.
 //================= Current Version =======================================
-//= 1.0
+//= 1.1
 //=========================================================================
 
 prontera,146,232,4	script	Hypnotist#2	4_F_TELEPORTER,{
@@ -61,8 +61,7 @@ prontera,146,232,4	script	Hypnotist#2	4_F_TELEPORTER,{
 	mes "Job character to qualify.";
 	mes "Now, do you have any questions?";
 	next;
-	switch(select("Skill Reset?", "I want a Skill Reset", "Nothing")) {
-
+	switch (select("Skill Reset?", "I want a Skill Reset", "Nothing")) {
 	case 1:
 		mes "[Hypnotist]";
 		mes "Skill Resets allow adventuers";
@@ -85,7 +84,6 @@ prontera,146,232,4	script	Hypnotist#2	4_F_TELEPORTER,{
 		mes "Otherwise, hypnosis won't";
 		mes "work, or will backfire...";
 		close;
-
 	case 2:
 		mes "[Hypnotist]";
 		mes "Are you sure that you";
@@ -155,7 +153,6 @@ prontera,146,232,4	script	Hypnotist#2	4_F_TELEPORTER,{
 		mes "luck on your adventures.";
 		mes "Please travel in safety~";
 		close;
-
 	case 3:
 		mes "[Hypnotist]";
 		mes "Thank you, and good";
@@ -163,5 +160,4 @@ prontera,146,232,4	script	Hypnotist#2	4_F_TELEPORTER,{
 		mes "Please travel in safety~";
 		close;
 	}
-
 }

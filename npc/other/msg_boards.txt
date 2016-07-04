@@ -45,7 +45,7 @@
 //=  - Izlude
 //=  - Alberta
 //================= Current Version =======================================
-//= 1.7
+//= 1.8
 //=========================================================================
 
 //== Prontera ==============================================
@@ -252,6 +252,19 @@ aldebaran,217,222,1	script	Sign#Alde5	HIDDEN_NPC,{
 	mes "^993300- The Sign Reads -^000000";
 	mes "I saw Santa Claus in Lutie!";
 	mes "- The rest looks like scribble -";
+	close;
+}
+
+//== Izlude ================================================
+izlude,54,139,1	script	Sign#Iz1	HIDDEN_NPC,{
+	mes "^993300- The Sign Reads -^000000";
+	mes "Welcome to the Swordsman Academy.";
+	close;
+}
+
+izlude,144,148,1	script	Sign#Iz2	HIDDEN_NPC,{
+	mes "^993300- The Sign Reads -^000000";
+	mes "Welcome.";
 	close;
 }
 

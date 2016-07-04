@@ -36,24 +36,28 @@
 //= Sells Lancer, Sword, and Archer mercenaries,
 //= along with related mercenary items.
 //================= Current Version =======================================
-//= 1.4
+//= 1.5
 //=========================================================================
 
 -	script	Mercenary Manager#main	FAKE_NPC,{
-	setarray .@name$, 	"Spear", 			"Sword", 			"Bow";
-	setarray .@faith$, 	"SPEAR_MERC_GUILD",	"SWORD_MERC_GUILD",	"ARCH_MERC_GUILD";
-	setarray .@item, 	12182,				12172,				12162;
+
+	setarray .@name$, "Spear", "Sword", "Bow";
+	setarray .@faith$, "SPEAR_MERC_GUILD", "SWORD_MERC_GUILD", "ARCH_MERC_GUILD";
+	setarray .@item, SpearMercenary_Scroll10, SwordMercenary_Scroll10, Bow_Mercenary_Scroll10;
+	
 	.@npc$ = strnpcinfo(2);
 	.@size = getarraysize(.@name$);
+	
 	for (.@i = 0; .@i < .@size; ++.@i)
 		if (.@npc$ == .@name$[.@i]) .@type = .@i;
 	.@faith_merc = mercenary_get_faith(getd(.@faith$[.@type]));
+	
 	mes "[Mercenary Manager]";
 	mes "Welcome to the";
 	mes .@npc$ + " Mercenary Guild.";
 	mes "What can I do for you?";
 	next;
-	switch(select("Hire Mercenary", "Mercenary Info", "Nothing", "10th Grade Mercenaries")) {
+	switch (select("Hire Mercenary", "Mercenary Info", "Nothing", "10th Grade Mercenaries")) {
 		case 1:
 			mes "[Mercenary Manager]";
 			mes "You want to hire a";
@@ -61,23 +65,23 @@
 			mes "Which Grade were you";
 			mes "interested in hiring?";
 			next;
-			setarray .@suffix$, "th","st","nd","rd";
+			setarray .@suffix$, "th", "st", "nd", "rd";
 			for (.@i = 1; .@i <= 9; ++.@i)
 				.@menu$ += .@i + .@suffix$[((.@i <= 3)? .@i : 0)] + " Grade " + .@npc$ + " Mercenary:";
 			.@Grade = select(.@menu$);
 			.@BaseLevel = 5 + (.@Grade * 10);
-			.@BaseLevel = (.@val > 90)? 90 : .@BaseLevel;
+			.@BaseLevel = (.@val > 90) ? 90 : .@BaseLevel;
 			.@ZenyCost = 7 * .@Grade;
-			setarray .@FaithCost[7], 50,100,300;
+			setarray .@FaithCost[7], 50, 100, 300;
 			.@FaithCost = .@FaithCost[.@Grade];
 			mes "[Mercenary Manager]";
-			mes "So you want to hire a " + .@Grade + .@suffix$[((.@Grade <= 3)? .@i : 0)];
+			mes "So you want to hire a " + .@Grade + .@suffix$[((.@Grade <= 3) ? .@i : 0)];
 			mes "Grade " + .@npc$ + " Mercenary?";
 			mes "You need to have attained";
 			mes "Base Level " + .@BaseLevel + " or higher, and";
 			mes "must pay the " + .@ZenyCost + ",000 zeny fee.";
 			next;
-			if(select("Yes", "No") == 2) {
+			if (select("Yes", "No") == 2) {
 				mes "[Mercenary Manager]";
 				mes "Oh, really? Well, now";
 				mes "might not be a good time";
@@ -86,7 +90,7 @@
 				mes "free to come back if your";
 				mes "needs change. Thank you~";
 			}
-			else if(.@FaithCost && .@faith_merc < .@FaithCost) {
+			else if (.@FaithCost && .@faith_merc < .@FaithCost) {
 				mes "[Mercenary Manager]";
 				mes "Oh... Your Loyalty rating";
 				mes "with the " + .@npc$ + " Mercenary";
@@ -231,6 +235,7 @@
 	}
 }
 prontera,41,337,5	duplicate(Mercenary Manager#main)	Mercenary Manager#Spear	8W_SOLDIER
+izlude,47,139,5	duplicate(Mercenary Manager#main)	Mercenary Manager#Sword	4_M_JOB_KNIGHT2
 pay_arche,99,167,4	duplicate(Mercenary Manager#main)	Mercenary Manager#Bow	4_M_JOB_HUNTER
 
 //== Mercenary Merchant NPCs ===============================
@@ -242,15 +247,15 @@ pay_arche,99,167,4	duplicate(Mercenary Manager#main)	Mercenary Manager#Bow	4_M_J
 	mes "in particular that";
 	mes "you're looking for?";
 	next;
-	setarray .@item, 12184,	12185,	12241,	12242,	12243;
+	setarray .@item, Mercenary_Red_Potion, Mercenary_Blue_Potion, M_Center_Potion, M_Awakening_Potion, M_Berserk_Potion;
 	setarray .@cost, 1750,	3000,	560,	1050,	2100;
 	.@size = getarraysize(.@item);
 	for (.@i = 0; .@i < .@size; ++.@i)
 		.@menu$ += getitemname(.@item[.@i]) + ":";
-	.@m = select(.@menu$)-1;
+	.@m = select(.@menu$) - 1;
 	.@str$ = .@cost[.@m] + "";
 	.@len = getstrlen(.@str$);
-	.@str_cost$ = (.@len <= 3)? .@str$ : insertchar(.@str$,",",.@len-3);
+	.@str_cost$ = (.@len <= 3) ? .@str$ : insertchar(.@str$, ", ", .@len - 3);
 	mes "[Mercenary Goods Merchant]";
 	mes getitemname(.@item[.@m]);
 	mes "each cost " + .@str_cost$ + " zeny.";
@@ -310,4 +315,5 @@ pay_arche,99,167,4	duplicate(Mercenary Manager#main)	Mercenary Manager#Bow	4_M_J
 	close;
 }
 prontera,30,337,4	duplicate(MercMerchant)	Mercenary Merchant#Spear	8_F_GIRL
+izlude,56,139,4	duplicate(MercMerchant)	Mercenary Merchant#Sword	4_F_HUWOMAN
 pay_arche,102,167,5	duplicate(MercMerchant)	Mercenary Merchant#Bow	4_F_CAPEGIRL

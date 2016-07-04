@@ -42,11 +42,11 @@
 //================= Description ===========================================
 //= Izlude town NPCs
 //================= Current Version =======================================
-//= 1.9a
+//= 1.10
 //=========================================================================
 
 //== Izlude ================================================
--	script	::Sailor_izlude	FAKE_NPC,{
+izlude,201,181,2	script	Sailor#izlude	4W_SAILOR,{
 	mes "[Sailor]";
 	mes "Hey everybody!";
 	mes "Attention, attention!";
@@ -54,7 +54,7 @@
 	mes "on a fascinating Ship!";
 	mes "Hurry, hurry!";
 	next;
-	switch(select("Byalan Island -> 150 Zeny.", "Alberta Marina  -> 500 Zeny.", "Cancel.")) {
+	switch (select("Byalan Island -> 150 Zeny.", "Alberta Marina  -> 500 Zeny.", "Cancel.")) {
 	case 1:
 		if (Zeny < 150) {
 			mes "[Sailor]";
@@ -63,7 +63,7 @@
 			close;
 		}
 		Zeny -= 150;
-		warp "izlu2dun",107,50;
+		warp "izlu2dun", 107, 50;
 		end;
 	case 2:
 		if (Zeny < 500) {
@@ -73,14 +73,14 @@
 			close;
 		}
 		Zeny -= 500;
-		warp "alberta",188,169;
+		warp "alberta", 188, 169;
 		end;
 	case 3:
 		close;
 	}
 }
 
--	script	::Bonne_izlude	FAKE_NPC,{
+izlude,55,74,2	script	Bonne#izlude	4_F_01,{
 	mes "[Bonne]";
 	mes "Greetings!";
 	mes "Izlude welcomes you.";
@@ -104,9 +104,9 @@
 	close;
 }
 
--	script	::Charfri_izlude	FAKE_NPC,{
+izlude,135,78,2	script	Charfri#izlude	4_F_02,{
 	mes "[Charfri]";
-	switch(rand(2)) {
+	switch (rand(2)) {
 	case 1:
 		mes "Some people may think Izlude is just a satellite city of Prontera, and not really that important...";
 		next;
@@ -135,9 +135,9 @@
 	}
 }
 
--	script	::Cuskoal_izlude	FAKE_NPC,{
+izlude,119,121,2	script	Cuskoal#izlude	4_F_TELEPORTER,{
 	mes "[Cuskoal]";
-	switch(rand(2)) {
+	switch (rand(2)) {
 	case 1:
 		mes "The Arena here is THE place for capable young people from all over the Rune-Midgarts Kingdom to challenge themselves and test their skills.";
 		next;
@@ -159,9 +159,9 @@
 	}
 }
 
--	script	::Dega_izlude	FAKE_NPC,{
+izlude,150,118,2	script	Dega#izlude	4_M_02,{
 	mes "[Dega]";
-	switch(rand(3)) {
+	switch (rand(3)) {
 	case 1:
 		mes "Mt. Mjornir, located north of Prontera, is a tough";
 		mes "and steep climb.";
@@ -201,7 +201,7 @@
 		mes "If you are lucky enough, you might even bump into Angeling, the Poring with Angel wings.";
 		next;
 		while(1) {
-			switch(select("Ghostring?", "Angeling?", "End Conversation.")) {
+			switch (select("Ghostring?", "Angeling?", "End Conversation.")) {
 			case 1:
 				mes "[Dega]";
 				mes "Ghostring is a grayish Poring that floats around in the air like a ghost. Just like other ghosts, physical attacks can't do any damage to it.";
@@ -234,8 +234,8 @@
 	}
 }
 
--	script	::Kylick_izlude	FAKE_NPC,{
-	if (!RENEWAL && rand(2)) {
+izlude,150,143,2	script	Kylick#izlude	4W_M_01,{
+	if (rand(2)) {
 		mes "[Kylick]";
 		mes "I was thinking, even though the people of Izlude live so close to the ocean...";
 		next;
@@ -266,7 +266,7 @@
 	}
 }
 
--	script	::Red_izlude	FAKE_NPC,{
+izlude,56,126,2	script	Red#izlude	4_M_03,{
 	mes "[Red]";
 	mes "The only skill that's needed for a Swordman is ^FF2400Bash^000000! Bash, Bash and ONLY ^FF2400Bash^000000! No need to waste time and effort for smaller skills! Everything else is for cowards and wusses!";
 	next;
@@ -336,7 +336,7 @@
 	close;
 }
 
--	script	::Cebalis_izlude	FAKE_NPC,{
+izlude,58,126,2	script	Cebalis#izlude	4W_M_02,{
 	mes "[Red]";
 	mes "The only skill that's needed for a Swordman is ^FF2400Bash^000000! Bash, Bash and ONLY ^FF2400Bash^000000! No need to waste time and effort on smaller skills~~ Everything else is for cowards and wusses!";
 	next;
@@ -413,7 +413,7 @@
 	close;
 }
 
--	script	::Soldier_izlude	FAKE_NPC,{
+izlude,124,178,2	script	Soldier#izlude	8W_SOLDIER,{
 	mes "[Soldier]";
 	mes "HeHeHeHe..HaHaHaHa ";
 	mes "Huh? Why am I so happy?";
@@ -518,10 +518,7 @@ izlu2dun,108,27,0	script	Sailor#2izlude	4W_SAILOR,{
 	mes "head back?";
 	next;
 	if (select("Yeah, I'm tired to death.", "Nope, I love this place!") == 1) {
-		if (RENEWAL)
-			warp "izlude",197,210;
-		else
-			warp "izlude",176,182;
+		warp "izlude", 176, 182;
 		end;
 	}
 	close;

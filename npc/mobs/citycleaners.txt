@@ -37,7 +37,7 @@
 //================= Description ===========================================
 //= Spawns monsters to clean up cities.
 //================= Current Version =======================================
-//= 1.2
+//= 1.3
 //=========================================================================
 
 //== Wild Rose City Spawns =================================
@@ -60,3 +60,8 @@ louyang,0,0,0,0	monster	Wild Rose	1261,1,7200000,3600000,0
 ayothaya,0,0,0,0	monster	Wild Rose	1261,1,7200000,3600000,0
 moscovia,0,0,0,0	monster	Wild Rose	1261,1,7200000,3600000,0
 einbech,0,0,0,0	monster	Wild Rose	1261,1,3600000,3000000,0
+
+//== Thief Bug City Spawns =================================
+payon_in02,23,68,5,5	monster	Thief Bug	1051,7,1200000,600000,0
+jawaii_in,73,117,4,4	monster	Thief Bug	1051,1,5400000,3000000,0
+jawaii_in,83,117,5,5	monster	Thief Bug	1051,1,4800000,2400000,0
