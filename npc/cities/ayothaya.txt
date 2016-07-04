@@ -39,7 +39,7 @@
 //================= Description ===========================================
 //= Ayotaya Town Script
 //================= Current Version =======================================
-//= 1.9
+//= 1.10
 //=========================================================================
 
 //== Ayothaya Transportation ===============================
@@ -51,7 +51,7 @@
 	mes "a land of exotic mystery,";
 	mes "my hometown Ayotaya!";
 	next;
-	switch(select("About Ayotaya.", "Go to Ayotaya.", "Cancel.")) {
+	switch (select("About Ayotaya.", "Go to Ayotaya.", "Cancel.")) {
 	case 1:
 		mes "[Aibakthing]";
 		mes "We Ayotayans are a pious people who value peace and sincerity. We endeavor to lead simple, yet noble, lives in harmony with nature.";
@@ -77,14 +77,14 @@
 		mes "right now~";
 		next;
 		if (select("I'm ready, let's go!", "No.") == 1) {
-			if (Zeny > 9999) {
+			if (Zeny >= 10000) {
 				mes "[Aibakthing]";
 				mes "Hoo! Hah! Hoo! Hah!";
 				mes "Let us be off! Back to my";
 				mes "beautiful Ayotaya!";
 				close2;
 				Zeny -= 10000;
-				warp "ayothaya",149,71;
+				warp "ayothaya", 149, 71;
 				end;
 			}
 			mes "[Aibakthing]";
@@ -118,10 +118,7 @@ ayothaya,152,68,1	script	Aibakthing#ayo2	4_M_THAIONGBAK,{
 		mes "[Aibakthing]";
 		mes "You will be welcome to come back whenever you please. I hope that we will see each other again sometime soon. Thank you~";
 		close2;
-		if (RENEWAL)
-			warp "alberta",235,45;
-		else
-			warp "alberta",238,22;
+		warp "alberta", 238, 22;
 		end;
 	}
 	mes "[Aibakthing]";
@@ -171,7 +168,7 @@ ayothaya,171,152,5	script	Girl#Lalitha	4_F_THAIAYO,{
 		mes "You know, like the dresses and jewelry that ladies wear in other countries, whether or not the men are good looking, what kind of songs you have, what kind of girls that guys over there like...";
 		emotion e_what;
 		next;
-		mes "[" +strcharinfo(0)+ "]";
+		mes "[" + strcharinfo(0) + "]";
 		mes ".........";
 		next;
 		mes "[Lalitha]";
@@ -200,7 +197,7 @@ ayothaya,171,152,5	script	Girl#Lalitha	4_F_THAIAYO,{
 		mes "my Black Knight is~";
 		emotion e_lv;
 		next;
-		mes "["+strcharinfo(0)+"]";
+		mes "[" + strcharinfo(0) + "]";
 		mes "Don't you mean...";
 		mes "Knight in shining armor";
 		mes "riding a white horse?";

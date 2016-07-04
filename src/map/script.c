@@ -21075,15 +21075,6 @@ void script_hardcoded_constants(void)
 	script->set_constant("EQP_SHADOW_SHOES", EQP_SHADOW_SHOES, false, false);
 	script->set_constant("EQP_SHADOW_ACC_R", EQP_SHADOW_ACC_R, false, false);
 	script->set_constant("EQP_SHADOW_ACC_L", EQP_SHADOW_ACC_L, false, false);
-
-	script->constdb_comment("Renewal");
-	script->set_constant("RENEWAL", 0, false, false);
-	script->set_constant("RENEWAL_CAST", 0, false, false);
-	script->set_constant("RENEWAL_DROP", 0, false, false);
-	script->set_constant("RENEWAL_EXP", 0, false, false);
-	script->set_constant("RENEWAL_LVDMG", 0, false, false);
-	script->set_constant("RENEWAL_EDP", 0, false, false);
-	script->set_constant("RENEWAL_ASPD", 0, false, false);
 	script->constdb_comment(NULL);
 }
 

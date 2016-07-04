@@ -1986,9 +1986,9 @@ struct status_data {
 		def2, mdef2,
 		aspd_rate;
 	/**
-	 * defType is RENEWAL dependent and defined in src/map/config/data/const.h
+	 * defType is dependent and defined in src/map/config/data/const.h
 	 **/
-	defType def,mdef;
+	defType def, mdef;
 
 	unsigned char
 		def_ele, ele_lv,
@@ -2062,10 +2062,7 @@ struct status_change {
 	unsigned char jb_flag; //Joint Beat type flag
 	//int sg_id; //ID of the previous Storm gust that hit you
 	short comet_x, comet_y; // Point where src casted Comet - required to calculate damage from this point
-/**
- * The Storm Gust counter was dropped in renewal
- **/
-	unsigned char sg_counter; //Storm gust counter (previous hits from storm gust)
+	unsigned char sg_counter; // Storm gust counter (previous hits from storm gust)
 	unsigned char bs_counter; // Blood Sucker counter
 	unsigned char fv_counter; // Force of vanguard counter
 	struct status_change_entry *data[SC_MAX];

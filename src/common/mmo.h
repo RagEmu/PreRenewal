@@ -64,10 +64,10 @@
 // 20120307 - 2012-03-07aRagexeRE+ - 0x970
 
 #ifndef PACKETVER
-	#define PACKETVER 20141022
+	#define PACKETVER 20150513
 #endif // PACKETVER
 
-//Uncomment the following line if your client is ragexeRE instead of ragexe (required because of conflicting packets in ragexe vs ragexeRE).
+// Uncomment the following line if your client is ragexeRE instead of ragexe (required because of conflicting packets in ragexe vs ragexeRE).
 //#define ENABLE_PACKETVER_RE
 #ifdef ENABLE_PACKETVER_RE
 	#define PACKETVER_RE
@@ -114,80 +114,78 @@
 #define MAX_CARTS (MAX_BASE_CARTS + MAX_CARTDECORATION_CARTS)
 
 #define MAX_INVENTORY 100
-//Max number of characters per account. Note that changing this setting alone is not enough if the client is not hexed to support more characters as well.
+// Max number of characters per account. Note that changing this setting alone is not enough if the client is not hexed to support more characters as well.
 #define MAX_CHARS 9
-//Number of slots carded equipment can have. Never set to less than 4 as they are also used to keep the data of forged items/equipment. [Skotlex]
-//Note: The client seems unable to receive data for more than 4 slots due to all related packets having a fixed size.
+// Number of slots carded equipment can have. Never set to less than 4 as they are also used to keep the data of forged items/equipment. [Skotlex]
+// Note: The client seems unable to receive data for more than 4 slots due to all related packets having a fixed size.
 #define MAX_SLOTS 4
-//Max amount of a single stacked item
+// Max amount of a single stacked item
 #define MAX_AMOUNT 30000
 #define MAX_ZENY INT_MAX
 
-//Official Limit: 2.1b ( the var that stores the money doesn't go much higher than this by default )
-#define MAX_BANK_ZENY INT_MAX
+#define MAX_BANK_ZENY INT_MAX                         // Official Limit: 2.1b ( the var that stores the money doesn't go much higher than this by default )
 
 #ifndef MAX_LEVEL
-#define MAX_LEVEL 175
+	#define MAX_LEVEL 99
 #endif
-#define MAX_FAME 1000000000
+	#define MAX_FAME 1000000000
 #define MAX_CART 100
 #ifndef MAX_SKILL
-#define MAX_SKILL 1478
+	#define MAX_SKILL 1478
 #endif
 #ifndef MAX_SKILL_ID
-#define MAX_SKILL_ID 10015   // [Ind/Hercules] max used skill ID
+	#define MAX_SKILL_ID 10015                        // [Ind/Hercules] max used skill ID
 #endif
 #ifndef MAX_SKILL_TREE
-// Update this max as necessary. 86 is the value needed for Expanded Super Novice.
-#define MAX_SKILL_TREE 86
+	#define MAX_SKILL_TREE 86                         // Update this max as necessary. 86 is the value needed for Expanded Super Novice.
 #endif
 #ifndef DEFAULT_WALK_SPEED
-#define DEFAULT_WALK_SPEED 150
+	#define DEFAULT_WALK_SPEED 150
 #endif
 #ifndef MIN_WALK_SPEED
-#define MIN_WALK_SPEED 20 /* below 20 clips animation */
+	#define MIN_WALK_SPEED 20                         // Below 20 clips animation
 #endif
 #ifndef MAX_WALK_SPEED
-#define MAX_WALK_SPEED 1000
+	#define MAX_WALK_SPEED 1000
 #endif
 #ifndef MAX_STORAGE
-#define MAX_STORAGE 600
+	#define MAX_STORAGE 600
 #endif
 #ifndef MAX_GUILD_STORAGE
-#define MAX_GUILD_STORAGE 600
+	#define MAX_GUILD_STORAGE 600
 #endif
 #ifndef MAX_PARTY
-#define MAX_PARTY 12
+	#define MAX_PARTY 12
 #endif
 #ifndef BASE_GUILD_SIZE
-#define BASE_GUILD_SIZE 16               // Base guild members (without GD_EXTENSION)
+	#define BASE_GUILD_SIZE 16                       // Base guild members (without GD_EXTENSION)
 #endif
 #ifndef MAX_GUILD
-#define MAX_GUILD (BASE_GUILD_SIZE+10*6) // Increased max guild members +6 per 1 extension levels [Lupus]
+	#define MAX_GUILD (BASE_GUILD_SIZE + 10 * 6)     // Increased max guild members +6 per 1 extension levels [Lupus]
 #endif
 #ifndef MAX_GUILDPOSITION
-#define MAX_GUILDPOSITION 20             // Increased max guild positions to accomodate for all members [Valaris] (removed) [PoW]
+	#define MAX_GUILDPOSITION 20                     // Increased max guild positions to accomodate for all members [Valaris] (removed) [PoW]
 #endif
 #ifndef MAX_GUILDEXPULSION
-#define MAX_GUILDEXPULSION 32
+	#define MAX_GUILDEXPULSION 32
 #endif
 #ifndef MAX_GUILDALLIANCE
-#define MAX_GUILDALLIANCE 16
+	#define MAX_GUILDALLIANCE 16
 #endif
 #ifndef MAX_GUILDSKILL
-#define MAX_GUILDSKILL 15                // Increased max guild skills because of new skills [Sara-chan]
+	#define MAX_GUILDSKILL 15                        // Increased max guild skills because of new skills [Sara-chan]
 #endif
 #ifndef MAX_GUILDLEVEL
-#define MAX_GUILDLEVEL 50
+	#define MAX_GUILDLEVEL 50
 #endif
 #ifndef MAX_GUARDIANS
-#define MAX_GUARDIANS 8                  // Local max per castle. [Skotlex]
+	#define MAX_GUARDIANS 8                          // Local max per castle. [Skotlex]
 #endif
 #ifndef MAX_QUEST_OBJECTIVES
-#define MAX_QUEST_OBJECTIVES 3           // Max quest objectives for a quest
+	#define MAX_QUEST_OBJECTIVES 3                   // Max quest objectives for a quest
 #endif
 #ifndef MAX_START_ITEMS
-#define MAX_START_ITEMS 32               // Max number of items allowed to be given to a char whenever it's created. [mkbu95]
+	#define MAX_START_ITEMS 32                       // Max number of items allowed to be given to a char whenever it's created. [mkbu95]
 #endif
 
 // for produce
@@ -202,17 +200,17 @@
 #define WEDDING_RING_M 2634
 #define WEDDING_RING_F 2635
 
-//For character names, title names, guilds, maps, etc.
-//Includes null-terminator as it is the length of the array.
+// For character names, title names, guilds, maps, etc.
+// Includes null-terminator as it is the length of the array.
 #define NAME_LENGTH (23 + 1)
-//For item names, which tend to have much longer names.
+// For item names, which tend to have much longer names.
 #define ITEM_NAME_LENGTH 50
-//For Map Names, which the client considers to be 16 in length including the .gat extension.
+// For Map Names, which the client considers to be 16 in length including the .gat extension.
 #define MAP_NAME_LENGTH (11 + 1)
 #define MAP_NAME_LENGTH_EXT (MAP_NAME_LENGTH + 4)
 
 #ifndef MAX_FRIENDS
-#define MAX_FRIENDS 40
+	#define MAX_FRIENDS 40
 #endif
 #define MAX_MEMOPOINTS 3
 
@@ -230,10 +228,10 @@
 
 // Base Homun skill.
 #ifndef HM_SKILLBASE
-#define HM_SKILLBASE 8001
+	#define HM_SKILLBASE 8001
 #endif
 #ifndef MAX_HOMUNSKILL
-#define MAX_HOMUNSKILL 43
+	#define MAX_HOMUNSKILL 43
 #endif
 
 // Mail System
@@ -243,21 +241,21 @@
 
 // Mercenary System
 #ifndef MC_SKILLBASE
-#define MC_SKILLBASE 8201
+	#define MC_SKILLBASE 8201
 #endif
 #ifndef MAX_MERCSKILL
-#define MAX_MERCSKILL 40
+	#define MAX_MERCSKILL 40
 #endif
 
 // Elemental System
 #ifndef MAX_ELEMENTALSKILL
-#define MAX_ELEMENTALSKILL 42
+	#define MAX_ELEMENTALSKILL 42
 #endif
 #ifndef EL_SKILLBASE
-#define EL_SKILLBASE 8401
+	#define EL_SKILLBASE 8401
 #endif
 #ifndef MAX_ELESKILLTREE
-#define MAX_ELESKILLTREE 3
+	#define MAX_ELESKILLTREE 3
 #endif
 
 // The following system marks a different job ID system used by the map server,

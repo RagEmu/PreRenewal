@@ -42,7 +42,7 @@
 //================= Description ===========================================
 //= Comodo Town NPCs
 //================= Current Version =======================================
-//= 2.0
+//= 2.1
 //=========================================================================
 
 //== Inside Comodo =========================================
@@ -172,7 +172,7 @@ cmd_in02,174,126,4	script	Loyar#cmd	4_M_01,{
 	mes "and it makes me want to play ";
 	mes "some more. Alright, let's go!";
 	next;
-	switch(rand(1,3)) {
+	switch (rand(1, 3)) {
 	case 1:
 		mes "[Loyar]";
 		mes "Hmm... Maybe I better";
@@ -220,7 +220,7 @@ cmd_in02,174,126,4	script	Loyar#cmd	4_M_01,{
 }
 
 cmd_in02,57,62,4	script	Moo#cmd	4_M_MANAGER,{
-	mooz = rand(1,10);
+	mooz = rand(1, 10);
 	if (mooz == 1) {
 		mes "[Moo]";
 		mes "Those cheating punks!";
@@ -367,19 +367,16 @@ cmd_fild07,299,83,4	script	Zain#cmd	4W_SAILOR,{
 	mes "can travel on Reudelus";
 	mes "to Alberta or Izlude.";
 	next;
-	switch(select("Alberta - 600 Zeny", "Izlude - 800 Zeny", "Cancel")) {
+	switch (select("Alberta - 600 Zeny", "Izlude - 800 Zeny", "Cancel")) {
 	case 1:
 		if (Zeny < 600) break;
 		Zeny -= 600;
-		warp "alberta",192,169;
+		warp "alberta", 192, 169;
 		end;
 	case 2:
 		if (Zeny < 800) break;
 		Zeny -= 800;
-		if (RENEWAL)
-			warp "izlude",195,212;
-		else
-			warp "izlude",176,182;
+		warp "izlude", 176, 182;
 		end;
 	case 3:
 		mes .@n$;
@@ -428,7 +425,7 @@ moc_fild12,35,303,4	script	Serutero#cmd	1_M_ORIENT01,{
 	mes "If you really want to go there,";
 	mes "I'll permit you to continue, but you must beware of its dangers...";
 	next;
-	switch(select("I'm going there!", "Sandaruman Fortress?", "Cancel")) {
+	switch (select("I'm going there!", "Sandaruman Fortress?", "Cancel")) {
 	case 1:
 		mes "[Serutero]";
 		mes "So you're really going";
@@ -436,7 +433,7 @@ moc_fild12,35,303,4	script	Serutero#cmd	1_M_ORIENT01,{
 		mes "Fortress. Alright then,";
 		mes "good luck, and be careful!";
 		close2;
-		warp "cmd_fild08",331,319;
+		warp "cmd_fild08", 331, 319;
 		end;
 	case 2:
 		mes "[Serutero]";

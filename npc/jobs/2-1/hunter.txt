@@ -45,7 +45,7 @@
 //================= Description ===========================================
 //= Job Change quest for Hunter class.
 //================= Current Version =======================================
-//= 3.7
+//= 3.8
 //=========================================================================
 
 //== Notices in the old Hunter Guild =======================
@@ -169,32 +169,32 @@ hu_in01,386,373,4	script	Hunter Guildsman#hnt	4_F_JOB_HUNTER,{
 			mes "I will now change";
 			mes "your job to a Hunter~";
 			next;
-			delitem Penetration,1;
+			delitem Penetration, 1;
 			mes "[Hunter Sherin]";
 			mes "Tada~ Congratulations!";
 			mes "You look great as a Hunter!!";
 			.@joblvl = JobLevel;
 			completequest 4013;
-			callfunc "Job_Change",Job_Hunter;
-			callfunc "F_ClearJobVar";		// clears all job variables for the current player
+			callfunc "Job_Change", Job_Hunter;
+			callfunc "F_ClearJobVar";
 			next;
 			mes "[Hunter Sherin]";
 			mes "Become a noble person and become a worthy representative of our Hunter Guild. Show your love of nature as a Hunter~";
 			next;
 			mes "[Hunter Sherin]";
 			mes "And also, here is a little reward for all the effort you put in. It's from me, of course~";
-			if (.@joblvl > 49)
-				getitem Hunter_Bow,1;
+			if (.@joblvl >= 50)
+				getitem Hunter_Bow, 1;
 			else
-				getitem CrossBow,1;
+				getitem CrossBow, 1;
 			close;
 		}
-		else if ((JobLevel > 39) && ((HNTR_Q == 0) || (HNTR_Q == 1))) {
+		else if ((JobLevel >= 40) && ((HNTR_Q == 0) || (HNTR_Q == 1))) {
 			if (HNTR_Q == 0) {
 				mes "[Hunter Guildsman]";
 				mes "Oh, you're an Archer! It seems as if you've trained enough as an Archer... You came here to become a Hunter, right?";
 				next;
-				switch(select("Yes. That's what I'm here for.", "What are the requirements to change jobs?", "....I don't want to change yet.")) {
+				switch (select("Yes. That's what I'm here for.", "What are the requirements to change jobs?", "....I don't want to change yet.")) {
 				case 1:
 					mes "[Hunter Guildsman]";
 					mes "Hehe~";
@@ -257,7 +257,7 @@ hu_in01,386,373,4	script	Hunter Guildsman#hnt	4_F_JOB_HUNTER,{
 				mes "[Hunter Sherin]";
 				mes "You are an Archer, and you don't know where you should go to hunt. What do you do?";
 				next;
-				switch(select("Scream out loud asking where you should go.", "Quietly ask a person passing by.", "Wander around alone and search for a place.")) {
+				switch (select("Scream out loud asking where you should go.", "Quietly ask a person passing by.", "Wander around alone and search for a place.")) {
 				case 2:
 				case 3:
 					.@hunter_t += 10;
@@ -271,7 +271,7 @@ hu_in01,386,373,4	script	Hunter Guildsman#hnt	4_F_JOB_HUNTER,{
 				mes "But you are in Payon!!";
 				mes "How do you go to the desert?";
 				next;
-				switch(select("Ask a Priest to open a free warp portal.", "Use the Kafra service.", "Walk with a friend.")) {
+				switch (select("Ask a Priest to open a free warp portal.", "Use the Kafra service.", "Walk with a friend.")) {
 				case 2:
 				case 3:
 					.@hunter_t += 10;
@@ -286,7 +286,7 @@ hu_in01,386,373,4	script	Hunter Guildsman#hnt	4_F_JOB_HUNTER,{
 				mes "about to make the";
 				mes "Zeny that you need?";
 				next;
-				switch(select("Beg here and there.", "Sell items I do not need.", "Hunt at a nearby field.")) {
+				switch (select("Beg here and there.", "Sell items I do not need.", "Hunt at a nearby field.")) {
 				case 2:
 				case 3:
 					.@hunter_t += 10;
@@ -316,7 +316,7 @@ hu_in01,386,373,4	script	Hunter Guildsman#hnt	4_F_JOB_HUNTER,{
 				mes "best way to";
 				mes "sell your item?";
 				next;
-				switch(select("Scream out loud to everyone in sight.", "Open a chatroom and wait.", "Look to see if anyone already wants it.")) {
+				switch (select("Scream out loud to everyone in sight.", "Open a chatroom and wait.", "Look to see if anyone already wants it.")) {
 				case 2:
 				case 3:
 					.@hunter_t += 10;
@@ -336,7 +336,7 @@ hu_in01,386,373,4	script	Hunter Guildsman#hnt	4_F_JOB_HUNTER,{
 				mes "into someone that is lost.";
 				mes "What should you do?";
 				next;
-				switch(select("Tell them which way to go.", "Guide them to their destination.", "Ignore.")) {
+				switch (select("Tell them which way to go.", "Guide them to their destination.", "Ignore.")) {
 				case 1:
 				case 2:
 					.@hunter_t += 10;
@@ -357,7 +357,7 @@ hu_in01,386,373,4	script	Hunter Guildsman#hnt	4_F_JOB_HUNTER,{
 				mes "[Hunter Sherin]";
 				mes "But what's this!? You find an expensive item lying on the floor! What should you do with it?";
 				next;
-				switch(select("Pick it up and keep it.", "Try to find the owner.", "Just walk by.")) {
+				switch (select("Pick it up and keep it.", "Try to find the owner.", "Just walk by.")) {
 				case 2:
 				case 3:
 					.@hunter_t += 10;
@@ -369,7 +369,7 @@ hu_in01,386,373,4	script	Hunter Guildsman#hnt	4_F_JOB_HUNTER,{
 				next;
 				if (.@hunter_t == 100) {
 					HNTR_Q = 2;
-					changequest 4000,4001;
+					changequest 4000, 4001;
 					mes "[Hunter Sherin]";
 					mes "Well done! Your answers show you've got the right outlook on life. You definitely have the right qualities to become a Hunter~";
 					next;
@@ -379,7 +379,7 @@ hu_in01,386,373,4	script	Hunter Guildsman#hnt	4_F_JOB_HUNTER,{
 				}
 				else if (.@hunter_t == 90) {
 					HNTR_Q = 2;
-					changequest 4000,4001;
+					changequest 4000, 4001;
 					mes "[Hunter Sherin]";
 					mes "Well, I'm looking at your answers and your score isn't perfect. But I'll let you pass anyway. I don't know what our Guildmaster will think, though.";
 					next;
@@ -484,7 +484,7 @@ hu_in01,382,382,4	script	Guild Receptionist#hnt	4_M_JOB_HUNTER,{
 				mes "[Demon Hunter]";
 				mes "Leave if you plan to trifle me your petty tricks. Do you not realize that you are toying with ^660000The Demon Hunter^000000?!'";
 				close2;
-				warp "hugel",208,223;
+				warp "hugel", 208, 223;
 				end;
 			}
 		}
@@ -494,25 +494,33 @@ hu_in01,382,382,4	script	Guild Receptionist#hnt	4_M_JOB_HUNTER,{
 		mes "[Demon Hunter]";
 		mes "You see, we're having some financial problems. Let's see, we're short on these items...";
 		next;
-		switch(rand(1,7)) {
-		//Insect_Feeler/Claw_Of_Desert_Wolf, Wooden_Block, White_Herb
-		case 1: setarray .@items[0], (RENEWAL?928:7030),5, 1019,5, 509,3, 3; changequest 4001,4002; break;
-		//Bill_Of_Birds, Skel_Bone, Green_Herb
-		case 2: setarray .@items[0], 925,3, 932,5, 511,3, 4; changequest 4001,4003; break;
-		//Colorful_Shell/Posionous_Canine, Animal's_Skin, Red_Herb
-		case 3: setarray .@items[0], (RENEWAL?1013:937),3, 919,3, 507,5, 5; changequest 4001,4004; break;
-		//Horn/Dokkaebi_Horn, Poison_Spore/Piece_Of_Egg_Shell, Fluff
-		case 4: setarray .@items[0], (RENEWAL?947:1021),3, (RENEWAL?7033:7032),3, 914,10, 6; changequest 4001,4005; break;
-		//Shell, Worm_Peelings, Yellow_Herb
-		case 5: setarray .@items[0], 935,9, 955,9, 508,9, 7; changequest 4001,4006; break;
-		//Tooth_Of_Bat, Sticky_Mucus, Bear's_Foot
-		case 6: setarray .@items[0], 913,3, 938,1, 948,1, 8; changequest 4001,4007; break;
-		//Porcupine_Spike, Yoyo_Tail, Acorn
-		case 7: setarray .@items[0], 1027,2, 942,1, 1026,1, 9; changequest 4001,4008; break;
+		switch (rand(1, 7)) {
+		case 1:
+			setarray .@items[0], Claw_Of_Desert_Wolf, 5, Wooden_Block, 5, White_Herb, 3, 3;
+			changequest 4001, 4002;
+			break;
+		case 2: setarray .@items[0], Worm_Peelings, 9, Shell, 9, Yellow_Herb, 9, 4;
+			changequest 4001, 4006;
+			break;
+		case 3: setarray .@items[0], Dokkaebi_Horn, 3, Piece_Of_Egg_Shell,3, Fluff, 10, 5;
+			changequest 4001, 4005;
+			break;
+		case 4: setarray .@items[0], Posionous_Canine, 3, Animal's_Skin, 3, Red_Herb, 5, 6;
+			changequest 4001, 4004;
+			break;
+		case 5: setarray .@items[0], Bill_Of_Birds, 3, Skel_Bone, 5, Green_Herb, 3, 7;
+			changequest 4001, 4003;
+			break;
+		case 6: setarray .@items[0], Tooth_Of_Bat, 3, Sticky_Mucus, 1, Bear's_Foot, 1, 8;
+			changequest 4001, 4007;
+			break;
+		case 7: setarray .@items[0], Porcupine_Spike, 2, Yoyo_Tail, 1, Acorn, 1, 9;
+			changequest 4001, 4008;
+			break;
 		}
 		if (.@selection == 1) {
 			mes "[Demon Hunter]";
-			mes "Hmm. ^660000"+.@items[1]+" "+getitemname(.@items[0])+"^000000 to use for arrow tips. ^660000"+.@items[3]+" "+getitemname(.@items[2])+"^000000 to use here and there. And ^660000"+.@items[5]+" "+getitemname(.@items[4])+"^000000 please.";
+			mes "Hmm. ^660000" + .@items[1] + " " + getitemname(.@items[0]) + "^000000 to use for arrow tips. ^660000" + .@items[3] + " " + getitemname(.@items[2]) + "^000000 to use here and there. And ^660000" + .@items[5] + " " + getitemname(.@items[4]) + "^000000 please.";
 			HNTR_Q = .@items[6];
 			next;
 			mes "[Demon Hunter]";
@@ -525,20 +533,21 @@ hu_in01,382,382,4	script	Guild Receptionist#hnt	4_M_JOB_HUNTER,{
 	}
 	else if (HNTR_Q >= 3 && HNTR_Q <= 9) {
 		switch(HNTR_Q) {
-		//Insect_Feeler/Claw_Of_Desert_Wolf, Wooden_Block, White_Herb
-		case 3: setarray .@items[0], (RENEWAL?928:7030),5, 1019,5, 509,3, 10; break;
-		//Bill_Of_Birds, Skel_Bone, Green_Herb
-		case 4: setarray .@items[0], 925,3, 932,5, 511,3, 10; break;
-		//Colorful_Shell/Posionous_Canine, Animal's_Skin, Red_Herb
-		case 5: setarray .@items[0], (RENEWAL?1013:937),3, 919,3, 507,5, 10; break;
-		//Horn/Dokkaebi_Horn, Poison_Spore/Piece_Of_Egg_Shell, Fluff
-		case 6: setarray .@items[0], (RENEWAL?947:1021),3, (RENEWAL?7033:7032),3, 914,10, 10; break;
-		//Shell, Worm_Peelings, Yellow_Herb
-		case 7: setarray .@items[0], 935,9, 955,9, 508,9, 11; break;
-		//Tooth_Of_Bat, Sticky_Mucus, Bear's_Foot
-		case 8: setarray .@items[0], 913,3, 938,1, 948,1, 11; break;
-		//Porcupine_Spike, Yoyo_Tail, Acorn
-		case 9: setarray .@items[0], 1027,2, 942,1, 1026,1, 11; break;
+		case 3:
+			setarray .@items[0], Claw_Of_Desert_Wolf, 5, Wooden_Block, 5, White_Herb, 3, 10;
+			break;
+		case 4: setarray .@items[0], Worm_Peelings, 9, Shell, 9, Yellow_Herb, 9, 10;
+			break;
+		case 5: setarray .@items[0], Dokkaebi_Horn, 3, Piece_Of_Egg_Shell,3, Fluff, 10, 10;
+			break;
+		case 6: setarray .@items[0], Posionous_Canine, 3, Animal's_Skin, 3, Red_Herb, 5, 10;
+			break;
+		case 7: setarray .@items[0], Bill_Of_Birds, 3, Skel_Bone, 5, Green_Herb, 3, 11;
+			break;
+		case 8: setarray .@items[0], Tooth_Of_Bat, 3, Sticky_Mucus, 1, Bear's_Foot, 1, 11;
+			break;
+		case 9: setarray .@items[0], Porcupine_Spike, 2, Yoyo_Tail, 1, Acorn, 1, 11;
+			break;
 		}
 		mes "[Demon Hunter]";
 		mes "Hmm?";
@@ -548,29 +557,29 @@ hu_in01,382,382,4	script	Guild Receptionist#hnt	4_M_JOB_HUNTER,{
 			mes "You brought all of the necessary materials... You can get directions to the testing area from our Guildmaster who is currently in the Payon Central Palace.";
 			HNTR_Q = .@items[6];
 			if (questprogress(4002)) {
-				changequest 4002,4009;
+				changequest 4002, 4009;
 			}
 			else if (questprogress(4003)) {
-				changequest 4003,4009;
+				changequest 4003, 4009;
 			}
 			else if (questprogress(4004)) {
-				changequest 4004,4009;
+				changequest 4004, 4009;
 			}
 			else if (questprogress(4005)) {
-				changequest 4005,4009;
+				changequest 4005, 4009;
 			}
 			else if (questprogress(4006)) {
-				changequest 4006,4010;
+				changequest 4006, 4010;
 			}
 			else if (questprogress(4007)) {
-				changequest 4007,4010;
+				changequest 4007, 4010;
 			}
 			else {
-				changequest 4008,4010;
+				changequest 4008, 4010;
 			}
-			delitem .@items[0],.@items[1];
-			delitem .@items[2],.@items[3];
-			delitem .@items[4],.@items[5];
+			delitem .@items[0], .@items[1];
+			delitem .@items[2], .@items[3];
+			delitem .@items[4], .@items[5];
 			close;
 		}
 		mes "[Demon Hunter]";
@@ -579,9 +588,9 @@ hu_in01,382,382,4	script	Guild Receptionist#hnt	4_M_JOB_HUNTER,{
 		next;
 		mes "[Demon Hunter]";
 		mes "The items you need are";
-		mes "^660000"+.@items[1]+" "+getitemname(.@items[0])+"^000000,";
-		mes "^660000"+.@items[3]+" "+getitemname(.@items[2])+"^000000 and";
-		mes "^660000"+.@items[5]+" "+getitemname(.@items[4])+"^000000.";
+		mes "^660000" + .@items[1] + " " + getitemname(.@items[0]) + "^000000,";
+		mes "^660000" + .@items[3] + " " + getitemname(.@items[2]) + "^000000 and";
+		mes "^660000" + .@items[5] + " " + getitemname(.@items[4]) + "^000000.";
 		mes "Come back once you have";
 		mes "gathered all the items.";
 		close;
@@ -608,7 +617,7 @@ payon_in03,131,7,3	script	Hunter#htnGM	1_M_ORIENT01,{
 		mes "[Hunter Guildmaster]";
 		mes "Hmpf. You must be here for the Hunter job test. Let me tell you about the testing process. What would you like to know?";
 		next;
-		switch(select("What is the test?", "What are the passing requirements?", "Any warnings?", "Begin test.")) {
+		switch (select("What is the test?", "What are the passing requirements?", "Any warnings?", "Begin test.")) {
 		case 1:
 			mes "[Hunter Guildmaster]";
 			mes "You have to hunt down certain monsters with a particular name. But you must avoid all the traps while you're at it.";
@@ -647,10 +656,10 @@ payon_in03,131,7,3	script	Hunter#htnGM	1_M_ORIENT01,{
 		mes "[Hunter Guildmaster]";
 		mes "Well, then. Your arrows are probably still being made, so you can use mine to take the test.";
 		HNTR_Q = 12;
-		changequest 4009,4011;
-		getitem Silver_Arrow,200;
+		changequest 4009, 4011;
+		getitem Silver_Arrow, 200;
 		close2;
-		warp "job_hunte",176,22;
+		warp "job_hunte",  176, 22;
 		end;
 	}
 	else if (HNTR_Q > 1 && HNTR_Q < 10) {
@@ -679,7 +688,7 @@ payon_in03,131,7,3	script	Hunter#htnGM	1_M_ORIENT01,{
 		mes "If you have any";
 		mes "questions, ask now.";
 		next;
-		switch(select("What is the test?", "What are the passing requirements?", "Any warnings?", "Begin test.")) {
+		switch (select("What is the test?", "What are the passing requirements?", "Any warnings?", "Begin test.")) {
 		case 1:
 			mes "[Hunter Guildmaster]";
 			mes "You have to hunt down certain monsters with a particular name, but you also avoid all the traps at the same time. This is to test your ability to move swiftly and locate targets in various situations.";
@@ -719,7 +728,7 @@ payon_in03,131,7,3	script	Hunter#htnGM	1_M_ORIENT01,{
 			mes "you will pass this time!";
 			close2;
 			HNTR_Q = 12;
-			warp "job_hunte",176,22;
+			warp "job_hunte",  176, 22;
 			end;
 		}
 		mes "[Hunter Guildmaster]";
@@ -732,9 +741,9 @@ payon_in03,131,7,3	script	Hunter#htnGM	1_M_ORIENT01,{
 		mes "Wow, you came back in one piece!";
 		mes "I mean, good job. I'll give you the item which proves that you have passed the test.";
 		HNTR_Q = 17;
-		savepoint "payon",104,99;
-		getitem Penetration,1;
-		changequest 4012,4013;
+		savepoint "payon", 104, 99;
+		getitem Penetration, 1;
+		changequest 4012, 4013;
 		next;
 		mes "[Hunter Guildmaster]";
 		mes "Okay, here it is. Now, go back to the Hunter Guild. I have some more business left to do here, but I hope you can become a Hunter soon.";
@@ -757,12 +766,12 @@ payon_in03,131,7,3	script	Hunter#htnGM	1_M_ORIENT01,{
 }
 
 payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
-	cutin "job_huntermaster",2;
+	cutin "job_huntermaster", 2;
 	if (HNTR_Q == 11) {
 		mes "[Hunter Guildmaster]";
 		mes "Mmm. I see you're here for the Hunter job test. Let me explain the testing process. What would you like to know?";
 		next;
-		switch(select("What is the test?", "What are the passing requirements?", "Any warnings?", "Begin test.")) {
+		switch (select("What is the test?", "What are the passing requirements?", "Any warnings?", "Begin test.")) {
 		case 1:
 			mes "[Hunter Guildmaster]";
 			mes "You have to hunt down certain monsters with a particular name, but you must avoid all of the traps here at the same time.";
@@ -770,7 +779,7 @@ payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
 			mes "[Hunter Guildmaster]";
 			mes "This is to test your ability to move swiftly and locate targets in various situations.";
 			close2;
-			cutin "job_huntermaster",255;
+			cutin "job_huntermaster", 255;
 			end;
 		case 2:
 			mes "[Hunter Guildmaster]";
@@ -779,7 +788,7 @@ payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
 			mes "[Hunter Guildmaster]";
 			mes "You will pass if you are able to escape in the 12 o'clock direction of the map when the switch is activated.";
 			close2;
-			cutin "job_huntermaster",255;
+			cutin "job_huntermaster", 255;
 			end;
 		case 3:
 			mes "[Hunter Guildmaster]";
@@ -791,7 +800,7 @@ payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
 			mes "[Hunter Guildmaster]";
 			mes "If the person currently taking the test passes or fails, the next person waiting in the chatroom is sent to the testing area. If nobody is waiting, the test will begin as soon as you enter the chatroom.";
 			close2;
-			cutin "job_huntermaster",255;
+			cutin "job_huntermaster", 255;
 			end;
 		case 4:
 			if (.@a0) {
@@ -806,14 +815,14 @@ payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
 		}
 		mes "[Hunter Guildmaster]";
 		mes "Well, your arrows are probably still being made, so you can use mine to take the test.";
-		getitem Silver_Arrow,200;
+		getitem Silver_Arrow, 200;
 		next;
 		mes "[Hunter Guildmaster]";
 		mes "Good luck.";
 		HNTR_Q = 12;
-		changequest 4010,4011;
-		warp "job_hunte",176,22;
-		cutin "job_huntermaster",255;
+		changequest 4010, 4011;
+		warp "job_hunte",  176, 22;
+		cutin "job_huntermaster", 255;
 		end;
 	}
 	else if (HNTR_Q > 1 && HNTR_Q < 10) {
@@ -828,7 +837,7 @@ payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
 		mes "[Hunter Guildmaster]";
 		mes "Stop by once you have gathered all the items needed for the test.";
 		close2;
-		cutin "job_huntermaster",255;
+		cutin "job_huntermaster", 255;
 		end;
 	}
 	else if (HNTR_Q == 10) {
@@ -842,7 +851,7 @@ payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
 		mes "[Hunter]";
 		mes "If you wish to change jobs, I think you need to go visit the person at Payon Central Palace.";
 		close2;
-		cutin "job_huntermaster",255;
+		cutin "job_huntermaster", 255;
 		end;
 	}
 	else if (HNTR_Q > 11 && HNTR_Q < 16) {
@@ -854,7 +863,7 @@ payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
 		mes "have questions,";
 		mes "feel free to ask.";
 		next;
-		switch(select("What is the test?", "What are the requirements to pass the test?", "Any warnings?", "Begin test.")) {
+		switch (select("What is the test?", "What are the requirements to pass the test?", "Any warnings?", "Begin test.")) {
 		case 1:
 			mes "[Hunter Guildmaster]";
 			mes "You have to hunt down certain monsters with a particular name, but you must avoid all of the traps here at the same time.";
@@ -862,7 +871,7 @@ payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
 			mes "[Hunter Guildmaster]";
 			mes "This is to test your ability to move swiftly and locate targets in various situations.";
 			close2;
-			cutin "job_huntermaster",255;
+			cutin "job_huntermaster", 255;
 			end;
 		case 2:
 			mes "[Hunter Guildmaster]";
@@ -871,7 +880,7 @@ payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
 			mes "[Hunter Guildmaster]";
 			mes "You will pass if you are able to escape in the 12 o'clock direction of the map when the switch is activated.";
 			close2;
-			cutin "job_huntermaster",255;
+			cutin "job_huntermaster", 255;
 			end;
 		case 3:
 			mes "[Hunter Guildmaster]";
@@ -883,7 +892,7 @@ payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
 			mes "[Hunter Guildmaster]";
 			mes "If the person currently taking the test passes or fails, the next person waiting in the chatroom is sent to the testing area. If nobody is waiting, the test will begin as soon as you enter the chatroom.";
 			close2;
-			cutin "job_huntermaster",255;
+			cutin "job_huntermaster", 255;
 			end;
 		case 4:
 			mes "[Hunter Guildmaster]";
@@ -905,9 +914,9 @@ payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
 			mes "Okay!! Now...";
 			mes "Pass this time!";
 			close2;
-			cutin "job_huntermaster",255;
+			cutin "job_huntermaster", 255;
 			HNTR_Q = 12;
-			warp "job_hunte",176,22;
+			warp "job_hunte",  176, 22;
 			end;
 		}
 		mes "[Hunter Guildmaster]";
@@ -916,7 +925,7 @@ payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
 		mes "you're done with";
 		mes "your preparations.";
 		close2;
-		cutin "job_huntermaster",255;
+		cutin "job_huntermaster", 255;
 		end;
 	}
 	else if (HNTR_Q == 16) {
@@ -924,15 +933,15 @@ payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
 		mes "Wow. You're back in one piece!";
 		mes "I mean, good job. Well then, I'll give you the item which serves as proof that you passed the test.";
 		HNTR_Q = 17;
-		savepoint "payon",104,99;
-		getitem Penetration,1;
+		savepoint "payon", 104, 99;
+		getitem Penetration, 1;
 		next;
 		mes "[Hunter Guildmaster]";
 		mes "Well...";
 		mes "There you go.";
 		mes "Now hurry back to the Hunter Guild, and join us~";
 		close2;
-		cutin "job_huntermaster",255;
+		cutin "job_huntermaster", 255;
 		end;
 	}
 	else if (HNTR_Q == 17) {
@@ -945,14 +954,14 @@ payon_in02,21,31,1	script	Hunter#htnGM2	1_M_ORIENT01,{
 		mes "for you back";
 		mes "at the Hunter Guild.";
 		close2;
-		cutin "job_huntermaster",255;
+		cutin "job_huntermaster", 255;
 		end;
 	}
 	else {
 		mes "[Hunter]";
 		mes "What do you want? I'm on an official trip and am busy at the moment. Now if you'll excuse me.";
 		close2;
-		cutin "job_huntermaster",255;
+		cutin "job_huntermaster", 255;
 		end;
 	}
 }
@@ -974,7 +983,7 @@ OnTouch:
 		next;
 		mes "[Guide]";
 		mes "We will provide the arrows, so just make sure that you bring a bow. Well, then. Please enter when you are ready.";
-		savepoint "job_hunte",176,22;
+		savepoint "job_hunte",  176, 22;
 		close;
 	}
 	else if (HNTR_Q > 12 && HNTR_Q < 16) {
@@ -983,33 +992,31 @@ OnTouch:
 		mes "Did you mess up?";
 		mes "I'll recover some";
 		mes "of your HP and SP for now.";
-		percentheal 100,100;
+		percentheal 100, 100;
 		next;
 		mes "[Guide]";
 		mes "If it's too hard, it wouldn't hurt to try again next time. Would you like to resign for now?";
 		next;
-		switch(select("Keep trying.", "Resign.")) {
-		case 1:
+		if (select("Keep trying.", "Resign.")) {
 			mes "[Guide]";
 			mes "Okay. Do your best and become a great Hunter. Please enter the waiting room. If someone is already taking the test, you must wait until that person is done.";
 			close;
-		case 2:
-			mapannounce "job_hunte",strcharinfo(0)+ " has resigned. Next person, please enter.",bc_map;
-			mes "[Guide]";
-			mes "Very well. I'll send you to Payon. Hope to see you next time. Don't forget to save when you leave.";
-			// donpcevent "Waiting Room#hnt::OnStart";
-			close2;
-			HNTR_Q = 13;
-			savepoint "payon",104,99;
-			warp "payon_in02",21,27;
 		}
+		mapannounce "job_hunte",  strcharinfo(0) + " has resigned. Next person, please enter.", bc_map;
+		mes "[Guide]";
+		mes "Very well. I'll send you to Payon. Hope to see you next time. Don't forget to save when you leave.";
+		// donpcevent "Waiting Room#hnt::OnStart";
+		close2;
+		HNTR_Q = 13;
+		savepoint "payon", 104, 99;
+		warp "payon_in02", 21, 27;
 	}
 	else if (HNTR_Q > 15) {
 		mes "[Guide]";
 		mes "You shouldn't be here. How about finding the required job change item first?";
 		close2;
-		savepoint "payon",104,99;
-		warp "payon_in02",21,27;
+		savepoint "payon", 104, 99;
+		warp "payon_in02", 21, 27;
 	}
 	end;
 }
@@ -1023,7 +1030,7 @@ OnInit:
 	end;
 
 OnStartArena:
-	warpwaitingpc "job_hunte", 90, 67;
+	warpwaitingpc "job_hunte",  90, 67;
 	donpcevent "Manager#hnt::OnEnable";
 	disablewaitingroomevent;
 	end;
@@ -1044,62 +1051,62 @@ OnEnable:
 	.MyMobs = 6;
 	initnpctimer;
 	// Target Mosnters
-	monster "job_hunte",67,80,"Job Change Monster",1015,1,"Manager#hnt::OnMyMobDead";
-	monster "job_hunte",114,78,"Job Change Monster",1015,1,"Manager#hnt::OnMyMobDead";
-	monster "job_hunte",89,127,"Job Change Monster",1002,1,"Manager#hnt::OnMyMobDead";
-	monster "job_hunte",53,73,"Job Change Monster",1041,1,"Manager#hnt::OnMyMobDead";
-	monster "job_hunte",125,70,"Job Change Monster",1016,1,"Manager#hnt::OnMyMobDead";
-	monster "job_hunte",90,92,"Job Change Monster",1015,1,"Manager#hnt::OnMyMobDead";
+	monster "job_hunte", 67, 80, "Job Change Monster", 1015, 1, "Manager#hnt::OnMyMobDead";
+	monster "job_hunte", 114, 78, "Job Change Monster", 1015, 1, "Manager#hnt::OnMyMobDead";
+	monster "job_hunte", 89, 127, "Job Change Monster", 1002, 1, "Manager#hnt::OnMyMobDead";
+	monster "job_hunte", 53, 73, "Job Change Monster", 1041, 1, "Manager#hnt::OnMyMobDead";
+	monster "job_hunte", 125, 70, "Job Change Monster", 1016, 1, "Manager#hnt::OnMyMobDead";
+	monster "job_hunte", 90, 92, "Job Change Monster", 1015, 1, "Manager#hnt::OnMyMobDead";
 	// Decoy Monsters
-	monster "job_hunte",85,100,"Job Test Monster",1016,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",72,102,"Job Test Monster",1041,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",108,103,"Job Test Monster",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",88,127,"Job Test Monster",1002,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",125,69,"Job Test Monster",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",77,112,"Job Tester Monster",1016,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",53,106,"Job Tester Monster",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",53,73,"Job Tester Monster",1002,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",125,70,"Job Tester Monster",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",90,91,"Job Tester Monster",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",67,80,"Hunter Change Monster",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",77,112,"Hunter Change Monster",1016,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",53,106,"Hunter Change Monster",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",53,73,"Hunter Change Monster",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",125,70,"Hunter Change Monster",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",90,91,"Job Transfer Monster",1041,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",85,100,"Job Transfer Monster",1002,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",72,102,"Job Transfer Monster",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",108,103,"Job Transfer Monster",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",77,112,"Job Transfer Monster",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",112,139,"Binnie",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",112,139,"Darrel",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",112,139,"Rex",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",112,139,"Anselmo",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",90,91,"Anolian",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",53,73,"Monster Sample",1002,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",53,106,"Not Me",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",77,112,"Help Me",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",72,102,"Do Not Hit Me",1015,1,"Manager#hnt::OnMyMobDead2";
-	monster "job_hunte",108,103,"Attack Speed 184",1015,1,"Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 85, 100, "Job Test Monster", 1016, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 72, 102, "Job Test Monster", 1041, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 108, 103, "Job Test Monster", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 88, 127, "Job Test Monster", 1002, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 125, 69, "Job Test Monster", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 77, 112, "Job Tester Monster", 1016, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 53, 106, "Job Tester Monster", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 53, 73, "Job Tester Monster", 1002, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 125, 70, "Job Tester Monster", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 90, 91, "Job Tester Monster", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 67, 80, "Hunter Change Monster", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 77, 112, "Hunter Change Monster", 1016, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 53, 106, "Hunter Change Monster", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 53, 73, "Hunter Change Monster", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 125, 70, "Hunter Change Monster", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 90, 91, "Job Transfer Monster", 1041, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 85, 100, "Job Transfer Monster", 1002, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 72, 102, "Job Transfer Monster", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 108, 103, "Job Transfer Monster", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 77, 112, "Job Transfer Monster", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 112, 139, "Binnie", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 112, 139, "Darrel", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 112, 139, "Rex", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 112, 139, "Anselmo", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 90, 91, "Anolian", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 53, 73, "Monster Sample", 1002, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 53, 106, "Not Me", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 77, 112, "Help Me", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 72, 102, "Do Not Hit Me", 1015, 1, "Manager#hnt::OnMyMobDead2";
+	monster "job_hunte", 108, 103, "Attack Speed 184", 1015, 1, "Manager#hnt::OnMyMobDead2";
 	end;
 
 OnMyMobDead:
 	--.MyMobs;
 	if (.MyMobs < 3) {
-		mapannounce "job_hunte","Okay, good job... Now, find the switch in the center of the map!! Be careful of the traps!!",bc_map;
+		mapannounce "job_hunte", "Okay, good job... Now, find the switch in the center of the map!! Be careful of the traps!!", bc_map;
 		HNTR_Q = 14;
 		donpcevent "Switch#hnt::OnEnable";
 		donpcevent "Manager#hnt::OnDisable";
 	}
 	else {
-		mapannounce "job_hunte","Okay~ You're almost there!!",bc_map;
+		mapannounce "job_hunte", "Okay~ You're almost there!!", bc_map;
 	}
 	end;
 
 OnMyMobDead2:
-	mapannounce "job_hunte",strcharinfo(0)+ "!! You made a mistake...Please try again.",bc_map;
+	mapannounce "job_hunte", strcharinfo(0)+ "!! You made a mistake...Please try again.", bc_map;
 	HNTR_Q = 13;
-	warp "job_hunte",176,22;
+	warp "job_hunte", 176, 22;
 	donpcevent "Manager#hnt::OnReset";
 	donpcevent "Waiting Room#hnt::OnStart";
 	end;
@@ -1111,83 +1118,63 @@ OnDisable:
 	killmonsterall "job_hunte";
 	disablenpc "Manager#hnt";
 	end;
-
 OnTimer1000:
-	mapannounce "job_hunte","The test shall now begin.",bc_map;
+	mapannounce "job_hunte", "The test shall now begin.", bc_map;
 	end;
-
 OnTimer3000:
-	mapannounce "job_hunte","As mentioned before, only hunt the monsters labeled 'Job change monster'.",bc_map;
+	mapannounce "job_hunte", "As mentioned before, only hunt the monsters labeled 'Job change monster'.", bc_map;
 	end;
-
 OnTimer5000:
-	mapannounce "job_hunte","***** Be careful of the traps when hunting. *****",bc_map;
+	mapannounce "job_hunte", "***** Be careful of the traps when hunting. *****", bc_map;
 	end;
-
 OnTimer7000:
-	mapannounce "job_hunte","Once you hunt 4 'Job change monster' the switch in the center will begin to operate.",bc_map;
+	mapannounce "job_hunte", "Once you hunt 4 'Job change monster' the switch in the center will begin to operate.", bc_map;
 	end;
-
 OnTimer9000:
-	mapannounce "job_hunte","When you activate the escape switch, exit the testing area through the warp portal in the 12 o'clock direction.",bc_map;
+	mapannounce "job_hunte", "When you activate the escape switch, exit the testing area through the warp portal in the 12 o'clock direction.", bc_map;
 	end;
-
 OnTimer11000:
-	mapannounce "job_hunte","Everything must be completed within 3 minutes.",bc_map;
+	mapannounce "job_hunte", "Everything must be completed within 3 minutes.", bc_map;
 	end;
-
 OnTimer13000:
-	mapannounce "job_hunte","You will have 3 minutes from now on. You will be notified after each minute passes.",bc_map;
+	mapannounce "job_hunte", "You will have 3 minutes from now on. You will be notified after each minute passes.", bc_map;
 	end;
-
 OnTimer14000:
-	mapannounce "job_hunte"," ****** 3 minutes remaining. ****** ",bc_map;
+	mapannounce "job_hunte", " ****** 3 minutes remaining. ****** ", bc_map;
 	end;
-
 OnTimer74000:
-	mapannounce "job_hunte"," ****** 2 minutes remaining. ****** ",bc_map;
+	mapannounce "job_hunte", " ****** 2 minutes remaining. ****** ", bc_map;
 	end;
-
 OnTimer134000:
-	mapannounce "job_hunte"," ****** 1 minute remaining. ****** ",bc_map;
+	mapannounce "job_hunte", " ****** 1 minute remaining. ****** ", bc_map;
 	end;
-
 OnTimer164000:
-	mapannounce "job_hunte"," ****** 30 seconds remaining. ****** ",bc_map;
+	mapannounce "job_hunte", " ****** 30 seconds remaining. ****** ", bc_map;
 	end;
-
 OnTimer187000:
-	mapannounce "job_hunte"," Test ends in 5 seconds...",bc_map;
+	mapannounce "job_hunte", " Test ends in 5 seconds...", bc_map;
 	end;
-
 OnTimer188000:
-	mapannounce "job_hunte"," Test ends in 4 seconds...",bc_map;
+	mapannounce "job_hunte", " Test ends in 4 seconds...", bc_map;
 	end;
-
 OnTimer189000:
-	mapannounce "job_hunte"," Test ends in 3 seconds...",bc_map;
+	mapannounce "job_hunte", " Test ends in 3 seconds...", bc_map;
 	end;
-
 OnTimer191000:
-	mapannounce "job_hunte"," Test ends in 2 seconds...",bc_map;
+	mapannounce "job_hunte", " Test ends in 2 seconds...", bc_map;
 	end;
-
 OnTimer192000:
-	mapannounce "job_hunte"," Test ends in 1 second.",bc_map;
+	mapannounce "job_hunte", " Test ends in 1 second.", bc_map;
 	end;
-
 OnTimer193000:
-	mapannounce "job_hunte"," 0 ",bc_map;
+	mapannounce "job_hunte", " 0 ", bc_map;
 	end;
-
 OnTimer194000:
-	mapannounce "job_hunte"," Time's up. Please try again.",bc_map;
+	mapannounce "job_hunte", " Time's up. Please try again.", bc_map;
 	end;
-
 OnTimer195000:
-	areawarp "job_hunte",50,64,129,143,"job_hunte",176,22;
+	areawarp "job_hunte", 50, 64, 129, 143, "job_hunte", 176, 22;
 	end;
-
 OnTimer197000:
 	donpcevent "Manager#hnt::OnReset";
 	donpcevent "Waiting Room#hnt::OnStart";
@@ -1200,28 +1187,28 @@ OnTouch:
 	mes "on the escape switch.^000000";
 	HNTR_Q = 15;
 	next;
-	switch(select("Escape", "Cancel", "Re-test")) {
+	switch (select("Escape", "Cancel", "Re-test")) {
 	case 1:
 		mes "^3355FFThe Escape Warp Portal";
 		mes "has now been activated.^000000";
 		close2;
-		mapannounce "job_hunte"," !! Escape Warp Portal activation complete. !! ",bc_map;
+		mapannounce "job_hunte", " !! Escape Warp Portal activation complete. !! ", bc_map;
 		enablenpc "exit#hnttest";
 		end;
 	case 2:
 		mes "^3355FFCanceling";
 		mes "Operation.^000000";
 		close2;
-		mapannounce "job_hunte"," !! Operation has been cancelled. !! ",bc_map;
+		mapannounce "job_hunte", " !! Operation has been cancelled. !! ", bc_map;
 		end;
 	case 3:
-		mapannounce "job_hunte"," !! Cancellation warp activating... !! ",bc_map;
+		mapannounce "job_hunte", " !! Cancellation warp activating... !! ", bc_map;
 		mes "^3355FFYou will soon be";
 		mes "returned to the";
 		mes "waiting room.^000000";
 		close2;
 		HNTR_Q = 13;
-		warp "job_hunte",176,22;
+		warp "job_hunte", 176, 22;
 		donpcevent "Manager#hnt::OnReset";
 		donpcevent "Waiting Room#hnt::OnStart";
 		end;
@@ -1246,152 +1233,413 @@ OnTouch:
 	donpcevent "Manager#hnt::OnReset";
 	donpcevent "Waiting Room#hnt::OnStart";
 	HNTR_Q = 16;
-	changequest 4011,4012;
-	savepoint "payon",104,99;
+	changequest 4011, 4012;
+	savepoint "payon", 104, 99;
 	if (rand(2))
-		warp "payon_in02",21,27;
-	warp "payon_in03",128,7;
+		warp "payon_in02", 21, 27;
+	warp "payon_in03", 128, 7;
 }
 
 //== Hunter Job test traps =================================
 job_hunte,52,140,0	script	1-1::HntTrap	FAKE_NPC,0,1,{
 OnTouch:
-	switch(rand(200)) {
+	switch (rand(200)) {
 	default:
-	case 1: mapannounce "job_hunte",strcharinfo(0) + ", you have fallen into a trap. You will be returned to the starting point.",bc_map; break;
-	case 2: mapannounce "job_hunte",strcharinfo(0) + ", yes you! Go back and start over!",bc_map; break;
-	case 3: mapannounce "job_hunte",strcharinfo(0) + " has failed!...well...you will if you don't start over...",bc_map; break;
-	case 4: mapannounce "job_hunte",strcharinfo(0) + ", has failed me! Go back to where you started!",bc_map; break;
-	case 5: mapannounce "job_hunte",strcharinfo(0) + ", you have blundered into a trap. I'm sorry, but for now, YOU LOSE.",bc_map; break;
-	case 6: mapannounce "job_hunte",strcharinfo(0) + ", what are you doing!? Go back and do it again!",bc_map; break;
-	case 7: mapannounce "job_hunte",strcharinfo(0) + ", come on! You can do better then this!! Try again!",bc_map; break;
-	case 8: mapannounce "job_hunte",strcharinfo(0) + ", has fallen into a trap...again. But don't worry, you're getting better.",bc_map; break;
-	case 9: mapannounce "job_hunte",strcharinfo(0) + ", fail, fail, fail... Go back to where you started!",bc_map; break;
-	case 10: mapannounce "job_hunte",strcharinfo(0) + "... aww~ Try again! You can do it!",bc_map; break;
-	case 11: mapannounce "job_hunte",strcharinfo(0) + ", @#$%#^!@ and you wanna be a what? Hunter? Get back there!",bc_map; break;
-	case 12: mapannounce "job_hunte",strcharinfo(0) + " was defeated by the forces of evil. Don't give up, hero!",bc_map; break;
-	case 13: mapannounce "job_hunte","I put a spell on you " + strcharinfo(0) + " and now you're mine! Go start over now.",bc_map; break;
-	case 14: mapannounce "job_hunte",strcharinfo(0) + ". G'day mate, welcome to the land down under. As a present, I'll send you to the starting point...",bc_map; break;
-	case 15: mapannounce "job_hunte","That's my nest " + strcharinfo(0) + "! dont step there, squawk~ Start over.",bc_map; break;
-	case 16: mapannounce "job_hunte",strcharinfo(0) + ", another archer down. 3 more to go!",bc_map; break;
-	case 17: mapannounce "job_hunte",strcharinfo(0) + ", have you got what it takes? Then try again.",bc_map; break;
-	case 18: mapannounce "job_hunte","Alas, " + strcharinfo(0) + ", you have fallen prey to the most feared of traps. The dreaded stink bomb! Run run run awaaaaaay!",bc_map; break;
-	case 19: mapannounce "job_hunte",strcharinfo(0) + " had too much prune juice to drink today. Back to the starting point~",bc_map; break;
-	case 20: mapannounce "job_hunte","No.... " + strcharinfo(0) + ", you have fallen into a trap. You will be returned to the starting point.",bc_map; break;
-	case 21: mapannounce "job_hunte","Meow *pounce* look my kitties we'll have some" + strcharinfo(0) + "stew. Back to the starting point if you don't want to become stew!",bc_map; break;
-	case 22: mapannounce "job_hunte","Sorry " + strcharinfo(0) + ", but you've actually found a BAD secret. You will be returned to the starting point.",bc_map; break;
-	case 23: mapannounce "job_hunte",strcharinfo(0) + ", silly Archer...your tenacity is touching. But it's back to the start for you...",bc_map; break;
-	case 24: mapannounce "job_hunte",strcharinfo(0) + ", you've fallen and you can't get up. You'll be carried back to the starting point.",bc_map; break;
-	case 25: mapannounce "job_hunte","Skip a turn " + strcharinfo(0) + ", go back to start.",bc_map; break;
-	case 26: mapannounce "job_hunte",strcharinfo(0) + ", nya nya, heh heh heh. You will be returned to the starting point.",bc_map; break;
-	case 27: mapannounce "job_hunte","Practice is over " + strcharinfo(0) + ". This time show me for real.",bc_map; break;
-	case 28: mapannounce "job_hunte",strcharinfo(0) + ", this is a Poring jellopy raid...Get out! Start from the beginning if you wish to continue.",bc_map; break;
-	case 29: mapannounce "job_hunte","Disconnected from server. " + strcharinfo(0) + ", you have to start over.",bc_map; break;
-	case 30: mapannounce "job_hunte",strcharinfo(0) + ", what does this button do...oops! I'm afraid you have to start over.",bc_map; break;
-	case 31: mapannounce "job_hunte",strcharinfo(0) + ", you have entered the bonus round! Aaaand, you lost. You will be returned to the starting point.",bc_map; break;
-	case 32: mapannounce "job_hunte","Oh, no " + strcharinfo(0) + ", you've stepped on a hive of bees. You narrowly escaped, all the way back to the beginning.",bc_map; break;
-	case 33: mapannounce "job_hunte",strcharinfo(0) + ", wait wait. That's a trap! Oh wait, that's dog. . . .",bc_map; break;
-	case 34: mapannounce "job_hunte","Stop " + strcharinfo(0) + "! For stepping on that trap, I shall punish you!",bc_map; break;
-	case 35: mapannounce "job_hunte",strcharinfo(0) + ", I'll be back. . . I hope you will too.",bc_map; break;
-	case 36: mapannounce "job_hunte",strcharinfo(0) + ", Come with me if you want to live. . to the starting point.",bc_map; break;
-	case 37: mapannounce "job_hunte",strcharinfo(0) + ", my... precious! Go back to the starting point.",bc_map; break;
-	case 38: mapannounce "job_hunte","Follow the yellow brick road... No wait, " + strcharinfo(0) + "!! Not that way...Back to the starting point it is.",bc_map; break;
-	case 39: mapannounce "job_hunte",strcharinfo(0) + ", you've really go to get the hang of this 'in tune with nature' thing. Now, you're lost!",bc_map; break;
-	case 40: mapannounce "job_hunte",strcharinfo(0) + ", it's only a story...not real. But you will be returned to the starting point.",bc_map; break;
-	case 41: mapannounce "job_hunte",strcharinfo(0) + ", you have fallen into a trap. And the trap...has fallen into you. Returning you to the starting point.",bc_map; break;
-	case 42: mapannounce "job_hunte","Fear not " + strcharinfo(0) + ", for you too, shall learn the powers of the dark side. You will now be returned to the starting point.",bc_map; break;
-	case 43: mapannounce "job_hunte",strcharinfo(0) + ", fell into a trap. Quite easily too, I'm afraid. But this hero won't be beaten that easily!",bc_map; break;
-	case 44: mapannounce "job_hunte"," Tip of the day: Do not step on the traps. You will be returned to the starting point.",bc_map; break;
-	case 45: mapannounce "job_hunte",strcharinfo(0) + " fell into a trap. Once again, for clarity's sake, the name is " + strcharinfo(0) + ".",bc_map; break;
-	case 46: mapannounce "job_hunte","Oy oy, " + strcharinfo(0) + ".. I've seen blind Porings get further! Go back to the starting point.",bc_map; break;
-	case 47: mapannounce "job_hunte","MY EYES!! " + strcharinfo(0) + ", you... you.. stepped on them. Go try again...I'd cry for you if I could even shed tears...",bc_map; break;
-	case 48: mapannounce "job_hunte",strcharinfo(0) + ", where are you? Right...NOT at the place where'd you be if you passed the test.",bc_map; break;
-	case 49: mapannounce "job_hunte"," Wow, they actually paid a guy to think of these comments. " + strcharinfo(0) + ", you can go back to the starting point.",bc_map; break;
-	case 50: mapannounce "job_hunte"," My word, " + strcharinfo(0) + "! You've precariously fallen into a trap! You will be returned back to the start. Cheerio~!",bc_map; break;
-	case 51: mapannounce "job_hunte",strcharinfo(0) + ", do you have any idea where you're going? Start over *sigh*.",bc_map; break;
-	case 52: mapannounce "job_hunte",strcharinfo(0) + ", do you like green tea ice cream? No? Go back to the starting point...*hmph*",bc_map; break;
-	case 53: mapannounce "job_hunte","Oh, no.. " + strcharinfo(0) + ", are you hurt? Come now, let's go back to the starting point.",bc_map; break;
-	case 54: mapannounce "job_hunte","Hi " + strcharinfo(0) + ", how are you? Here's a present~ a free warp! Back to the starting point.",bc_map; break;
-	case 55: mapannounce "job_hunte",strcharinfo(0) + ".......... did you know that that was a trap? I hope so, otherwise, I guess you'd be pretty embarassed.",bc_map; break;
-	case 56: mapannounce "job_hunte",strcharinfo(0) + ", what do you think of the interior design? I worked very hard on it... and this lovely feature that sends you back to the starting point.",bc_map; break;
-	case 57: mapannounce "job_hunte","BOOM BAM BOOM! " + strcharinfo(0) + ", you have fallen into my trap! But I won't kill you...just...humiliate you...",bc_map; break;
-	case 58: mapannounce "job_hunte","Oh, " + strcharinfo(0) + ".. You can do better. Try again!",bc_map; break;
-	case 59: mapannounce "job_hunte","Hello, this is your local Kafra worker... " + strcharinfo(0) + ", your mommy is waiting for you at the checkout line.",bc_map; break;
-	case 60: mapannounce "job_hunte",strcharinfo(0) + ", if you do well. I'll have a nice present waiting for you... What is it? You'll see if you pass~ Go try again now!",bc_map; break;
-	case 61: mapannounce "job_hunte",strcharinfo(0) + " faaaaaaaaaaaaaaaaailed.. Hehe, just kidding. You will be returned to the starting point so try again!",bc_map; break;
-	case 62: mapannounce "job_hunte",strcharinfo(0) + ", you fell into a trap. You should watch your feet more. What? Invisible? That's baby talk! Now go try again!",bc_map; break;
-	case 63: mapannounce "job_hunte"," Sorry, " + strcharinfo(0) + ", you have fallen into a trap. But I'll be nice and send you to the starting point.",bc_map; break;
-	case 64: mapannounce "job_hunte",strcharinfo(0) + ", HAHAHAHAHAHA!!!! I can't believe you fell for that one!",bc_map; break;
-	case 65: mapannounce "job_hunte",strcharinfo(0) + ", I was just about to tell you about that one...but, I didn't? Back to start.",bc_map; break;
-	case 66: mapannounce "job_hunte",strcharinfo(0) + "...I'm sorry my friend, but you lose. But don't worry, its not like this message is broadcast or anything.",bc_map; break;
-	case 67: mapannounce "job_hunte",strcharinfo(0) + ", I'm not so sure that you qualify for this anymore... Try again and prove me wrong.",bc_map; break;
-	case 68: mapannounce "job_hunte",strcharinfo(0) + ", OW...now that's gotta hurt. Back to the start~",bc_map; break;
-	case 69: mapannounce "job_hunte",strcharinfo(0) + ", I find your lack of faith disturbing... Let's start over.",bc_map; break;
-	case 70: mapannounce "job_hunte",strcharinfo(0) + ", your eyes can deceive you. Don't trust them. Stretch out with your feelings. Try again now.",bc_map; break;
-	case 71: mapannounce "job_hunte",strcharinfo(0) + ", if you once start down the dark path, forever it will dominate your destiny. You shall be returned to the starting point.",bc_map; break;
-	case 72: mapannounce "job_hunte",strcharinfo(0) + ", size doesn't matter. But, the number of traps that caught you do. Try again and win this time!",bc_map; break;
-	case 73: mapannounce "job_hunte",strcharinfo(0) + ", try not. Do or do not. There is no try.",bc_map; break;
-	case 74: mapannounce "job_hunte",strcharinfo(0) + ", that is why you fail. Now try again!",bc_map; break;
-	case 75: mapannounce "job_hunte",strcharinfo(0) + ", look. If its made of metal and looks like it has teeth, you shouldn't put your foot in it. So simple, really...",bc_map; break;
-	case 76: mapannounce "job_hunte",strcharinfo(0) + ", you are beaten. It is useless to resist.",bc_map; break;
-	case 77: mapannounce "job_hunte",strcharinfo(0) + ", I'm looking forward to completing your training. In time you will call me Master.",bc_map; break;
-	case 78: mapannounce "job_hunte",strcharinfo(0) + ", your overconfidence is your weakness.",bc_map; break;
-	case 79: mapannounce "job_hunte",strcharinfo(0) + ", watch your step. This place can be a little rough.",bc_map; break;
-	case 80: mapannounce "job_hunte",strcharinfo(0) + ", oh I told you it was dangerous here.",bc_map; break;
-	case 81: mapannounce "job_hunte",strcharinfo(0) + ", everything is proceeding as I have foreseen.",bc_map; break;
-	case 82: mapannounce "job_hunte",strcharinfo(0) + ", you should have not come back.",bc_map; break;
-	case 83: mapannounce "job_hunte",strcharinfo(0) + ", there are alternatives to fighting. But not to losing to this test. Now try again!",bc_map; break;
-	case 84: mapannounce "job_hunte",strcharinfo(0) + ", now that's a name I haven't heard in a while...let's hope I don't hear it again~!",bc_map; break;
-	case 85: mapannounce "job_hunte",strcharinfo(0) + ", we do not train to be merciful here, mercy is for the weak!",bc_map; break;
-	case 86: mapannounce "job_hunte",strcharinfo(0) + ", defeat does not exist here, does it?!",bc_map; break;
-	case 87: mapannounce "job_hunte",strcharinfo(0) + ", concentrate. Focus your powers!",bc_map; break;
-	case 88: mapannounce "job_hunte",strcharinfo(0) + ", am I going mad, or did the word -think- escape your lips?",bc_map; break;
-	case 89: mapannounce "job_hunte",strcharinfo(0) + ", you're just stalling now.",bc_map; break;
-	case 90: mapannounce "job_hunte",strcharinfo(0) + ", life isn't always fair.",bc_map; break;
-	case 91: mapannounce "job_hunte",strcharinfo(0) + ".... Uhhh...it's not OUR fault....",bc_map; break;
-	case 92: mapannounce "job_hunte",strcharinfo(0) + ", survivability takes priority.",bc_map; break;
-	case 93: mapannounce "job_hunte",strcharinfo(0) + ", people have the strength to overcome their obstacles...everyone can.",bc_map; break;
-	case 94: mapannounce "job_hunte",strcharinfo(0) + ", there is happiness for those who accept their fate, and there is glory for those who resist their fate.",bc_map; break;
-	case 95: mapannounce "job_hunte",strcharinfo(0) + ", some things are real and some things are false. Can't you tell the difference?",bc_map; break;
-	case 96: mapannounce "job_hunte",strcharinfo(0) + ", we are having fun aren't we? Everyday here is like a dream. I really hope it's going to be like this forever.",bc_map; break;
-	case 97: mapannounce "job_hunte",strcharinfo(0) + ", I'll give you just one piece of advice... dying hurts like hell.",bc_map; break;
-	case 98: mapannounce "job_hunte",strcharinfo(0) + ", don't give up the ghost! Just be more careful...",bc_map; break;
-	case 99: mapannounce "job_hunte",strcharinfo(0) + ", death is a gift given at birth. But...these traps won't kill you, don't worry.",bc_map; break;
-	case 100: mapannounce "job_hunte",strcharinfo(0) + ", I was counting on you from the beginning. But I guess you're gonna make me wait longer...",bc_map; break;
-	case 101: mapannounce "job_hunte",strcharinfo(0) + ", always with the end comes hope and rebirth. But it's back to the beginning for you~",bc_map; break;
-	case 102: mapannounce "job_hunte",strcharinfo(0) + ", have I ever told you about the power held in a single tear? Its okay to shed one now, I know its hard...",bc_map; break;
-	case 103: mapannounce "job_hunte",strcharinfo(0) + ", happiness often sneaks in through a door you didn't know you left open. Sort of like...hidden traps!",bc_map; break;
-	case 104: mapannounce "job_hunte",strcharinfo(0) + ", ....Chii?",bc_map; break;
-	case 105: mapannounce "job_hunte",strcharinfo(0) + ", Mine! Mine! Mine! Mine!",bc_map; break;
-	case 106: mapannounce "job_hunte",strcharinfo(0) + ", it's time to duel!",bc_map; break;
-	case 107: mapannounce "job_hunte",strcharinfo(0) + ", I choose you!...wait... uagh...not you!...",bc_map; break;
-	case 108: mapannounce "job_hunte",strcharinfo(0) + ", this isn't the time to be complimenting it!",bc_map; break;
-	case 109: mapannounce "job_hunte",strcharinfo(0) + "...Oh great, what else could go wrong today?",bc_map; break;
-	case 110: mapannounce "job_hunte",strcharinfo(0) + ", don't worry, I always keep a spare. We're not running out of traps anytime soon...",bc_map; break;
-	case 111: mapannounce "job_hunte",strcharinfo(0) + ", when bad things happen, don't give up. The day will come when you will look back and laugh at them. But not today.",bc_map; break;
-	case 112: mapannounce "job_hunte",strcharinfo(0) + ", don't worry about it. We're good at fighting losing battles, remember?",bc_map; break;
-	case 113: mapannounce "job_hunte",strcharinfo(0) + ", you remember how it was like when you felt really slick? That feeling won't come back for a while...",bc_map; break;
-	case 114: mapannounce "job_hunte",strcharinfo(0) + ", you must forget about your past for the sake of your own happiness.",bc_map; break;
-	case 115: mapannounce "job_hunte",strcharinfo(0) + ", if you can fool your friends, you can fool your enemies.",bc_map; break;
-	case 116: mapannounce "job_hunte",strcharinfo(0) + ", this world is made up of love and peace!",bc_map; break;
-	case 117: mapannounce "job_hunte",strcharinfo(0) + ", if you fail, you must drink this.....*evil grin*",bc_map; break;
-	case 118: mapannounce "job_hunte",strcharinfo(0) + ", don't say we didn't warn you!",bc_map; break;
-	case 119: mapannounce "job_hunte",strcharinfo(0) + ", curiosity killed the cat. Lucky for me I'm not a cat. Oh, and um, you too of course.",bc_map; break;
-	case 120: mapannounce "job_hunte",strcharinfo(0) + ", STUDY!STUDY!STUDY!STUDY!STUDY!STUDY!STUDY!STUDY!STUDY!STUDY!",bc_map; break;
-	case 121: mapannounce "job_hunte",strcharinfo(0) + ", how you like me now? That's right, that was MY trap!",bc_map; break;
-	case 122: mapannounce "job_hunte",strcharinfo(0) + "...brilliant...just absolutely...genius. Sorry, I was talking about all these crazy traps.",bc_map; break;
-	case 123: mapannounce "job_hunte",strcharinfo(0) + ", it's time to bust out of that trap, Houdini-style! Hey, wait...come back!",bc_map; break;
-	case 124: mapannounce "job_hunte",strcharinfo(0) + ", it looks like you could really be in trouble this time...no worries, just try this again!",bc_map; break;
-	case 125: mapannounce "job_hunte",strcharinfo(0) + "...not smooth, dude. Go for it again, one more time!",bc_map; break;
-	case 126: mapannounce "job_hunte",strcharinfo(0) + ",it looks like you could really be in a pickle. Back to the starting point...",bc_map; break;
-	case 127: mapannounce "job_hunte",strcharinfo(0) + ", just think of it as Karma. Someday, you'll be setting hundreds of traps of your own...",bc_map; break;
-	case 128: mapannounce "job_hunte",strcharinfo(0) + ", bad news dude...its another trap. You'll get the hang of this, I believe in you!",bc_map; break;
-	case 129: mapannounce "job_hunte",strcharinfo(0) + ", don't give up! The world still needs you!",bc_map; break;
-	case 130: mapannounce "job_hunte",strcharinfo(0) + ", it's okay to cry. Just not too loudly.",bc_map; break;
-	case 131: mapannounce "job_hunte",strcharinfo(0) + "...oh man. It's tiring setting up all these traps. You guys have got to stop falling into them!",bc_map; break;
+	case 1:
+		mapannounce "job_hunte", strcharinfo(0) + ", you have fallen into a trap. You will be returned to the starting point.", bc_map;
+		break;
+	case 2:
+		mapannounce "job_hunte", strcharinfo(0) + ", yes you! Go back and start over!", bc_map;
+		break;
+	case 3:
+		mapannounce "job_hunte", strcharinfo(0) + " has failed!...well...you will if you don't start over...", bc_map;
+		break;
+	case 4:
+		mapannounce "job_hunte", strcharinfo(0) + ", has failed me! Go back to where you started!", bc_map;
+		break;
+	case 5:
+		mapannounce "job_hunte", strcharinfo(0) + ", you have blundered into a trap. I'm sorry, but for now, YOU LOSE.", bc_map;
+		break;
+	case 6:
+		mapannounce "job_hunte", strcharinfo(0) + ", what are you doing!? Go back and do it again!", bc_map;
+		break;
+	case 7:
+		mapannounce "job_hunte", strcharinfo(0) + ", come on! You can do better then this!! Try again!", bc_map;
+		break;
+	case 8:
+		mapannounce "job_hunte", strcharinfo(0) + ", has fallen into a trap...again. But don't worry, you're getting better.", bc_map;
+		break;
+	case 9:
+		mapannounce "job_hunte", strcharinfo(0) + ", fail, fail, fail... Go back to where you started!", bc_map;
+		break;
+	case 10:
+		mapannounce "job_hunte", strcharinfo(0) + "... aww~ Try again! You can do it!", bc_map;
+		break;
+	case 11:
+		mapannounce "job_hunte", strcharinfo(0) + ", @#$%#^!@ and you wanna be a what? Hunter? Get back there!", bc_map;
+		break;
+	case 12:
+		mapannounce "job_hunte", strcharinfo(0) + " was defeated by the forces of evil. Don't give up, hero!", bc_map;
+		break;
+	case 13:
+		mapannounce "job_hunte", "I put a spell on you " + strcharinfo(0) + " and now you're mine! Go start over now.", bc_map;
+		break;
+	case 14:
+		mapannounce "job_hunte", strcharinfo(0) + ". G'day mate, welcome to the land down under. As a present, I'll send you to the starting point...", bc_map;
+		break;
+	case 15:
+		mapannounce "job_hunte", "That's my nest " + strcharinfo(0) + "! dont step there, squawk~ Start over.", bc_map;
+		break;
+	case 16:
+		mapannounce "job_hunte", strcharinfo(0) + ", another archer down. 3 more to go!", bc_map;
+		break;
+	case 17:
+		mapannounce "job_hunte", strcharinfo(0) + ", have you got what it takes? Then try again.", bc_map;
+		break;
+	case 18:
+		mapannounce "job_hunte", "Alas, " + strcharinfo(0) + ", you have fallen prey to the most feared of traps. The dreaded stink bomb! Run run run awaaaaaay!", bc_map;
+		break;
+	case 19:
+		mapannounce "job_hunte", strcharinfo(0) + " had too much prune juice to drink today. Back to the starting point~", bc_map;
+		break;
+	case 20:
+		mapannounce "job_hunte", "No.... " + strcharinfo(0) + ", you have fallen into a trap. You will be returned to the starting point.", bc_map;
+		break;
+	case 21:
+		mapannounce "job_hunte", "Meow *pounce* look my kitties we'll have some" + strcharinfo(0) + "stew. Back to the starting point if you don't want to become stew!", bc_map;
+		break;
+	case 22:
+		mapannounce "job_hunte", "Sorry " + strcharinfo(0) + ", but you've actually found a BAD secret. You will be returned to the starting point.", bc_map;
+		break;
+	case 23:
+		mapannounce "job_hunte", strcharinfo(0) + ", silly Archer...your tenacity is touching. But it's back to the start for you...", bc_map;
+		break;
+	case 24:
+		mapannounce "job_hunte", strcharinfo(0) + ", you've fallen and you can't get up. You'll be carried back to the starting point.", bc_map;
+		break;
+	case 25:
+		mapannounce "job_hunte", "Skip a turn " + strcharinfo(0) + ", go back to start.", bc_map;
+		break;
+	case 26:
+		mapannounce "job_hunte", strcharinfo(0) + ", nya nya, heh heh heh. You will be returned to the starting point.", bc_map;
+		break;
+	case 27:
+		mapannounce "job_hunte", "Practice is over " + strcharinfo(0) + ". This time show me for real.", bc_map;
+		break;
+	case 28:
+		mapannounce "job_hunte", strcharinfo(0) + ", this is a Poring jellopy raid...Get out! Start from the beginning if you wish to continue.", bc_map;
+		break;
+	case 29:
+		mapannounce "job_hunte", "Disconnected from server. " + strcharinfo(0) + ", you have to start over.", bc_map;
+		break;
+	case 30:
+		mapannounce "job_hunte", strcharinfo(0) + ", what does this button do...oops! I'm afraid you have to start over.", bc_map;
+		break;
+	case 31:
+		mapannounce "job_hunte", strcharinfo(0) + ", you have entered the bonus round! Aaaand, you lost. You will be returned to the starting point.", bc_map;
+		break;
+	case 32:
+		mapannounce "job_hunte", "Oh, no " + strcharinfo(0) + ", you've stepped on a hive of bees. You narrowly escaped, all the way back to the beginning.", bc_map;
+		break;
+	case 33:
+		mapannounce "job_hunte", strcharinfo(0) + ", wait wait. That's a trap! Oh wait, that's dog. . . .", bc_map;
+		break;
+	case 34:
+		mapannounce "job_hunte", "Stop " + strcharinfo(0) + "! For stepping on that trap, I shall punish you!", bc_map;
+		break;
+	case 35:
+		mapannounce "job_hunte", strcharinfo(0) + ", I'll be back. . . I hope you will too.", bc_map;
+		break;
+	case 36:
+		mapannounce "job_hunte", strcharinfo(0) + ", Come with me if you want to live. . to the starting point.", bc_map;
+		break;
+	case 37:
+		mapannounce "job_hunte", strcharinfo(0) + ", my... precious! Go back to the starting point.", bc_map;
+		break;
+	case 38:
+		mapannounce "job_hunte", "Follow the yellow brick road... No wait, " + strcharinfo(0) + "!! Not that way...Back to the starting point it is.", bc_map;
+		break;
+	case 39:
+		mapannounce "job_hunte", strcharinfo(0) + ", you've really go to get the hang of this 'in tune with nature' thing. Now, you're lost!", bc_map;
+		break;
+	case 40:
+		mapannounce "job_hunte", strcharinfo(0) + ", it's only a story...not real. But you will be returned to the starting point.", bc_map;
+		break;
+	case 41:
+		mapannounce "job_hunte", strcharinfo(0) + ", you have fallen into a trap. And the trap...has fallen into you. Returning you to the starting point.", bc_map;
+		break;
+	case 42:
+		mapannounce "job_hunte", "Fear not " + strcharinfo(0) + ", for you too, shall learn the powers of the dark side. You will now be returned to the starting point.", bc_map;
+		break;
+	case 43:
+		mapannounce "job_hunte", strcharinfo(0) + ", fell into a trap. Quite easily too, I'm afraid. But this hero won't be beaten that easily!", bc_map;
+		break;
+	case 44:
+		mapannounce "job_hunte", " Tip of the day: Do not step on the traps. You will be returned to the starting point.", bc_map;
+		break;
+	case 45:
+		mapannounce "job_hunte", strcharinfo(0) + " fell into a trap. Once again, for clarity's sake, the name is " + strcharinfo(0) + ".", bc_map;
+		break;
+	case 46:
+		mapannounce "job_hunte", "Oy oy, " + strcharinfo(0) + ".. I've seen blind Porings get further! Go back to the starting point.", bc_map;
+		break;
+	case 47:
+		mapannounce "job_hunte", "MY EYES!! " + strcharinfo(0) + ", you... you.. stepped on them. Go try again...I'd cry for you if I could even shed tears...", bc_map;
+		break;
+	case 48:
+		mapannounce "job_hunte", strcharinfo(0) + ", where are you? Right...NOT at the place where'd you be if you passed the test.", bc_map;
+		break;
+	case 49:
+		mapannounce "job_hunte", " Wow, they actually paid a guy to think of these comments. " + strcharinfo(0) + ", you can go back to the starting point.", bc_map;
+		break;
+	case 50:
+		mapannounce "job_hunte", " My word, " + strcharinfo(0) + "! You've precariously fallen into a trap! You will be returned back to the start. Cheerio~!", bc_map;
+		break;
+	case 51:
+		mapannounce "job_hunte", strcharinfo(0) + ", do you have any idea where you're going? Start over *sigh*.", bc_map;
+		break;
+	case 52:
+		mapannounce "job_hunte", strcharinfo(0) + ", do you like green tea ice cream? No? Go back to the starting point...*hmph*", bc_map;
+		break;
+	case 53:
+		mapannounce "job_hunte", "Oh, no.. " + strcharinfo(0) + ", are you hurt? Come now, let's go back to the starting point.", bc_map;
+		break;
+	case 54:
+		mapannounce "job_hunte", "Hi " + strcharinfo(0) + ", how are you? Here's a present~ a free warp! Back to the starting point.", bc_map;
+		break;
+	case 55:
+		mapannounce "job_hunte", strcharinfo(0) + ".......... did you know that that was a trap? I hope so, otherwise, I guess you'd be pretty embarassed.", bc_map;
+		break;
+	case 56:
+		mapannounce "job_hunte", strcharinfo(0) + ", what do you think of the interior design? I worked very hard on it... and this lovely feature that sends you back to the starting point.", bc_map;
+		break;
+	case 57:
+		mapannounce "job_hunte", "BOOM BAM BOOM! " + strcharinfo(0) + ", you have fallen into my trap! But I won't kill you...just...humiliate you...", bc_map;
+		break;
+	case 58:
+		mapannounce "job_hunte", "Oh, " + strcharinfo(0) + ".. You can do better. Try again!", bc_map;
+		break;
+	case 59:
+		mapannounce "job_hunte", "Hello, this is your local Kafra worker... " + strcharinfo(0) + ", your mommy is waiting for you at the checkout line.", bc_map;
+		break;
+	case 60:
+		mapannounce "job_hunte", strcharinfo(0) + ", if you do well. I'll have a nice present waiting for you... What is it? You'll see if you pass~ Go try again now!", bc_map;
+		break;
+	case 61:
+		mapannounce "job_hunte", strcharinfo(0) + " faaaaaaaaaaaaaaaaailed.. Hehe, just kidding. You will be returned to the starting point so try again!", bc_map;
+		break;
+	case 62:
+		mapannounce "job_hunte", strcharinfo(0) + ", you fell into a trap. You should watch your feet more. What? Invisible? That's baby talk! Now go try again!", bc_map;
+		break;
+	case 63:
+		mapannounce "job_hunte", " Sorry, " + strcharinfo(0) + ", you have fallen into a trap. But I'll be nice and send you to the starting point.", bc_map;
+		break;
+	case 64:
+		mapannounce "job_hunte", strcharinfo(0) + ", HAHAHAHAHAHA!!!! I can't believe you fell for that one!", bc_map;
+		break;
+	case 65:
+		mapannounce "job_hunte", strcharinfo(0) + ", I was just about to tell you about that one...but, I didn't? Back to start.", bc_map;
+		break;
+	case 66:
+		mapannounce "job_hunte", strcharinfo(0) + "...I'm sorry my friend, but you lose. But don't worry, its not like this message is broadcast or anything.", bc_map;
+		break;
+	case 67:
+		mapannounce "job_hunte", strcharinfo(0) + ", I'm not so sure that you qualify for this anymore... Try again and prove me wrong.", bc_map;
+		break;
+	case 68:
+		mapannounce "job_hunte", strcharinfo(0) + ", OW...now that's gotta hurt. Back to the start~", bc_map;
+		break;
+	case 69:
+		mapannounce "job_hunte", strcharinfo(0) + ", I find your lack of faith disturbing... Let's start over.", bc_map;
+		break;
+	case 70:
+		mapannounce "job_hunte", strcharinfo(0) + ", your eyes can deceive you. Don't trust them. Stretch out with your feelings. Try again now.", bc_map;
+		break;
+	case 71:
+		mapannounce "job_hunte", strcharinfo(0) + ", if you once start down the dark path, forever it will dominate your destiny. You shall be returned to the starting point.", bc_map;
+		break;
+	case 72:
+		mapannounce "job_hunte", strcharinfo(0) + ", size doesn't matter. But, the number of traps that caught you do. Try again and win this time!", bc_map;
+		break;
+	case 73:
+		mapannounce "job_hunte", strcharinfo(0) + ", try not. Do or do not. There is no try.", bc_map;
+		break;
+	case 74:
+		mapannounce "job_hunte", strcharinfo(0) + ", that is why you fail. Now try again!", bc_map;
+		break;
+	case 75:
+		mapannounce "job_hunte", strcharinfo(0) + ", look. If its made of metal and looks like it has teeth, you shouldn't put your foot in it. So simple, really...", bc_map;
+		break;
+	case 76:
+		mapannounce "job_hunte", strcharinfo(0) + ", you are beaten. It is useless to resist.", bc_map;
+		break;
+	case 77:
+		mapannounce "job_hunte", strcharinfo(0) + ", I'm looking forward to completing your training. In time you will call me Master.", bc_map;
+		break;
+	case 78:
+		mapannounce "job_hunte", strcharinfo(0) + ", your overconfidence is your weakness.", bc_map;
+		break;
+	case 79:
+		mapannounce "job_hunte", strcharinfo(0) + ", watch your step. This place can be a little rough.", bc_map;
+		break;
+	case 80:
+		mapannounce "job_hunte", strcharinfo(0) + ", oh I told you it was dangerous here.", bc_map;
+		break;
+	case 81:
+		mapannounce "job_hunte", strcharinfo(0) + ", everything is proceeding as I have foreseen.", bc_map;
+		break;
+	case 82:
+		mapannounce "job_hunte", strcharinfo(0) + ", you should have not come back.", bc_map;
+		break;
+	case 83:
+		mapannounce "job_hunte", strcharinfo(0) + ", there are alternatives to fighting. But not to losing to this test. Now try again!", bc_map;
+		break;
+	case 84:
+		mapannounce "job_hunte", strcharinfo(0) + ", now that's a name I haven't heard in a while...let's hope I don't hear it again~!", bc_map;
+		break;
+	case 85:
+		mapannounce "job_hunte", strcharinfo(0) + ", we do not train to be merciful here, mercy is for the weak!", bc_map;
+		break;
+	case 86:
+		mapannounce "job_hunte", strcharinfo(0) + ", defeat does not exist here, does it?!", bc_map;
+		break;
+	case 87:
+		mapannounce "job_hunte", strcharinfo(0) + ", concentrate. Focus your powers!", bc_map;
+		break;
+	case 88:
+		mapannounce "job_hunte", strcharinfo(0) + ", am I going mad, or did the word -think- escape your lips?", bc_map;
+		break;
+	case 89:
+		mapannounce "job_hunte", strcharinfo(0) + ", you're just stalling now.", bc_map;
+		break;
+	case 90:
+		mapannounce "job_hunte", strcharinfo(0) + ", life isn't always fair.", bc_map;
+		break;
+	case 91:
+		mapannounce "job_hunte", strcharinfo(0) + ".... Uhhh...it's not OUR fault....", bc_map;
+		break;
+	case 92:
+		mapannounce "job_hunte", strcharinfo(0) + ", survivability takes priority.", bc_map;
+		break;
+	case 93:
+		mapannounce "job_hunte", strcharinfo(0) + ", people have the strength to overcome their obstacles...everyone can.", bc_map;
+		break;
+	case 94:
+		mapannounce "job_hunte", strcharinfo(0) + ", there is happiness for those who accept their fate, and there is glory for those who resist their fate.", bc_map;
+		break;
+	case 95:
+		mapannounce "job_hunte", strcharinfo(0) + ", some things are real and some things are false. Can't you tell the difference?", bc_map;
+		break;
+	case 96:
+		mapannounce "job_hunte", strcharinfo(0) + ", we are having fun aren't we? Everyday here is like a dream. I really hope it's going to be like this forever.", bc_map;
+		break;
+	case 97:
+		mapannounce "job_hunte", strcharinfo(0) + ", I'll give you just one piece of advice... dying hurts like hell.", bc_map;
+		break;
+	case 98:
+		mapannounce "job_hunte", strcharinfo(0) + ", don't give up the ghost! Just be more careful...", bc_map;
+		break;
+	case 99:
+		mapannounce "job_hunte", strcharinfo(0) + ", death is a gift given at birth. But...these traps won't kill you, don't worry.", bc_map;
+		break;
+	case 100:
+		mapannounce "job_hunte", strcharinfo(0) + ", I was counting on you from the beginning. But I guess you're gonna make me wait longer...", bc_map;
+		break;
+	case 101:
+		mapannounce "job_hunte", strcharinfo(0) + ", always with the end comes hope and rebirth. But it's back to the beginning for you~", bc_map;
+		break;
+	case 102:
+		mapannounce "job_hunte", strcharinfo(0) + ", have I ever told you about the power held in a single tear? Its okay to shed one now, I know its hard...", bc_map;
+		break;
+	case 103:
+		mapannounce "job_hunte", strcharinfo(0) + ", happiness often sneaks in through a door you didn't know you left open. Sort of like...hidden traps!", bc_map;
+		break;
+	case 104:
+		mapannounce "job_hunte", strcharinfo(0) + ", ....Chii?", bc_map;
+		break;
+	case 105:
+		mapannounce "job_hunte", strcharinfo(0) + ", Mine! Mine! Mine! Mine!", bc_map;
+		break;
+	case 106:
+		mapannounce "job_hunte", strcharinfo(0) + ", it's time to duel!", bc_map;
+		break;
+	case 107:
+		mapannounce "job_hunte", strcharinfo(0) + ", I choose you!...wait... uagh...not you!...", bc_map;
+		break;
+	case 108:
+		mapannounce "job_hunte", strcharinfo(0) + ", this isn't the time to be complimenting it!", bc_map;
+		break;
+	case 109:
+		mapannounce "job_hunte", strcharinfo(0) + "...Oh great, what else could go wrong today?", bc_map;
+		break;
+	case 110:
+		mapannounce "job_hunte", strcharinfo(0) + ", don't worry, I always keep a spare. We're not running out of traps anytime soon...", bc_map;
+		break;
+	case 111:
+		mapannounce "job_hunte", strcharinfo(0) + ", when bad things happen, don't give up. The day will come when you will look back and laugh at them. But not today.", bc_map;
+		break;
+	case 112:
+		mapannounce "job_hunte", strcharinfo(0) + ", don't worry about it. We're good at fighting losing battles, remember?", bc_map;
+		break;
+	case 113:
+		mapannounce "job_hunte", strcharinfo(0) + ", you remember how it was like when you felt really slick? That feeling won't come back for a while...", bc_map;
+		break;
+	case 114:
+		mapannounce "job_hunte", strcharinfo(0) + ", you must forget about your past for the sake of your own happiness.", bc_map;
+		break;
+	case 115:
+		mapannounce "job_hunte", strcharinfo(0) + ", if you can fool your friends, you can fool your enemies.", bc_map;
+		break;
+	case 116:
+		mapannounce "job_hunte", strcharinfo(0) + ", this world is made up of love and peace!", bc_map;
+		break;
+	case 117:
+		mapannounce "job_hunte", strcharinfo(0) + ", if you fail, you must drink this.....*evil grin*", bc_map;
+		break;
+	case 118:
+		mapannounce "job_hunte", strcharinfo(0) + ", don't say we didn't warn you!", bc_map; break;
+	case 119:
+		mapannounce "job_hunte", strcharinfo(0) + ", curiosity killed the cat. Lucky for me I'm not a cat. Oh, and um, you too of course.", bc_map;
+		break;
+	case 120:
+		mapannounce "job_hunte", strcharinfo(0) + ", STUDY!STUDY!STUDY!STUDY!STUDY!STUDY!STUDY!STUDY!STUDY!STUDY!", bc_map;
+		break;
+	case 121:
+		mapannounce "job_hunte", strcharinfo(0) + ", how you like me now? That's right, that was MY trap!", bc_map;
+		break;
+	case 122:
+		mapannounce "job_hunte", strcharinfo(0) + "...brilliant...just absolutely...genius. Sorry, I was talking about all these crazy traps.", bc_map;
+		break;
+	case 123:
+		mapannounce "job_hunte", strcharinfo(0) + ", it's time to bust out of that trap, Houdini-style! Hey, wait...come back!", bc_map;
+		break;
+	case 124:
+		mapannounce "job_hunte", strcharinfo(0) + ", it looks like you could really be in trouble this time...no worries, just try this again!", bc_map;
+		break;
+	case 125:
+		mapannounce "job_hunte", strcharinfo(0) + "...not smooth, dude. Go for it again, one more time!", bc_map;
+		break;
+	case 126:
+		mapannounce "job_hunte", strcharinfo(0) + ",it looks like you could really be in a pickle. Back to the starting point...", bc_map;
+		break;
+	case 127:
+		mapannounce "job_hunte", strcharinfo(0) + ", just think of it as Karma. Someday, you'll be setting hundreds of traps of your own...", bc_map;
+		break;
+	case 128:
+		mapannounce "job_hunte", strcharinfo(0) + ", bad news dude...its another trap. You'll get the hang of this, I believe in you!", bc_map;
+		break;
+	case 129:
+		mapannounce "job_hunte", strcharinfo(0) + ", don't give up! The world still needs you!", bc_map;
+		break;
+	case 130:
+		mapannounce "job_hunte", strcharinfo(0) + ", it's okay to cry. Just not too loudly.", bc_map;
+		break;
+	case 131:
+		mapannounce "job_hunte", strcharinfo(0) + "...oh man. It's tiring setting up all these traps. You guys have got to stop falling into them!", bc_map;
+		break;
 	}
 	HNTR_Q = 13;
-	warp "job_hunte",176,22;
+	warp "job_hunte", 176, 22;
 	donpcevent "Manager#hnt::OnReset";
 	donpcevent "Waiting Room#hnt::OnStart";
 	end;
@@ -1625,9 +1873,9 @@ job_hunte,65,92,0	duplicate(HntTrap)	57-3	FAKE_NPC,0,0
 
 job_hunte,65,93,0	script	57-4::HntTrap2	FAKE_NPC,{
 OnTouch:
-	mapannounce "job_hunte",strcharinfo(0) + ", has failed me! Go back to where you started!",bc_map;
+	mapannounce "job_hunte", strcharinfo(0) + ", has failed me! Go back to where you started!", bc_map;
 	HNTR_Q = 13;
-	warp "job_hunte",176,22;
+	warp "job_hunte", 176, 22;
 	donpcevent "Manager#hnt::OnReset";
 	donpcevent "Waiting Room#hnt::OnStart";
 	end;

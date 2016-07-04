@@ -35,9 +35,9 @@ menu	"Last Warp ^777777["+lastwarp$+"]^000000",-,
 		" ~ Special Areas",Special;
 
 	if (lastwarp$ == "")
-		message strcharinfo(0),"You haven't warped anywhere yet.";
+		message strcharinfo(0), "You haven't warped anywhere yet.";
 	else
-		warp lastwarp$,lastwarpx,lastwarpy;
+		warp lastwarp$, lastwarpx, lastwarpy;
 	end;
 
 // ------------------- Functions -------------------
@@ -65,9 +65,9 @@ menu	"Last Warp ^777777["+lastwarp$+"]^000000",-,
 
 function Go {
 	lastwarp$ = getarg(0);
-	lastwarpx = getarg(1,0);
-	lastwarpy = getarg(2,0);
-	warp getarg(0),getarg(1,0),getarg(2,0);
+	lastwarpx = getarg(1, 0);
+	lastwarpy = getarg(2, 0);
+	warp getarg(0), getarg(1, 0), getarg(2, 0);
 	end;
 }
 function Disp {
@@ -76,7 +76,7 @@ function Disp {
 	else {
 		@menu$ = "";
 		for (.@i = getarg(1); .@i <= getarg(2); .@i++)
-			@menu$ = @menu$+getarg(0)+" "+.@i+":";
+			@menu$ = @menu$+getarg(0) + " " + .@i + ":";
 	}
 	return;
 }
@@ -87,42 +87,26 @@ function Pick {
 	if (getarg(0) == "") {
 		.@i = .@select;
 		.@map$ = getarg(.@i);
-	} else {
+	}
+	else {
 		.@i = .@select-getarg(1,0);
-		.@map$ = getarg(0)+((.@i<10)?"0":"")+.@i;
+		.@map$ = getarg(0) + ((.@i < 10) ? "0" : "") +.@i;
 	}
-	if (.@warp_block & (1<<.@select)) {
-		message strcharinfo(0),"This map is not enabled in "+(RENEWAL?"":"Pre-")+"Renewal.";
-		end;
-	}
-	.@x = @c[.@i*2];
-	.@y = @c[.@i*2+1];
-	deletearray @c[0],getarraysize(@c);
-	Go(.@map$,.@x,.@y);
-}
-function Restrict {
-	if ((getarg(0) == "RE" && !RENEWAL) || (getarg(0) == "Pre-RE" && RENEWAL)) {
-		if (getarg(1,0)) {
-			@warp_block = 0;
-			for (.@i = 1; .@i < getargcount(); .@i++)
-				@warp_block = @warp_block | (1<<getarg(.@i));
-		} else {
-			message strcharinfo(0),"This map is not enabled in "+(RENEWAL?"":"Pre-")+"Renewal.";
-			end;
-		}
-	}
-	return;
+	.@x = @c[.@i * 2];
+	.@y = @c[.@i * 2 + 1];
+	deletearray @c[0], getarraysize(@c);
+	Go(.@map$, .@x, .@y);
 }
 
 // --------------------------------------------------
 	Towns:
 // --------------------------------------------------
 menu	"Prontera",T1, "Alberta",T2, "Aldebaran",T3, "Amatsu",T4, "Ayothaya",T5,
-		"Brasilis",T6, "Comodo",T7, "Dewata",T8, "Eclage",T9, "Einbech",T10,
-		"Einbroch",T11, "El Dicastes",T12, "Geffen",T13, "Gonryun",T14, "Hugel",T15,
+		"Comodo",T7, "Einbech",T10,
+		"Einbroch",T11, "Geffen",T13, "Gonryun",T14, "Hugel",T15,
 		"Izlude",T16, "Jawaii",T17, "Lighthalzen",T18, "Louyang",T19, "Lutie",T20,
-		"Malangdo",T21, "Malaya",T22, "Manuk",T23, "Midgarts Expedition Camp",T24,
-		"Mora",T25, "Morroc",T26, "Moscovia",T27, "Nameless Island",T28,
+		"Malaya",T22, "Manuk",T23, "Midgarts Expedition Camp",T24,
+		"Morroc",T26, "Moscovia",T27, "Nameless Island",T28,
 		"Niflheim",T29, "Payon",T30, "Rachel",T31, "Splendide",T32, "Thor Camp",T33,
 		"Umbala",T34, "Veins",T35, "Yuno",T36;
 
@@ -131,33 +115,19 @@ T2: Go("alberta",28,234);
 T3: Go("aldebaran",140,131);
 T4: Go("amatsu",198,84);
 T5: Go("ayothaya",208,166);
-T6: Restrict("RE");
-	Go("brasilis",196,217);
 T7: Go("comodo",209,143);
-T8: Restrict("RE");
-	Go("dewata",200,180);
-T9: Restrict("RE");
-	Go("ecl_in01",48,53);
 T10: Go("einbech",63,35);
 T11: Go("einbroch",64,200);
-T12: Restrict("RE");
-	 Go("dicastes01",198,187);
 T13: Go("geffen",119,59);
 T14: Go("gonryun",160,120);
 T15: Go("hugel",96,145);
-T16: Go("izlude",128,(RENEWAL?146:114));
+T16: Go("izlude",128,114);
 T17: Go("jawaii",251,132);
 T18: Go("lighthalzen",158,92);
 T19: Go("louyang",217,100);
 T20: Go("xmas",147,134);
-T21: Restrict("RE");
-	 Go("malangdo",140,114);
-T22: Restrict("RE");
-	 Go("malaya",231,200);
 T23: Go("manuk",282,138);
 T24: Go("mid_camp",210,288);
-T25: Restrict("RE");
-	 Go("mora",55,146);
 T26: Go("morocc",156,93);
 T27: Go("moscovia",223,184);
 T28: Go("nameless_n",256,215);
