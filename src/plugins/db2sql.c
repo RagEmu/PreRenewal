@@ -94,10 +94,10 @@ void db2sql_fileheader(void)
 	int year = lt->tm_year+1900;
 
 	fprintf(tosql.fp,
-			"-- This file is part of Hercules.\n"
-			"-- http://herc.ws - http://github.com/HerculesWS/Hercules\n"
+			"-- This file is part of RagEmu.\n"
+			"-- http://ragemu.org - http://github.com/RagEmu/PreRenewal\n"
 			"--\n"
-			"-- Copyright (C) 2013-%d  Hercules Dev Team\n"
+			"-- Copyright (C) 2016-%d  RagEmu Dev Team\n"
 			"--\n"
 			"-- RagEmu is free software: you can redistribute it and/or modify\n"
 			"-- it under the terms of the GNU General Public License as published by\n"
@@ -492,7 +492,7 @@ void do_itemdb2sql(void)
 		const char *source;
 		const char *destination;
 	} files[] = {
-		{"item_db", "item_db.conf", "sql-files/item_db" DBSUFFIX ".sql"},
+		{"item_db", "item_db.conf", "sql-files/item_db.sql"},
 		{"item_db2", "item_db2.conf", "sql-files/item_db2.sql"},
 	};
 
@@ -764,7 +764,7 @@ void do_mobdb2sql(void)
 		const char *source;
 		const char *destination;
 	} files[] = {
-		{"mob_db", "mob_db.conf", "sql-files/mob_db" DBSUFFIX ".sql"},
+		{"mob_db", "mob_db.conf", "sql-files/mob_db.sql"},
 		{"mob_db2", "mob_db2.conf", "sql-files/mob_db2.sql"},
 	};
 

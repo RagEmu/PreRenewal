@@ -142,7 +142,7 @@ struct lclif_interface {
 	int (*parse)(int fd);
 };
 
-#ifdef HERCULES_CORE
+#ifdef RAGEMU_CORE
 void lclif_defaults(void);
 #endif
 

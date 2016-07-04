@@ -22,7 +22,7 @@
 
 /// Base author: Haru <haru@dotalux.com>
 
-#define HERCULES_CORE
+#define RAGEMU_CORE
 
 #include "common/cbasetypes.h"
 #include "common/conf.h"

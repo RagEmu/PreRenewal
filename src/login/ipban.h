@@ -24,7 +24,7 @@
 
 #include "common/cbasetypes.h"
 
-#ifdef HERCULES_CORE
+#ifdef RAGEMU_CORE
 // TODO: Interface
 // initialize
 void ipban_init(void);
@@ -40,6 +40,6 @@ void ipban_log(uint32 ip);
 
 // parses configuration option
 bool ipban_config_read(const char *key, const char* value);
-#endif // HERCULES_CORE
+#endif // RAGEMU_CORE
 
 #endif /* LOGIN_IPBAN_H */

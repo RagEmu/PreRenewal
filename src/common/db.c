@@ -87,7 +87,7 @@
  * @see #db.h
 \*****************************************************************************/
 
-#define HERCULES_CORE
+#define RAGEMU_CORE
 
 #include "db.h"
 

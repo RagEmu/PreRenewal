@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#define HERCULES_CORE
+#define RAGEMU_CORE
 
 #include "config/core.h" // AUTOLOOT_DISTANCE, sDEFTYPE_MAX, DEFTYPE_MIN
 #include "mob.h"

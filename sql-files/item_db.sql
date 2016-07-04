@@ -3,7 +3,7 @@
 --
 -- Copyright (C) 2013-2016  Hercules Dev Team
 --
--- Hercules is free software: you can redistribute it and/or modify
+-- RagEmu is free software: you can redistribute it and/or modify
 -- it under the terms of the GNU General Public License as published by
 -- the Free Software Foundation, either version 3 of the License, or
 -- (at your option) any later version.
@@ -20,6 +20,8 @@
 --       as it will get overwritten. If you need to modify this file,
 --       please consider modifying the corresponding .conf file inside
 --       the db folder, and then re-run the db2sql plugin.
+
+-- GENERATED FILE DO NOT EDIT --
 
 --
 -- Table structure for table `item_db`

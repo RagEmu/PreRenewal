@@ -1,11 +1,12 @@
 #!/usr/bin/perl
 
-# This file is part of Hercules.
-# http://herc.ws - http://github.com/HerculesWS/Hercules
+# This file is part of RagEmu.
+# http://ragemu.org - http://github.com/RagEmu/PreRenewal
 #
+# Copyright (C) 2016  RagEmu Dev Team
 # Copyright (C) 2013-2016  Hercules Dev Team
 #
-# Hercules is free software: you can redistribute it and/or modify
+# RagEmu is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
@@ -462,12 +463,12 @@ my $year = (localtime)[5] + 1900;
 
 my $fileheader = <<"EOF";
 /**
- * This file is part of Hercules.
- * http://herc.ws - http://github.com/HerculesWS/Hercules
+ * This file is part of RagEmu.
+ * http://herc.ws - http://github.com/RagEmu/PreRenewal
  *
- * Copyright (C) 2013-$year  Hercules Dev Team
+ * Copyright (C) 2016-$year  RagEmu Dev Team
  *
- * Hercules is free software: you can redistribute it and/or modify
+ * RagEmu is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -510,7 +511,7 @@ foreach my $servertype (keys %keys) {
 
 		print FH <<"EOF";
 $fileheader
-#if !defined(HERCULES_CORE)
+#if !defined(RAGEMU_CORE)
 EOF
 
 		foreach my $key (@$keysref) {
@@ -523,7 +524,7 @@ EOF
 		}
 
 		print FH <<"EOF";
-#endif // ! HERCULES_CORE
+#endif // ! RAGEMU_CORE
 
 HPExport const char *HPM_shared_symbols(int server_type)
 {

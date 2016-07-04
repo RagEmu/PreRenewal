@@ -1,11 +1,10 @@
 /**
- * This file is part of RagEmu.
- * http://ragemu.org - https://github.com/RagEmu/PreRenewal
+ * This file is part of Hercules.
+ * http://herc.ws - http://github.com/HerculesWS/Hercules
  *
- * Copyright (C) 2016  RagEmu Dev Team
  * Copyright (C) 2014-2016  Hercules Dev Team
  *
- * RagEmu is free software: you can redistribute it and/or modify
+ * Hercules is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -23,6 +22,8 @@
  * NOTE: This file was auto-generated and should never be manually edited,
  *       as it will get overwritten.
  */
+
+/* GENERATED FILE DO NOT EDIT */
 
 #ifndef HPM_DATA_CHECK_H
 #define HPM_DATA_CHECK_H
