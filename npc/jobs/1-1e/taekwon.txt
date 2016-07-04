@@ -34,17 +34,18 @@
 //=========================================================================
 //= Taekwon Job Quest
 //================= Description ===========================================
-//= Official iRO TaeKwon Job Change Quest
+//= Official TaeKwon Job Change Quest
 //================= Current Version =======================================
-//= 1.5
+//= 1.6
 //=========================================================================
 
--	script	Phoenix::TKJobChange	FAKE_NPC,{
+payon,157,141,5	script	Phoenix#TKJobChange	4_M_MONK,{
 	if(Upper == 2) {
 		mes "[Phoenix]";
 		mes "Hello, child.";
 		close;
-	} else if(Class == Job_Taekwon) {
+	}
+	else if(Class == Job_Taekwon) {
 		mes "[Phoenix]";
 		mes "How is your training";
 		mes "coming along? As your";
@@ -53,7 +54,8 @@
 		mes "never forget that you can";
 		mes "always rely on the basics.";
 		close;
-	} else if(Class > Job_Novice) || (Class == Job_Novice && TK_Q == 0) {
+	}
+	else if(Class > Job_Novice) || (Class == Job_Novice && TK_Q == 0) {
 		mes "[Phoenix]";
 		mes "This land. Our once";
 		mes "beautiful world has been";
@@ -102,8 +104,8 @@
 		mes "becoming a practitioner of my";
 		mes "art. It won't be easy, but it will lead you to great strength...";
 		next;
-		if(select("Okay, I will join you.","No, thank you.") == 1) {
-			if(getskilllv("NV_BASIC") < 9) {
+		if (select("Okay, I will join you.", "No, thank you.") == 1) {
+			if (getskilllv("NV_BASIC") < 9) {
 				mes "[Phoenix]";
 				mes "How unfortunate!";
 				mes "You're not yet ready to";
@@ -120,7 +122,7 @@
 			mes "order to perform the skills";
 			mes "that you will be learning.";
 			next;
-			if(BaseLevel > 19) {
+			if (BaseLevel >= 20) {
 				mes "[Phoenix]";
 				mes "Hm. I see that you have";
 				mes "undergone sufficient physical";
@@ -158,11 +160,11 @@
 		mes "very own way, adventurer.";
 		close;
 	}
-	switch(TK_Q) {
+	switch (TK_Q) {
 	case 1:
-		if(BaseLevel > TAEK_Q) {
+		if (BaseLevel > TAEK_Q) {
 			TK_Q = 2;
-			changequest 6000,6001;
+			changequest 6000, 6001;
 			mes "[Phoenix]";
 			mes "Good. I sense that you";
 			mes "are more in tune with your";
@@ -200,7 +202,7 @@
 		mes "great difficulty, how do";
 		mes "you generally respond?";
 		next;
-		switch(select( "I face it head on.", "Avoid it somehow.", "Regroup and analyze the problem.")) {
+		switch (select( "I face it head on.", "Avoid it somehow.", "Regroup and analyze the problem.")) {
 		case 1:
 			mes "[Phoenix]";
 			mes "Yes, that is the answer";
@@ -275,7 +277,7 @@
 		mes "clash, causing heated conflict,";
 		mes "how would you respond?";
 		next;
-		switch( select("Insist that I'm right, regardless", "Disregard conflicting viewpoint", "Accept differences and learn from them")) {
+		switch (select("Insist that I'm right, regardless", "Disregard conflicting viewpoint", "Accept differences and learn from them")) {
 		case 1:
 			mes "[Phoenix]";
 			mes "It's important to have your";
@@ -357,7 +359,7 @@
 		mes "while. When your mind is calm,";
 		mes "come and speak to me.";
 		TK_Q = 3;
-		changequest 6001,6002;
+		changequest 6001, 6002;
 		close;
 	case 3:
 		mes "[Phoenix]";
@@ -372,7 +374,7 @@
 		mes "I will teach you, and uphold";
 		mes "the dignity of its philosophy?";
 		next;
-		if( select( "Yes.","No.") == 1) {
+		if (select("Yes.","No.") == 1) {
 			mes "[Phoenix]";
 			mes "Very well. You are no";
 			mes "longer just a student.";
@@ -397,9 +399,9 @@
 			mes "shame to Taekwon Do.";
 			next;
 			completequest 6002;
-			callfunc "Job_Change",Job_Taekwon;
+			callfunc "Job_Change", Job_Taekwon;
 			callfunc "F_ClearJobVar";
-			getitem Guard,1; // Guard[0]
+			getitem Guard, 1;
 			mes "[Phoenix]";
 			mes "You are still young, so";
 			mes "I assume you'll want a job";
@@ -428,7 +430,7 @@
 			mes "[Phoenix]";
 			mes "Very well. I wish you luck.";
 			mes "I hope to see you again";
-			mes "sometime, "+strcharinfo(0)+".";
+			mes "sometime, " + strcharinfo(0) + ".";
 			close;
 		}
 		mes "[Phoenix]";

@@ -39,14 +39,14 @@
 //================= Description ===========================================
 //= Cute pet quest items
 //================= Current Version =======================================
-//= 1.5
+//= 1.6
 //=========================================================================
 
 alberta_in,173,76,4	script	Monster Tamer#alb	4_M_TELEPORTER,{
 	mes "[Iwado]";
 	mes "This is the height of the era of Monster Taming! Don't you feel the need to gather monster items to be able to connect and to communicate with the Cute Monsters!?";
 	next;
-	switch(select("^3355FF' Monster Taming '^000000 ?", "Order ^3355FF' Monster Juice '^000000", "Order ^3355FF' Singing Flower '^000000", "Order ^3355FF' Wild Flower '^000000", "Cancel")) {
+	switch (select("^3355FF' Monster Taming '^000000 ?", "Order ^3355FF' Monster Juice '^000000", "Order ^3355FF' Singing Flower '^000000", "Order ^3355FF' Wild Flower '^000000", "Cancel")) {
 	case 1:
 		mes "[Iwado]";
 		mes "These monster items, necessary to communicate with monsters, are a must have! We, the members of the Monster Tamer Guild, have a very reasonable offer.";
@@ -85,7 +85,7 @@ alberta_in,173,76,4	script	Monster Tamer#alb	4_M_TELEPORTER,{
 		mes "The extremely sour taste";
 		mes "is perfect for monsters. . .";
 		next;
-		if ((countitem(Animal_Blood) > 0) && (countitem(Apple) > 1)) {
+		if ((countitem(Animal_Blood) >= 1) && (countitem(Apple) >= 2)) {
 			mes "[Iwado]";
 			mes "Oh ! You have all the items to make 1 Monster Juice! Good, good! With all my pride as a monster tamer, I will make one for you right now.";
 			next;
@@ -101,9 +101,9 @@ alberta_in,173,76,4	script	Monster Tamer#alb	4_M_TELEPORTER,{
 			mes "cute monster you";
 			mes "are raising.";
 			mes "Monster Juice!";
-			delitem Apple,2;
-			delitem Animal_Blood,1;
-			getitem Monster_Juice,1; // Monster_Juice
+			delitem Apple, 2;
+			delitem Animal_Blood, 1;
+			getitem Monster_Juice, 1;
 			close;
 		}
 		else {
@@ -126,7 +126,7 @@ alberta_in,173,76,4	script	Monster Tamer#alb	4_M_TELEPORTER,{
 		mes "Its name? ^3355FFSinging Flower^000000!!";
 		mes "A scent that makes you dizzy with pleasure. A perfect item for monsters...";
 		next;
-		if (countitem(Singing_Plant) > 0) {
+		if (countitem(Singing_Plant) >= 1) {
 			mes "[Iwado]";
 			mes "Oh! You have all the items necessary to make 1 Singing Flower!! Good, good! With all my pride as a monster tamer, I will make it for you right away.";
 			next;
@@ -143,8 +143,8 @@ alberta_in,173,76,4	script	Monster Tamer#alb	4_M_TELEPORTER,{
 			mes "cute monster you";
 			mes "are raising.";
 			mes "Singing Flower!";
-			delitem Singing_Plant,1;
-			getitem Singing_Flower,1; // Singing_Flower
+			delitem Singing_Plant, 1;
+			getitem Singing_Flower, 1;
 			close;
 		}
 		else {
@@ -164,7 +164,7 @@ alberta_in,173,76,4	script	Monster Tamer#alb	4_M_TELEPORTER,{
 		mes "[Iwado]";
 		mes "This is a flower that is far beyond what humans can gaze at! Its name? ^3355FFWild Flower^000000 !! A troublesome design, but perfect for monsters!";
 		next;
-		if ((countitem(Fancy_Flower) > 0) && (countitem(Clover) > 0)) {
+		if ((countitem(Fancy_Flower) >= 1) && (countitem(Clover) >= 1)) {
 			mes "[Iwado]";
 			mes "Oh! You have all the items necessary to make 1 Wild Flower! Good! Good! With all my pride as a monster tamer, I will make one for you right away.";
 			next;
@@ -180,9 +180,9 @@ alberta_in,173,76,4	script	Monster Tamer#alb	4_M_TELEPORTER,{
 			mes "cute monsters you";
 			mes "are raising.";
 			mes "Wild Flower!";
-			delitem Fancy_Flower,1;
-			delitem Clover,1;
-			getitem Wild_Flower,1; // Wild_Flower
+			delitem Fancy_Flower, 1;
+			delitem Clover, 1;
+			getitem Wild_Flower, 1;
 			close;
 		}
 		else {
@@ -218,7 +218,7 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 	mes "I can make all sorts of neat things for your Cute Pet monster.";
 	mes "Just ask~";
 	next;
-	switch(select("^3355FF' Monster Taming '^000000?", "Order ^3355FF' Skull Helm '^000000", "Order ^3355FF' Monster Oxygen Mask '^000000", "Order ^3355FF' Silk Ribbon '^000000", "Order ^3355FF' Stellar Hairpin '^000000", "Order ^3355FF' Tiny Egg Shell '^000000", "Order ^3355FF' Rocker Glasses '^000000", "Cancel")) {
+	switch (select("^3355FF' Monster Taming '^000000?", "Order ^3355FF' Skull Helm '^000000", "Order ^3355FF' Monster Oxygen Mask '^000000", "Order ^3355FF' Silk Ribbon '^000000", "Order ^3355FF' Stellar Hairpin '^000000", "Order ^3355FF' Tiny Egg Shell '^000000", "Order ^3355FF' Rocker Glasses '^000000", "Cancel")) {
 	case 1:
 		mes "[YuU]";
 		mes "The monster items that are";
@@ -272,7 +272,7 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 		mes "[YuU]";
 		mes "This is an item far beyond what humans can wear! Its name? ^3355FFSkull Helm^000000! Disgusting on humans, but cute on monsters.";
 		next;
-		if (countitem(Bone_Helm) > 0) {
+		if (countitem(Bone_Helm) >= 1) {
 			mes "[YuU]";
 			mes "Oh! You have all the items necessary to make Skull Helm! Good, good! With all my pride as a monster tamer, I will make it for you right away.";
 			next;
@@ -287,8 +287,8 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 			mes "the cute monster you";
 			mes "are raising.";
 			mes "Skull Helm!";
-			delitem Bone_Helm,1;
-			getitem Skull_Helm,1; // Skull_Helm
+			delitem Bone_Helm, 1;
+			getitem Skull_Helm, 1;
 			close;
 		}
 		else {
@@ -305,7 +305,7 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 		mes "[YuU]";
 		mes "This item is far beyond what humans can wear. Its name? ^3355FFMonster Oxygen Mask^000000! Show your monster that you care with this special gift.";
 		next;
-		if (countitem(Oxygen_Mask) > 0) {
+		if (countitem(Oxygen_Mask) >= 1) {
 			mes "[YuU]";
 			mes "Oh! You have all the items necessary to make 1 Monster Oxygen Mask! Good, Good! With all my pride as a monster tamer, I will make it for you right away.";
 			next;
@@ -322,8 +322,8 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 			mes "the cute monster you";
 			mes "are raising...";
 			mes "Monster Oxygen Mask!";
-			delitem Oxygen_Mask,1;
-			getitem Monster_Oxygen_Mask,1; // Monster_Oxygen_Mask
+			delitem Oxygen_Mask, 1;
+			getitem Monster_Oxygen_Mask, 1;
 			close;
 		}
 		else {
@@ -340,7 +340,7 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 		mes "[YuU]";
 		mes "This is not an item that a normal human would dare to wear! Its name? ^3355FFSilk Ribbon^000000! Its perfect for monsters!";
 		next;
-		if (countitem(Ribbon) > 0) {
+		if (countitem(Ribbon) >= 1) {
 			mes "[YuU]";
 			mes "Oh! You have all the items necessary to make 1 Silk Ribbon! Good, good! With all my pride as a monster tamer, I will make it for you right away!";
 			next;
@@ -355,8 +355,8 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 			mes "the cute monster you";
 			mes "are raising.";
 			mes "Silk Ribbon!";
-			delitem Ribbon,1;
-			getitem Silk_Ribbon,1; // Silk_Ribbon
+			delitem Ribbon, 1;
+			getitem Silk_Ribbon, 1;
 			close;
 		}
 		else {
@@ -373,7 +373,7 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 		mes "[YuU]";
 		mes "This is an item far beyond the fashion sense of humans! Its name? ^3355FFStellar Hairpin^000000! It's dangerous for humans to wear, but fashionable of monsters.";
 		next;
-		if (countitem(Star_Dust) > 0) {
+		if (countitem(Star_Dust) >= 1) {
 			mes "[YuU]";
 			mes "Oh! You have all the items necessary to make 1 Stellar! Good, good! With all my pride as a monster tamer, I will make it for you right away.";
 			next;
@@ -390,8 +390,8 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 			mes "the cute monster you";
 			mes "are raising";
 			mes "Stellar Hairpin!";
-			delitem Star_Dust,1;  // Stellar
-			getitem Stellar_Hairpin,1; // Stellar_Hairpin
+			delitem Star_Dust, 1;
+			getitem Stellar_Hairpin, 1;
 			close;
 		}
 		else {
@@ -408,7 +408,7 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 		mes "[YuU]";
 		mes "This is far beyond what the headwear that humans can don. Its name? ^3355FFTiny Egg Shell^000000! It has the shine of marble and the glow of youth!";
 		next;
-		if (countitem(Egg_Shell) > 0) {
+		if (countitem(Egg_Shell) >= 1) {
 			mes "[YuU]";
 			mes "Oh! You have all the items necessary to make 1 Tiny Egg Shell! Good, good! With all my pride as a monster tamer, I will make it for you right away!";
 			next;
@@ -425,8 +425,8 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 			mes "the cute monster you";
 			mes "are raising";
 			mes "Tiny Egg Shell!";
-			delitem Egg_Shell,1;
-			getitem Tiny_Egg_Shell,1; // Tiny_Egg_Shell
+			delitem Egg_Shell, 1;
+			getitem Tiny_Egg_Shell, 1;
 			close;
 		}
 		else {
@@ -443,7 +443,7 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 		mes "[YuU]";
 		mes "Ah yes, this is eyewear far beyond the glasses of normal humans. Its name? ^3355FFRocker Glasses^000000! Suave eyewear for suave monsters~";
 		next;
-		if ((countitem(Zargon) > 1) && (countitem(Ribbon) > 0) && (Zeny > 399)) {
+		if ((countitem(Zargon) >= 2) && (countitem(Ribbon) >= 1) && (Zeny >= 400)) {
 			mes "[YuU]";
 			mes "Oh! You have all the items necessary to make 1 Rocker Glasses! Good, good! With all my pride as a monster tamer, I will make it for you right away!";
 			next;
@@ -459,10 +459,10 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 			mes "the cute monster you";
 			mes "are raising.";
 			mes "Rocker Glasses!";
-			delitem Zargon,2;
-			delitem Ribbon,1;
+			delitem Zargon, 2;
+			delitem Ribbon, 1;
 			Zeny -= 400;
-			getitem Rocker_Glasses,1; // Rocker_Glasses
+			getitem Rocker_Glasses, 1;
 			close;
 		}
 		else {
@@ -488,7 +488,7 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 	}
 }
 
--	script	::MonsterTamer_izlude	FAKE_NPC,{
+izlude_in,129,64,4	script	Monster Tamer#izu	4_M_TELEPORTER,{
 	mes "[Shogo]";
 	mes "Are you pre-occupied with";
 	mes "gathering items for monsters";
@@ -496,7 +496,7 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 	mes "We will gather items";
 	mes "for your Cute Pets.";
 	next;
-	switch(select("^3355FF' Monster Taming '^000000?", "Order ^3355FF' Book of Devil '^000000", "Order ^3355FF' No Recipient '^000000", "Order ^3355FF' Orc Trophy '^000000", "Cancel")) {
+	switch (select("^3355FF' Monster Taming '^000000?", "Order ^3355FF' Book of Devil '^000000", "Order ^3355FF' No Recipient '^000000", "Order ^3355FF' Orc Trophy '^000000", "Cancel")) {
 	case 1:
 		mes "[Shogo]";
 		mes "The monster taming items are necessary to communicate with the monster of your choice! We Monster Tamer guild members have a very reasonable offer...";
@@ -526,7 +526,7 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 		mes "[Shogo]";
 		mes "This is an item far beyond what humans can read! Its name? ^3355FFBook of Devil^000000! A very mysterious item that can supposedly summon demons...";
 		next;
-		if ((countitem(Old_Magic_Book) > 0) && (countitem(Horrendous_Mouth) > 1)) {
+		if ((countitem(Old_Magic_Book) >= 1) && (countitem(Horrendous_Mouth) >= 2)) {
 			mes "[Shogo]";
 			mes "Oh! You have all the items necessary to make 1 Book of Devil! Good, good! With all my pride as a monster tamer, I will make one for you right away.";
 			next;
@@ -542,9 +542,9 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 			mes "the cute monster you";
 			mes "are raising.";
 			mes "Book of Devil!";
-			delitem Horrendous_Mouth,2;
-			delitem Old_Magic_Book,1;
-			getitem Book_Of_Devil,1; // Book_Of_Devil
+			delitem Horrendous_Mouth, 2;
+			delitem Old_Magic_Book, 1;
+			getitem Book_Of_Devil, 1;
 			close;
 		}
 		else {
@@ -562,7 +562,7 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 		mes "[Shogo]";
 		mes "This is an item which expresses feelings beyond what a human can feel. Its name? ^3355FFNo Recipient^000000! Who sent this letter, and who was supposed to receive it?";
 		next;
-		if (countitem(Old_Portrait) > 0) {
+		if (countitem(Old_Portrait) >= 1) {
 			mes "[Shogo]";
 			mes "Oh! You have all the items necessary to make No Recipient! Good, good! With all my pride as a monster tamer, I will make one for you right away.";
 			next;
@@ -577,8 +577,8 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 			mes "for the cute monster";
 			mes "you are raising.";
 			mes "No Recipient!";
-			delitem Old_Portrait,1;
-			getitem No_Recipient,1; // No_Recipient
+			delitem Old_Portrait, 1;
+			getitem No_Recipient, 1;
 			close;
 		}
 		else {
@@ -597,7 +597,7 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 		mes "Its name?";
 		mes "^3355FFOrc Trophy^000000!";
 		next;
-		if ((countitem(Patriotism_Marks) > 0) && (countitem(Scorpion's_Tail) > 0)) {
+		if ((countitem(Patriotism_Marks) >= 1) && (countitem(Scorpion's_Tail) >= 1)) {
 			mes "[Shogo]";
 			mes "Oh! You have all the items necessary to make an Orc Trophy! Good, good! With all my pride as a monster tamer, let me make one for you right away!";
 			next;
@@ -614,9 +614,9 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 			mes "the cute monster";
 			mes "you are raising...";
 			mes "Orc Trophy!";
-			delitem Scorpion's_Tail,1;
-			delitem Patriotism_Marks,1;
-			getitem Horror_Of_Tribe,1; // Horror_Of_Tribe
+			delitem Scorpion's_Tail, 1;
+			delitem Patriotism_Marks, 1;
+			getitem Horror_Of_Tribe, 1;
 			close;
 		}
 		else {
@@ -645,7 +645,7 @@ aldeba_in,168,175,4	script	Monster Tamer#alde	4_M_TELEPORTER,{
 }
 
 comodo,112,182,0	script	Munak's Grandma	8_F_GRANDMOTHER,{
-	if (countitem(Girl's_Diary) > 0) {
+	if (countitem(Girl's_Diary) >= 1) {
 		mes "[Munak's grandma]";
 		mes "Oh my...";
 		mes "Have you seen my granddaughter,";
@@ -685,7 +685,7 @@ comodo,112,182,0	script	Munak's Grandma	8_F_GRANDMOTHER,{
 		mes "leave my misery behind and came";
 		mes "here to Comodo...";
 		next;
-		switch(select("Oh come on! Cheer up!", "Um, is this diary...?")) {
+		switch (select("Oh come on! Cheer up!", "Um, is this diary...?")) {
 		case 1:
 			mes "[Munak's Grandma]";
 			mes "It seems my granddaughter haunts my";
@@ -694,7 +694,7 @@ comodo,112,182,0	script	Munak's Grandma	8_F_GRANDMOTHER,{
 			mes "now...";
 			close;
 		case 2:
-			if (countitem(Danggie) > 0) {
+			if (countitem(Danggie) >= 1) {
 				mes "[Munak's Grandma]";
 				mes "Oh god!";
 				mes "It's my granddaughter's diary!";
@@ -711,7 +711,7 @@ comodo,112,182,0	script	Munak's Grandma	8_F_GRANDMOTHER,{
 				mes "please. I no longer have anything";
 				mes "that belonged to her now...";
 				next;
-				switch(select("No way.", "Ok, I will.")) {
+				switch (select("No way.", "Ok, I will.")) {
 				case 1:
 					mes "[Munak's Grandma]";
 					mes "Oh...?";
@@ -730,8 +730,8 @@ comodo,112,182,0	script	Munak's Grandma	8_F_GRANDMOTHER,{
 					mes "taking good care of her!";
 					close;
 				case 2:
-					delitem 1558,1;
-					delitem 901,1;
+					delitem Girl's_Diary, 1;
+					delitem Danggie, 1;
 					mes "[Munak's Grandma]";
 					if (Sex == SEX_MALE) {
 						mes "Oh!";
@@ -755,7 +755,7 @@ comodo,112,182,0	script	Munak's Grandma	8_F_GRANDMOTHER,{
 					mes "child! There are so many happy";
 					mes "memories in this book!";
 					next;
-					getitem 659,1;
+					getitem Heart_Of_Her, 1;
 					mes "[Munak's Grandma]";
 					mes "Oh, thank you. I now have a good";
 					mes "keepsake of my granddaughter. Thank";

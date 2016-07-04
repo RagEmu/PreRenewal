@@ -41,6 +41,8 @@
 
 // Main Room Warps
 //============================================================
+izlude,128,226,0	warp	welcome_arena	1,1,arena_room,100,30
+arena_room,99,24,0	warp	bye_arena	2,2,izlude,128,220
 arena_room,84,103,0	warp	arn_room_11_1	1,1,arena_room,63,130
 arena_room,63,126,0	warp	arn_room_11_2	1,1,arena_room,87,100
 arena_room,76,87,0	warp	arn_room_9_1	1,1,arena_room,46,87
@@ -91,29 +93,29 @@ sec_in02,79,180,3	script	#arenacontrol	4_DOG01,{
 	if (.@i == -1) {
 		mes "Error!";
 		close;
-	} else if (.@i == 0) {
+	}
+	else if (.@i == 0) {
 		mes "Closing control panel.";
 		close;
-	} else {
+	}
+	else {
 		mes "Opening Control Panel";
 		mes "' A - R - E - N - A '";
 		next;
 		mes "Please select a";
 		mes "state for the arena.";
 		next;
-		switch(select("Open.:Closed.")) {
-		case 1:
+		if (select("Open.", "Closed.") == 1) {
 			mes "Currently";
 			mes "opening arena.";
 			specialeffect EF_ENHANCE;
 			enablenpc "welcome_arena";
 			close;
-		case 2:
-			mes "Currently";
-			mes "closing arena.";
-			specialeffect EF_EXIT;
-			disablenpc "welcome_arena";
-			close;
 		}
+		mes "Currently";
+		mes "closing arena.";
+		specialeffect EF_EXIT;
+		disablenpc "welcome_arena";
+		close;
 	}
 }

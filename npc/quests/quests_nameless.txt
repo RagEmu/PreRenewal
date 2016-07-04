@@ -3772,7 +3772,7 @@ cmd_fild01,55,160,0	script	Heap of Earth	CLEAR_NPC,{
 	close;
 }
 
--	script	::Dorian_izlude	FAKE_NPC,{
+izlude_in,110,64,3	script	Dorian	4_M_OILMAN,2,2,{
 	if (checkweight(Resin,200) == 0) {
 		mes "[Dorian]";
 		mes "Ugh, just like a member";

@@ -35,7 +35,7 @@
 //= Official Izlude Airport NPCs
 //=========================================================================
 
--	script	::Airship_Staff_izlude	FAKE_NPC,{
+izlude,206,55,3	script	Airship Staff#izlude	4_F_01,{
 	mes "[Airship Staff]";
 	mes "Welcome! Would you like";
 	mes "to board the Airship that";
@@ -51,14 +51,14 @@
 		mes "would you still like to board?";
 		next;
 		if (select("Yes", "No") == 1) {
-			if (countitem(Free_Flying_Ship_Ticket) > 0) {
-				delitem Free_Flying_Ship_Ticket,1;
-				warp "airplane_01",244,58;
+			if (countitem(Free_Flying_Ship_Ticket) >= 1) {
+				delitem Free_Flying_Ship_Ticket, 1;
+				warp "airplane_01", 244, 58;
 				end;
 			}
 			if (Zeny >= 1200) {
 				Zeny -= 1200;
-				warp "airplane_01",244,58;
+				warp "airplane_01", 244, 58;
 				end;
 			}
 			mes "[Airship Staff]";

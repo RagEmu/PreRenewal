@@ -38,7 +38,7 @@
 //================= Description ===========================================
 //= Quest for skills: First Aid, Trick Dead
 //================= Current Version =======================================
-//= 1.8
+//= 1.9
 //=========================================================================
 
 prt_in,234,133,4	script	Nami	1_F_01,{
@@ -132,8 +132,8 @@ prt_in,234,133,4	script	Nami	1_F_01,{
 					close;
 				case 2:
 					if ((countitem(Red_Herb) > 2) && (countitem(Clover) > 2)) {
-						delitem Red_Herb,3;
-						delitem Clover,3;
+						delitem Red_Herb, 3;
+						delitem Clover, 3;
 						mes "[Nami]";
 						mes "Hello, welcome back!";
 						mes "You have done well at finding";
@@ -163,7 +163,7 @@ prt_in,234,133,4	script	Nami	1_F_01,{
 						mes "and combine them together and. . .";
 						mes "Presto !!";
 						next;
-						skill "NV_FIRSTAID",1,0;
+						skill "NV_FIRSTAID", 1, 0;
 						skill_nov = 3;
 						mes "[Nami]";
 						mes "Yes yes, that's right!";
@@ -339,8 +339,8 @@ prt_in,73,87,4	script	Chivalry Member	1_M_YOUNGKNIGHT,{
 				mes " ' Play Dead ' ";
 				mes "Okay okay, See you around ! ! !";
 				skill_nov = 6;
-				delitem Novice_Nametag,1;
-				skill "NV_TRICKDEAD",1,0;
+				delitem Novice_Nametag, 1;
+				skill "NV_TRICKDEAD", 1, 0;
 				close;
 			}
 			mes "[Bulma]";
@@ -452,7 +452,7 @@ prt_castle,175,146,4	script	Nursing Instructor	1_M_04,{
 			mes "- Click Click *Walks away* . . . . . -";
 			close;
 		case 4:
-			if (countitem(Novice_Nametag) == 0) {
+			if (!countitem(Novice_Nametag)) {
 				mes "[Dread Lord]";
 				mes "Look at this guy!";
 				mes "Wake up and watch where you are going.";
@@ -470,7 +470,7 @@ prt_castle,175,146,4	script	Nursing Instructor	1_M_04,{
 				next;
 				mes "^3355FF- Got 1 Newbie Tag -^000000";
 				skill_nov = 5;
-				getitem Novice_Nametag,1;
+				getitem Novice_Nametag, 1;
 				close;
 			}
 			mes "[Dread Lord]";

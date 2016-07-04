@@ -40,7 +40,7 @@
 //================= Description ===========================================
 //= Turns bullets into magazines/packs.
 //================= Current Version =======================================
-//= 1.5
+//= 1.6
 //=========================================================================
 
 alberta,118,157,3	script	Magazine Dealer Kenny::mdk	4_M_01,{
@@ -52,15 +52,15 @@ alberta,118,157,3	script	Magazine Dealer Kenny::mdk	4_M_01,{
 		mes "easily when they're in Magazines. Now, can I interest you in";
 		mes "anything in particular?";
 		next;
-		switch(select("Wind Sphere Pack", "Shadow Sphere Pack", "Poison Sphere Pack", "Water Sphere Pack", "Fire Sphere Pack", "Cartridge", "Blood Cartridge", "Silver Cartridge", "Cancel")) {
-		case 1: callfunc "Func_Casing",13204,12144; break;
-		case 2: callfunc "Func_Casing",13206,12145; break;
-		case 3: callfunc "Func_Casing",13205,12146; break;
-		case 4: callfunc "Func_Casing",13207,12147; break;
-		case 5: callfunc "Func_Casing",13203,12148; break;
-		case 6: callfunc "Func_Casing",13200,12149; break;
-		case 7: callfunc "Func_Casing",13202,12150; break;
-		case 8: callfunc "Func_Casing",13201,12151; break;
+		switch (select("Wind Sphere Pack", "Shadow Sphere Pack", "Poison Sphere Pack", "Water Sphere Pack", "Fire Sphere Pack", "Cartridge", "Blood Cartridge", "Silver Cartridge", "Cancel")) {
+		case 1: callfunc "Func_Casing", Lighting_Sphere, Sphere_Case_Wind; break;
+		case 2: callfunc "Func_Casing", Blind_Sphere, Sphere_Case_Darkness; break;
+		case 3: callfunc "Func_Casing", Poison_Sphere, Sphere_Case_Poison; break;
+		case 4: callfunc "Func_Casing", Freezing_Sphere, Sphere_Case_Water; break;
+		case 5: callfunc "Func_Casing", Flare_Sphere, Sphere_Case_Fire; break;
+		case 6: callfunc "Func_Casing", Bullet, Bullet_Case; break;
+		case 7: callfunc "Func_Casing", Shell_Of_Blood, Bullet_Case_Blood; break;
+		case 8: callfunc "Func_Casing", Silver_Bullet, Bullet_Case_Silver; break;
 		case 9:
 			mes "[Kenny]";
 			mes "Well, if you ever find";
@@ -90,14 +90,14 @@ alberta,118,157,3	script	Magazine Dealer Kenny::mdk	4_M_01,{
 function	script	Func_Casing	{
 	mes "[Kenny]";
 	mes "Now, you can trade";
-	mes "500 "+getitemname(getarg(0))+"s";
-	mes "and 500 zeny for 1 "+getitemname(getarg(1))+", so make sure";
+	mes "500 " + getitemname(getarg(0)) + "s";
+	mes "and 500 zeny for 1 " + getitemname(getarg(1)) + ", so make sure";
 	mes "you have sufficient bullets";
 	mes "and zeny for this exchange.";
 	next;
 	mes "[Kenny]";
-	mes "You can exchange 500 "+getitemname(getarg(0))+"s and 500 zeny";
-	mes "with 1 "+getitemname(getarg(1))+".";
+	mes "You can exchange 500 " + getitemname(getarg(0)) + "s and 500 zeny";
+	mes "with 1 " + getitemname(getarg(1)) + ".";
 	next;
 	mes "[Kenny]";
 	mes "Remember that I can't give";
@@ -116,8 +116,8 @@ function	script	Func_Casing	{
 		mes "greater than 50.";
 		close;
 	}
-	if (countitem(getarg(0)) >= (500*.@amount)) {
-		if (Zeny >= (500*.@amount)) {
+	if (countitem(getarg(0)) >= (500 * .@amount)) {
+		if (Zeny >= (500 * .@amount)) {
 			if (checkweight(getarg(1),.@amount) == 0) {
 				mes "[Kenny]";
 				mes "Hey, you've got a lot";
@@ -127,19 +127,21 @@ function	script	Func_Casing	{
 				mes "and trade your bullets for";
 				mes "some Magazines later, okay?";
 				close;
-			}else{
+			}
+			else {
 				mes "[Kenny]";
 				mes "Alright, here are";
 				mes "your Magazines. Thanks";
 				mes "for visiting my shop, and";
 				mes "I hope that you use all";
 				mes "of your ammo wisely.";
-				Zeny -= 500*.@amount;
-				delitem getarg(0),500*.@amount;
-				getitem getarg(1),.@amount;
+				Zeny -= 500 * .@amount;
+				delitem getarg(0), 500 * .@amount;
+				getitem getarg(1), .@amount;
 				close;
 			}
-		} else {
+		}
+		else {
 			mes "[Kenny]";
 			mes "Sorry, but you don't";
 			mes "have enough zeny for";
@@ -149,7 +151,8 @@ function	script	Func_Casing	{
 			mes "some more money.";
 			close;
 		}
-	} else {
+	}
+	else {
 		mes "[Kenny]";
 		mes "Sorry, but you don't";
 		mes "have enough bullets for";
@@ -160,3 +163,5 @@ function	script	Func_Casing	{
 		close;
 	}
 }
+
+izlude,171,127,3	duplicate(mdk)	Magazine Dealer Kenny#iz	4_M_01
