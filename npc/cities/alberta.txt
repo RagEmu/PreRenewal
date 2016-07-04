@@ -281,6 +281,7 @@ alberta,195,151,2	script	Paul	4_M_04,{
 			Zeny -= 200;
 			warp "alb2trea", 62, 69;
 			close;
+		}
 	}
 	mes "[Paul]";
 	mes "Alright, well...";

@@ -413,7 +413,7 @@ izlude,58,126,2	script	Cebalis#izlude	4W_M_02,{
 	close;
 }
 
-izlude,124,178,2	duplicate(Soldier_izlude)	Soldier#izlude	8W_SOLDIER,{
+izlude,124,178,2	script	Soldier#izlude	8W_SOLDIER,{
 	mes "[Soldier]";
 	mes "HeHeHeHe..HaHaHaHa ";
 	mes "Huh? Why am I so happy?";

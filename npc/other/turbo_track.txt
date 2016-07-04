@@ -3693,7 +3693,7 @@ turbo_room,130,92,3	script	Kafra Staff#tt	4_F_KAFRA3,{
 turbo_room,124,86,0	trader	Turbo Track Merchant	4_F_01,{
 OnInit:
 	sellitem Red_Potion;
-	sellitem Orang_Potion;
+	sellitem Orange_Potion;
 	sellitem Yellow_Potion;
 	sellitem White_Potion;
 	sellitem Center_Potion;
@@ -4646,27 +4646,25 @@ OnTouch:
 	}
 	if ((BaseJob == Job_Knight || BaseJob == Job_Crusader) && checkmount()) {
 		if (MaxWeight - Weight < 20000) {
-				.@mount$ = (BaseJob == Job_Knight) ? "Peco Peco" : "Grand Peco";
-				mes "[Helper]";
-				mes .@mount$ + "s are prohibited";
-				mes "in the Turbo Track Arena.";
-				mes "Please dismount from your";
-				mes .@mount$ + " and you will receive";
-				mes "a Free Ticket for Peco Ride";
-				mes "for retrieving your " + .@mount$ + ".";
-			}
-			close2;
-			warp "alde_gld", 183, 199;
-			end;
+			.@mount$ = (BaseJob == Job_Knight) ? "Peco Peco" : "Grand Peco";
+			mes "[Helper]";
+			mes .@mount$ + "s are prohibited";
+			mes "in the Turbo Track Arena.";
+			mes "Please dismount from your";
+			mes .@mount$ + " and you will receive";
+			mes "a Free Ticket for Peco Ride";
+			mes "for retrieving your " + .@mount$ + ".";
 		}
-		else {
-			getitem Free_Peco_Ticket, 1;
-			setmount(MOUNT_NONE);
-			warp "turbo_room", 100, 65;
-		}
+		close2;
+		warp "alde_gld", 183, 199;
+		end;
 	}
-	else
+	else {
+		getitem Free_Peco_Ticket, 1;
+		setmount(MOUNT_NONE);
 		warp "turbo_room", 100, 65;
+	}
+	warp "turbo_room", 100, 65;
 	end;
 }
 
@@ -4696,16 +4694,15 @@ alde_gld,181,199,5	script	Peco Peco Manager	4_F_RACING,{
 		close;
 	}
 	if (BaseJob == Job_Knight || BaseJob == Job_Crusader) {
-			if (BaseJob == Job_Knight) {
-				.@zeny = 2500;
-				.@zeny$ = "2,500";
-				.@mount$ = "Peco Peco";
-			}
-			else {
-				.@zeny = 3500;
-				.@zeny$ = "3,500";
-				.@mount$ = "Grand Peco";
-			}
+		if (BaseJob == Job_Knight) {
+			.@zeny = 2500;
+			.@zeny$ = "2,500";
+			.@mount$ = "Peco Peco";
+		}
+		else {
+			.@zeny = 3500;
+			.@zeny$ = "3,500";
+			.@mount$ = "Grand Peco";
 		}
 		.@skill = KN_RIDING;
 		.@skill$ = "Peco Peco Ride";
@@ -4725,8 +4722,7 @@ alde_gld,181,199,5	script	Peco Peco Manager	4_F_RACING,{
 		mes "of " + .@zeny$ + " zeny.";
 	}
 	next;
-	switch (select("Yes", "Cancel")) {
-	case 1:
+	if (select("Yes", "Cancel") == 1) {
 		if (getskilllv(.@skill) == 0) {
 			mes .@n$;
 			mes "I'm sorry, but you're";
@@ -4768,7 +4764,6 @@ alde_gld,181,199,5	script	Peco Peco Manager	4_F_RACING,{
 				close;
 			}
 		}
-	case 2:
 		mes .@n$;
 		mes "Are you going";
 		mes "back to race in";
