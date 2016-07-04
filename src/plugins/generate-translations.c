@@ -20,7 +20,7 @@
  */
 #include "config/core.h"
 
-#include "common/hercules.h"
+#include "common/ragemu.h"
 #include "common/cbasetypes.h"
 #include "common/memmgr.h"
 #include "common/showmsg.h"

@@ -22,7 +22,7 @@
 #ifndef MAP_VENDING_H
 #define MAP_VENDING_H
 
-#include "common/hercules.h"
+#include "common/ragemu.h"
 
 /* Forward Declarations */
 struct DBMap; // common/db.h

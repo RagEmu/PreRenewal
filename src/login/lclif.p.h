@@ -27,7 +27,7 @@
 
 #include "login/lclif.h"
 
-#include "common/hercules.h"
+#include "common/ragemu.h"
 #include "common/mmo.h"
 
 /* Definitions and macros */

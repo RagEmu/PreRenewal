@@ -21,7 +21,7 @@
 #ifndef PLUGINS_HPMHOOKING_H
 #define PLUGINS_HPMHOOKING_H
 
-#include "common/hercules.h"
+#include "common/ragemu.h"
 
 enum HPluginHookType {
 	HOOK_TYPE_PRE,

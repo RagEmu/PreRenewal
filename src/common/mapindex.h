@@ -22,7 +22,7 @@
 #ifndef COMMON_MAPINDEX_H
 #define COMMON_MAPINDEX_H
 
-#include "common/hercules.h"
+#include "common/ragemu.h"
 #include "common/mmo.h"
 
 /* Forward Declarations */

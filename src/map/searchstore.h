@@ -22,8 +22,8 @@
 #ifndef MAP_SEARCHSTORE_H
 #define MAP_SEARCHSTORE_H
 
+#include "common/ragemu.h"
 #include "map/map.h" // MESSAGE_SIZE
-#include "common/hercules.h"
 #include "common/mmo.h" // MAX_SLOTS
 
 #include <time.h>

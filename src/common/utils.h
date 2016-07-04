@@ -22,7 +22,7 @@
 #ifndef COMMON_UTILS_H
 #define COMMON_UTILS_H
 
-#include "common/hercules.h"
+#include "common/ragemu.h"
 
 #include <stdio.h> // FILE*
 #ifndef WIN32

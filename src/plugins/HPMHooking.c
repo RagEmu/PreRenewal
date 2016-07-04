@@ -21,7 +21,7 @@
 
 #include "HPMHooking.h"
 
-#include "common/hercules.h"
+#include "common/ragemu.h"
 #include "common/db.h"
 #include "common/memmgr.h"
 #include "common/mmo.h"

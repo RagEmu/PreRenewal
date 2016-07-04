@@ -22,7 +22,7 @@
 #ifndef MAP_MAIL_H
 #define MAP_MAIL_H
 
-#include "common/hercules.h"
+#include "common/ragemu.h"
 
 struct item;
 struct mail_message;

@@ -22,7 +22,7 @@
 #ifndef MAP_PC_GROUPS_H
 #define MAP_PC_GROUPS_H
 
-#include "common/hercules.h"
+#include "common/ragemu.h"
 
 /* Forward Declarations */
 struct DBMap; // common/db.h

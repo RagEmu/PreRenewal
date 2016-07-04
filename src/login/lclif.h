@@ -21,7 +21,7 @@
 #ifndef LOGIN_LCLIF_H
 #define LOGIN_LCLIF_H
 
-#include "common/hercules.h"
+#include "common/ragemu.h"
 
 /** @file
  * Login Client Interface.

@@ -22,8 +22,8 @@
 #ifndef MAP_ITEMDB_H
 #define MAP_ITEMDB_H
 
+#include "common/ragemu.h"
 /* #include "map/map.h" */
-#include "common/hercules.h"
 #include "common/db.h"
 #include "common/mmo.h" // ITEM_NAME_LENGTH
 

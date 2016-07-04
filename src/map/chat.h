@@ -23,7 +23,7 @@
 #define MAP_CHAT_H
 
 #include "map/map.h" // struct block_list, CHATROOM_TITLE_SIZE
-#include "common/hercules.h"
+#include "common/ragemu.h"
 
 /* Forward Declarations */
 struct DBMap; // common/db.h

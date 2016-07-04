@@ -22,7 +22,7 @@
 #ifndef COMMON_STRLIB_H
 #define COMMON_STRLIB_H
 
-#include "common/hercules.h"
+#include "common/ragemu.h"
 
 #include <stdarg.h>
 #include <string.h>

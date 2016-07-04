@@ -22,7 +22,7 @@
 #ifndef CHAR_INT_PARTY_H
 #define CHAR_INT_PARTY_H
 
-#include "common/hercules.h"
+#include "common/ragemu.h"
 #include "common/mmo.h"
 
 /* Forward Declarations */

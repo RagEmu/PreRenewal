@@ -21,7 +21,7 @@
 #ifndef MAP_CHANNEL_H
 #define MAP_CHANNEL_H
 
-#include "common/hercules.h"
+#include "common/ragemu.h"
 #include "common/mmo.h"
 
 /**
