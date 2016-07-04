@@ -278,7 +278,7 @@ struct char_interface {
 	int (*config_read) (const char* cfgName);
 };
 
-#ifdef HERCULES_CORE
+#ifdef RAGEMU_CORE
 extern int char_name_option;
 extern char char_name_letters[];
 extern bool char_gm_read;
@@ -323,7 +323,7 @@ extern int log_inter;
 
 void char_load_defaults(void);
 void char_defaults(void);
-#endif // HERCULES_CORE
+#endif // RAGEMU_CORE
 
 HPShared struct char_interface *chr;
 

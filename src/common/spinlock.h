@@ -54,7 +54,7 @@ typedef struct SPIN_LOCK{
 #endif
 
 
-#ifdef HERCULES_CORE
+#ifdef RAGEMU_CORE
 static forceinline void InitializeSpinLock(SPIN_LOCK *lck){
 		lck->lock = 0;
 		lck->nest = 0;
@@ -108,6 +108,6 @@ static forceinline void LeaveSpinLock(SPIN_LOCK *lck){
 		dropsynclock(&lck->sync_lock);
 }
 
-#endif // HERCULES_CORE
+#endif // RAGEMU_CORE
 
 #endif /* COMMON_SPINLOCK_H */

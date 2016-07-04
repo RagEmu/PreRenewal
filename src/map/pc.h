@@ -1083,9 +1083,9 @@ END_ZEROED_BLOCK; /* End */
 	void (*check_supernovice_call) (struct map_session_data *sd, const char *message);
 };
 
-#ifdef HERCULES_CORE
+#ifdef RAGEMU_CORE
 void pc_defaults(void);
-#endif // HERCULES_CORE
+#endif // RAGEMU_CORE
 
 HPShared struct pc_interface *pc;
 

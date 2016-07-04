@@ -34,7 +34,7 @@ typedef enum RATHREAD_PRIO {
 } RATHREAD_PRIO;
 
 
-#ifdef HERCULES_CORE
+#ifdef RAGEMU_CORE
 /**
  * Creates a new Thread
  *
@@ -130,6 +130,6 @@ void rathread_yield(void);
 
 void rathread_init(void);
 void rathread_final(void);
-#endif // HERCULES_CORE
+#endif // RAGEMU_CORE
 
 #endif /* COMMON_THREAD_H */

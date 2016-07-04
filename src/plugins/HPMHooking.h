@@ -34,14 +34,14 @@ struct HPMHooking_interface {
 	bool (*HookStopped) (void);
 };
 
-#ifdef HERCULES_CORE
+#ifdef RAGEMU_CORE
 struct HPMHooking_core_interface {
 	bool enabled;
 	bool force_return;
 	bool (*addhook_sub) (enum HPluginHookType type, const char *target, void *hook, unsigned int pID);
 	const char *(*Hooked)(bool *fr);
 };
-#else // ! HERCULES_CORE
+#else // ! RAGEMU_CORE
 HPExport struct HPMHooking_interface HPMHooking_s;
 
 #include "HPMHooking/HPMHooking.Defs.inc"
@@ -61,6 +61,6 @@ HPExport struct HPMHooking_interface HPMHooking_s;
 #define hookStop() (HPMi->hooking->HookStop(__func__,HPMi->pid))
 #define hookStopped() (HPMi->hooking->HookStopped())
 
-#endif // ! HERCULES_CORE
+#endif // ! RAGEMU_CORE
 
 #endif // PLUGINS_HPMHOOKING_H
