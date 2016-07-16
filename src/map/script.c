@@ -9515,7 +9515,7 @@ BUILDIN(setoption)
 		flag = script_getnum(st,3);
 	else if( !option ) {// Request to remove everything.
 		flag = 0;
-		option = OPTION_FALCON|OPTION_RIDING;
+		option = OPTION_FALCON | OPTION_RIDING;
 #ifndef NEW_CARTS
 		option |= OPTION_CART;
 #endif
@@ -9614,18 +9614,10 @@ BUILDIN(setfalcon)
 }
 
 enum setmount_type {
-	SETMOUNT_TYPE_AUTODETECT   = -1,
-	SETMOUNT_TYPE_NONE         = 0,
-	SETMOUNT_TYPE_PECO         = 1,
-	SETMOUNT_TYPE_WUG          = 2,
-	SETMOUNT_TYPE_MADO         = 3,
-	SETMOUNT_TYPE_DRAGON_GREEN = 4,
-	SETMOUNT_TYPE_DRAGON_BROWN = 5,
-	SETMOUNT_TYPE_DRAGON_GRAY  = 6,
-	SETMOUNT_TYPE_DRAGON_BLUE  = 7,
-	SETMOUNT_TYPE_DRAGON_RED   = 8,
+	SETMOUNT_TYPE_AUTODETECT = -1,
+	SETMOUNT_TYPE_NONE = 0,
+	SETMOUNT_TYPE_PECO = 1,
 	SETMOUNT_TYPE_MAX,
-	SETMOUNT_TYPE_DRAGON       = SETMOUNT_TYPE_DRAGON_GREEN,
 };
 
 /**
@@ -9643,14 +9635,9 @@ BUILDIN(checkmount)
 
 	if (!pc_hasmount(sd)) {
 		script_pushint(st, SETMOUNT_TYPE_NONE);
-	} else if (pc_isridingpeco(sd)) {
+	}
+	else {
 		script_pushint(st, SETMOUNT_TYPE_PECO);
-	} else if (pc_isridingwug(sd)) {
-		script_pushint(st, SETMOUNT_TYPE_WUG);
-	} else if (pc_ismadogear(sd)) {
-		script_pushint(st, SETMOUNT_TYPE_MADO);
-	} else { // if (pc_isridingdragon(sd))
-		script_pushint(st, SETMOUNT_TYPE_DRAGON);
 	}
 
 	return true;
@@ -9664,15 +9651,7 @@ BUILDIN(checkmount)
  *
  * Accepted values for flag:
  * MOUNT_NONE         - dismount
- * MOUNT_PECO         - Peco Peco / Grand Peco / Gryphon (depending on the class)
- * MOUNT_WUG          - Wug (Rider)
- * MOUNT_MADO         - Mado Gear
- * MOUNT_DRAGON       - Dragon (default color)
- * MOUNT_DRAGON_GREEN - Green Dragon
- * MOUNT_DRAGON_BROWN - Brown Dragon
- * MOUNT_DRAGON_GRAY  - Gray Dragon
- * MOUNT_DRAGON_BLUE  - Blue Dragon
- * MOUNT_DRAGON_RED   - Red Dragon
+ * MOUNT_PECO         - Peco Peco / Grand Peco
  *
  * If an invalid value or no flag is specified, the appropriate mount is
  * auto-detected. As a result of this, there is no need to specify a flag at
@@ -9686,8 +9665,8 @@ BUILDIN(setmount)
 	if (sd == NULL)
 		return true;// no player attached, report source
 
-	if (script_hasdata(st,2))
-		flag = script_getnum(st,2);
+	if (script_hasdata(st, 2))
+		flag = script_getnum(st, 2);
 
 	// Color variants for Rune Knight dragon mounts.
 	if (flag != SETMOUNT_TYPE_NONE) {
@@ -9695,64 +9674,13 @@ BUILDIN(setmount)
 			ShowWarning("script_setmount: Unknown flag %d specified. Using auto-detected value.\n", flag);
 			flag = SETMOUNT_TYPE_AUTODETECT;
 		}
-		// Sanity checks and auto-detection
-		if ((sd->class_&MAPID_THIRDMASK) == MAPID_RUNE_KNIGHT) {
-			if (pc->checkskill(sd, RK_DRAGONTRAINING)) {
-				// Rune Knight (Dragon)
-				unsigned int option;
-				option = ( flag == SETMOUNT_TYPE_DRAGON_GREEN ? OPTION_DRAGON1 :
-				           flag == SETMOUNT_TYPE_DRAGON_BROWN ? OPTION_DRAGON2 :
-				           flag == SETMOUNT_TYPE_DRAGON_GRAY ? OPTION_DRAGON3 :
-				           flag == SETMOUNT_TYPE_DRAGON_BLUE ? OPTION_DRAGON4 :
-				           flag == SETMOUNT_TYPE_DRAGON_RED ? OPTION_DRAGON5 :
-				           OPTION_DRAGON1); // default value
-				pc->setridingdragon(sd, option);
-			}
-		} else if ((sd->class_&MAPID_THIRDMASK) == MAPID_RANGER) {
-			// Ranger (Warg)
-			if (pc->checkskill(sd, RA_WUGRIDER))
-				pc->setridingwug(sd, true);
-		} else if ((sd->class_&MAPID_THIRDMASK) == MAPID_MECHANIC) {
-			// Mechanic (Mado Gear)
-			if (pc->checkskill(sd, NC_MADOLICENCE))
-				pc->setmadogear(sd, true);
-		} else {
-			// Knight / Crusader (Peco Peco)
-			if (pc->checkskill(sd, KN_RIDING))
-				pc->setridingpeco(sd, true);
-		}
-	} else if (pc_hasmount(sd)) {
-		if (pc_isridingdragon(sd)) {
-			pc->setridingdragon(sd, 0);
-		}
-		if (pc_isridingwug(sd)) {
-			pc->setridingwug(sd, false);
-		}
-		if (pc_ismadogear(sd)) {
-			pc->setmadogear(sd, false);
-		}
-		if (pc_isridingpeco(sd)) {
-			pc->setridingpeco(sd, false);
-		}
+		// Knight / Crusader (Peco Peco)
+		if (pc->checkskill(sd, KN_RIDING))
+			pc->setmount(sd, true);
 	}
-
-	return true;
-}
-
-/// Returns if the player has a warg.
-///
-/// checkwug() -> <bool>
-///
-BUILDIN(checkwug)
-{
-	struct map_session_data *sd = script->rid2sd(st);
-	if (sd == NULL)
-		return true;// no player attached, report source
-
-	if( pc_iswug(sd) || pc_isridingwug(sd) )
-		script_pushint(st, 1);
-	else
-		script_pushint(st, 0);
+	else if (pc_hasmount(sd)) {
+		pc->setmount(sd, false);
+	}
 
 	return true;
 }
@@ -19079,10 +19007,6 @@ BUILDIN(npcskill)
 
 	nd = map->id2nd(sd->npc_id);
 
-	if (stat_point > battle_config.max_third_parameter) {
-		ShowError("npcskill: stat point exceeded maximum of %d.\n",battle_config.max_third_parameter );
-		return false;
-	}
 	if (npc_level > MAX_LEVEL) {
 		ShowError("npcskill: level exceeded maximum of %d.\n", MAX_LEVEL);
 		return false;
@@ -20521,7 +20445,6 @@ void script_parse_builtin(void) {
 		BUILDIN_DEF(checkfalcon,""),
 		BUILDIN_DEF(setmount,"?"),
 		BUILDIN_DEF(checkmount,""),
-		BUILDIN_DEF(checkwug,""),
 		BUILDIN_DEF(savepoint,"sii"),
 		BUILDIN_DEF(gettimetick,"i"),
 		BUILDIN_DEF(gettime,"i"),

@@ -2356,8 +2356,8 @@ int status_calc_pc_(struct map_session_data* sd, enum e_status_calc_opt opt) {
 	//Give them all modes except these (useful for clones)
 	bstatus->mode = MD_MASK&~(MD_BOSS|MD_PLANT|MD_DETECTOR|MD_ANGRY|MD_TARGETWEAK);
 
-	bstatus->size = (sd->class_&JOBL_BABY)?SZ_SMALL:SZ_MEDIUM;
-	if (battle_config.character_size && (pc_isridingpeco(sd) || pc_isridingdragon(sd))) { //[Lupus]
+	bstatus->size = (sd->class_&JOBL_BABY) ? SZ_SMALL : SZ_MEDIUM;
+	if (battle_config.character_size && (pc_hasmount(sd))) { //[Lupus]
 		if (sd->class_&JOBL_BABY) {
 			if (battle_config.character_size&SZ_BIG)
 				bstatus->size++;
@@ -2619,11 +2619,9 @@ int status_calc_pc_(struct map_session_data* sd, enum e_status_calc_opt opt) {
 	sd->left_weapon.atkmods[1] = status->dbs->atkmods[1][sd->weapontype2];
 	sd->left_weapon.atkmods[2] = status->dbs->atkmods[2][sd->weapontype2];
 
-	if ((pc_isridingpeco(sd) || pc_isridingdragon(sd))
-	    && (sd->status.weapon==W_1HSPEAR || sd->status.weapon==W_2HSPEAR)
-	    ) {
-		//When Riding with spear, damage modifier to mid-class becomes
-		//same as versus large size.
+	if ((pc_hasmount(sd)) && (sd->status.weapon == W_1HSPEAR || sd->status.weapon == W_2HSPEAR)) {
+		// When Riding with spear, damage modifier to mid-class becomes
+		// Same as versus large size.
 		sd->right_weapon.atkmods[1] = sd->right_weapon.atkmods[2];
 		sd->left_weapon.atkmods[1] = sd->left_weapon.atkmods[2];
 	}
@@ -2852,9 +2850,6 @@ int status_calc_pc_(struct map_session_data* sd, enum e_status_calc_opt opt) {
 		bstatus->def = cap_value(i, DEFTYPE_MIN, DEFTYPE_MAX);
 	}
 
-	if( pc_ismadogear(sd) && (skill_lv = pc->checkskill(sd,NC_MAINFRAME)) > 0 )
-		bstatus->def += 20 + 20 * skill_lv;
-
 	if (!battle_config.weapon_defense_type && bstatus->def > battle_config.max_def) {
 		bstatus->def2 += battle_config.over_def_bonus*(bstatus->def -battle_config.max_def);
 		bstatus->def = (unsigned char)battle_config.max_def;
@@ -2879,47 +2874,41 @@ int status_calc_pc_(struct map_session_data* sd, enum e_status_calc_opt opt) {
 	// Unlike other stats, ASPD rate modifiers from skills/SCs/items/etc are first all added together, then the final modifier is applied
 
 	// Basic ASPD value
-	i = status->base_amotion_pc(sd,bstatus);
-	bstatus->amotion = cap_value(i,((sd->class_&JOBL_THIRD) ? battle_config.max_third_aspd : battle_config.max_aspd),2000);
+	i = status->base_amotion_pc(sd, bstatus);
+	bstatus->amotion = cap_value(i, battle_config.max_aspd, 2000);
 
 	// Relative modifiers from passive skills
-	if((skill_lv=pc->checkskill(sd,SA_ADVANCEDBOOK))>0 && sd->status.weapon == W_BOOK)
-		bstatus->aspd_rate -= 5*skill_lv;
-	if((skill_lv = pc->checkskill(sd,SG_DEVIL)) > 0 && !pc->nextjobexp(sd))
-		bstatus->aspd_rate -= 30*skill_lv;
-	if((skill_lv=pc->checkskill(sd,GS_SINGLEACTION))>0 &&
+	if ((skill_lv = pc->checkskill(sd, SA_ADVANCEDBOOK)) > 0 && sd->status.weapon == W_BOOK)
+		bstatus->aspd_rate -= 5 * skill_lv;
+	if ((skill_lv = pc->checkskill(sd, SG_DEVIL)) > 0 && !pc->nextjobexp(sd))
+		bstatus->aspd_rate -= 30 * skill_lv;
+	if ((skill_lv = pc->checkskill(sd, GS_SINGLEACTION)) > 0 &&
 		(sd->status.weapon >= W_REVOLVER && sd->status.weapon <= W_GRENADE))
-		bstatus->aspd_rate -= ((skill_lv+1)/2) * 10;
-	if (pc_isridingpeco(sd))
-		bstatus->aspd_rate += 500-100*pc->checkskill(sd,KN_CAVALIERMASTERY);
-	else if (pc_isridingdragon(sd))
-		bstatus->aspd_rate += 250-50*pc->checkskill(sd,RK_DRAGONTRAINING);
-	bstatus->adelay = 2*bstatus->amotion;
+		bstatus->aspd_rate -= ((skill_lv + 1) / 2) * 10;
+	if (pc_hasmount(sd))
+		bstatus->aspd_rate += 500 - 100 * pc->checkskill(sd, KN_CAVALIERMASTERY);
+	bstatus->adelay = 2 * bstatus->amotion;
 
 	// ----- DMOTION -----
 	//
-	i =  800-bstatus->agi*4;
+	i = 800-bstatus->agi * 4;
 	bstatus->dmotion = cap_value(i, 400, 800);
-	if(battle_config.pc_damage_delay_rate != 100)
-		bstatus->dmotion = bstatus->dmotion*battle_config.pc_damage_delay_rate/100;
+	if (battle_config.pc_damage_delay_rate != 100)
+		bstatus->dmotion = bstatus->dmotion * battle_config.pc_damage_delay_rate / 100;
 
 	// ----- MISC CALCULATIONS -----
 
 	// Weight
-	if((skill_lv=pc->checkskill(sd,MC_INCCARRY))>0)
-		sd->max_weight += 2000*skill_lv;
-	if (pc_isridingpeco(sd) && pc->checkskill(sd,KN_RIDING) > 0)
+	if ((skill_lv = pc->checkskill(sd, MC_INCCARRY)) > 0)
+		sd->max_weight += 2000 * skill_lv;
+	if (pc_hasmount(sd) && pc->checkskill(sd, KN_RIDING) > 0)
 		sd->max_weight += 10000;
-	else if(pc_isridingdragon(sd))
-		sd->max_weight += 5000+2000*pc->checkskill(sd,RK_DRAGONTRAINING);
-	if(sc->data[SC_KNOWLEDGE])
-		sd->max_weight += sd->max_weight*sc->data[SC_KNOWLEDGE]->val1/10;
-	if((skill_lv=pc->checkskill(sd,ALL_INCCARRY))>0)
-		sd->max_weight += 2000*skill_lv;
+	if (sc->data[SC_KNOWLEDGE])
+		sd->max_weight += sd->max_weight * sc->data[SC_KNOWLEDGE]->val1 / 10;
+	if ((skill_lv = pc->checkskill(sd, ALL_INCCARRY)) > 0)
+		sd->max_weight += 2000 * skill_lv;
 
-	sd->cart_weight_max = battle_config.max_cart_weight + (pc->checkskill(sd, GN_REMODELING_CART)*5000);
-
-	if (pc->checkskill(sd,SM_MOVINGRECOVERY)>0)
+	if (pc->checkskill(sd, SM_MOVINGRECOVERY) > 0)
 		sd->regen.state.walk = 1;
 	else
 		sd->regen.state.walk = 0;
@@ -3781,7 +3770,7 @@ void status_calc_bl_main(struct block_list *bl, /*enum scb_flag*/int flag) {
 			if ( sd && sd->ud.skilltimer != INVALID_TIMER && pc->checkskill(sd, SA_FREECAST) > 0 )
 				amotion = amotion * 5 * (pc->checkskill(sd, SA_FREECAST) + 10) / 100;
 			amotion = status->calc_fix_aspd(bl, sc, amotion);
-			st->amotion = cap_value(amotion, ((sd->class_&JOBL_THIRD) ? battle_config.max_third_aspd : battle_config.max_aspd), 2000);
+			st->amotion = cap_value(amotion, battle_config.max_aspd, 2000);
 
 			st->adelay = 2 * st->amotion;
 		} else { // mercenary and mobs
@@ -5190,20 +5179,14 @@ unsigned short status_calc_speed(struct block_list *bl, struct status_change *sc
 		{
 			int val = 0;
 
-			if(sc->data[SC_FUSION]) {
+			if (sc->data[SC_FUSION]) {
 				val = 25;
-			} else if (sd) {
-				if (pc_isridingpeco(sd) || pc_isridingdragon(sd))
-					val = 25;//Same bonus
+			}
+			else if (sd) {
+				if (pc_hasmount(sd))
+					val = 25;
 				else if (sd->sc.data[SC_ALL_RIDING])
 					val = sd->sc.data[SC_ALL_RIDING]->val1;
-				else if (pc_isridingwug(sd))
-					val = 15 + 5 * pc->checkskill(sd, RA_WUGRIDER);
-				else if (pc_ismadogear(sd)) {
-					val = (- 10 * (5 - pc->checkskill(sd,NC_MADOLICENCE)));
-					if (sc->data[SC_ACCELERATION])
-						val += 25;
-				}
 			}
 
 			speed_rate -= val;
@@ -6166,7 +6149,7 @@ void status_set_viewdata(struct block_list *bl, int class_)
 	{
 		struct map_session_data *sd = BL_UCAST(BL_PC, bl);
 		if (pc->db_checkid(class_)) {
-			if (pc_isridingpeco(sd)) {
+			if (pc_hasmount(sd)) {
 				switch (class_) {
 					//Adapt class to a Mounted one.
 					case JOB_KNIGHT:
@@ -8602,14 +8585,8 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 				val2 = 20 + 10 * val1; //ASPD. Need to confirm if Movement Speed reduction is the same. [Jobbie]
 				val3 = 20 * val1; //HIT
 				if( sd ) { // Removes Animals
-					if (pc_isridingpeco(sd))
-						pc->setridingpeco(sd, false);
-					if (pc_isridingdragon(sd))
-						pc->setridingdragon(sd, 0);
-					if (pc_iswug(sd))
-						pc->setoption(sd, sd->sc.option&~OPTION_WUG);
-					if (pc_isridingwug(sd))
-						pc->setridingwug(sd, false);
+					if (pc_hasmount(sd))
+						pc->setmount(sd, false);
 					if (pc_isfalcon(sd))
 						pc->setfalcon(sd, false);
 					if (sd->status.pet_id > 0)
@@ -8706,21 +8683,6 @@ int status_change_start(struct block_list *src, struct block_list *bl, enum sc_t
 				val3 = tick/val2;*/
 				val3 = tick / 3000;
 				tick_time = 3000;// [GodLesZ] tick time
-				break;
-			case SC_GLOOMYDAY:
-				if ( !val2 ) {
-					val2 = (val4 > 0 ? max(15, rnd()%(val4*5)) : 0) + val1 * 10;
-				}
-				if ( rnd()%10000 < val1*100 ) { // 1% per SkillLv chance
-					if ( !val3 )
-						val3 = 50;
-					if( sd ) {
-						if (pc_isridingpeco(sd))
-							pc->setridingpeco(sd, false);
-						if (pc_isridingdragon(sd))
-							pc->setridingdragon(sd, false);
-					}
-				}
 				break;
 			case SC_SITDOWN_FORCE:
 			case SC_BANANA_BOMB_SITDOWN_POSTDELAY:

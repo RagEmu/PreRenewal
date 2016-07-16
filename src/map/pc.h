@@ -590,67 +590,51 @@ END_ZEROED_BLOCK;
 
 #define EQP_WEAPON EQP_HAND_R
 #define EQP_SHIELD EQP_HAND_L
-#define EQP_ARMS (EQP_HAND_R|EQP_HAND_L)
-#define EQP_HELM (EQP_HEAD_LOW|EQP_HEAD_MID|EQP_HEAD_TOP)
-#define EQP_ACC (EQP_ACC_L|EQP_ACC_R)
-#define EQP_COSTUME (EQP_COSTUME_HEAD_TOP|EQP_COSTUME_HEAD_MID|EQP_COSTUME_HEAD_LOW|EQP_COSTUME_GARMENT)
-#define EQP_SHADOW_ACC (EQP_SHADOW_ACC_R|EQP_SHADOW_ACC_L)
-#define EQP_SHADOW_ARMS (EQP_SHADOW_WEAPON|EQP_SHADOW_SHIELD)
+#define EQP_ARMS (EQP_HAND_R | EQP_HAND_L)
+#define EQP_HELM (EQP_HEAD_LOW | EQP_HEAD_MID | EQP_HEAD_TOP)
+#define EQP_ACC (EQP_ACC_L | EQP_ACC_R)
+#define EQP_COSTUME (EQP_COSTUME_HEAD_TOP | EQP_COSTUME_HEAD_MID | EQP_COSTUME_HEAD_LOW | EQP_COSTUME_GARMENT)
+#define EQP_SHADOW_ACC (EQP_SHADOW_ACC_R | EQP_SHADOW_ACC_L)
+#define EQP_SHADOW_ARMS (EQP_SHADOW_WEAPON | EQP_SHADOW_SHIELD)
 
 /// Equip positions that use a visible sprite
 #if PACKETVER < 20110111
 	#define EQP_VISIBLE EQP_HELM
 #else
-	#define EQP_VISIBLE (EQP_HELM|EQP_GARMENT|EQP_COSTUME)
+	#define EQP_VISIBLE (EQP_HELM | EQP_GARMENT| EQP_COSTUME)
 #endif
 
-#define pc_setdead(sd)        ( (sd)->state.dead_sit = (sd)->vd.dead_sit = 1 )
-#define pc_setsit(sd)         ( (sd)->state.dead_sit = (sd)->vd.dead_sit = 2 )
-#define pc_isdead(sd)         ( (sd)->state.dead_sit == 1 )
-#define pc_issit(sd)          ( (sd)->vd.dead_sit == 2 )
-#define pc_isidle(sd)         ( (sd)->chat_id != 0 || (sd)->state.vending || (sd)->state.buyingstore || DIFF_TICK(sockt->last_tick, (sd)->idletime) >= battle->bc->idle_no_share )
-#define pc_istrading(sd)      ( (sd)->npc_id || (sd)->state.vending || (sd)->state.buyingstore || (sd)->state.trading )
-#define pc_cant_act(sd)       ( (sd)->npc_id || (sd)->state.vending || (sd)->state.buyingstore || (sd)->chat_id != 0 || ((sd)->sc.opt1 && (sd)->sc.opt1 != OPT1_BURNING) || (sd)->state.trading || (sd)->state.storage_flag || (sd)->state.prevend )
+#define pc_setdead(sd)        ((sd)->state.dead_sit = (sd)->vd.dead_sit = 1)
+#define pc_setsit(sd)         ((sd)->state.dead_sit = (sd)->vd.dead_sit = 2)
+#define pc_isdead(sd)         ((sd)->state.dead_sit == 1)
+#define pc_issit(sd)          ((sd)->vd.dead_sit == 2)
+#define pc_isidle(sd)         ((sd)->chat_id != 0 || (sd)->state.vending || (sd)->state.buyingstore || DIFF_TICK(sockt->last_tick, (sd)->idletime) >= battle->bc->idle_no_share)
+#define pc_istrading(sd)      ((sd)->npc_id || (sd)->state.vending || (sd)->state.buyingstore || (sd)->state.trading)
+#define pc_cant_act(sd)       ((sd)->npc_id || (sd)->state.vending || (sd)->state.buyingstore || (sd)->chat_id != 0 || ((sd)->sc.opt1 && (sd)->sc.opt1 != OPT1_BURNING) || (sd)->state.trading || (sd)->state.storage_flag || (sd)->state.prevend)
 
 /* equals pc_cant_act except it doesn't check for chat rooms */
-#define pc_cant_act2(sd)       ( (sd)->npc_id || (sd)->state.buyingstore || ((sd)->sc.opt1 && (sd)->sc.opt1 != OPT1_BURNING) || (sd)->state.trading || (sd)->state.storage_flag || (sd)->state.prevend )
+#define pc_cant_act2(sd)      ((sd)->npc_id || (sd)->state.buyingstore || ((sd)->sc.opt1 && (sd)->sc.opt1 != OPT1_BURNING) || (sd)->state.trading || (sd)->state.storage_flag || (sd)->state.prevend)
 
-#define pc_setdir(sd,b,h)     ( (sd)->ud.dir = (b) ,(sd)->head_dir = (h) )
-#define pc_setchatid(sd,n)    ( (sd)->chat_id = (n) )
-#define pc_ishiding(sd)       ( (sd)->sc.option&(OPTION_HIDE|OPTION_CLOAK|OPTION_CHASEWALK) )
-#define pc_iscloaking(sd)     ( !((sd)->sc.option&OPTION_CHASEWALK) && ((sd)->sc.option&OPTION_CLOAK) )
-#define pc_ischasewalk(sd)    ( (sd)->sc.option&OPTION_CHASEWALK )
-#define pc_ismuted(sc,type)   ( (sc)->data[SC_NOCHAT] && (sc)->data[SC_NOCHAT]->val1&(type) )
+#define pc_setdir(sd,b,h)     ((sd)->ud.dir = (b), (sd)->head_dir = (h))
+#define pc_setchatid(sd,n)    ((sd)->chat_id = (n))
+#define pc_ishiding(sd)       ((sd)->sc.option&(OPTION_HIDE|OPTION_CLOAK|OPTION_CHASEWALK))
+#define pc_iscloaking(sd)     (!((sd)->sc.option&OPTION_CHASEWALK) && ((sd)->sc.option&OPTION_CLOAK))
+#define pc_ischasewalk(sd)    ((sd)->sc.option&OPTION_CHASEWALK)
+#define pc_ismuted(sc,type)   ((sc)->data[SC_NOCHAT] && (sc)->data[SC_NOCHAT]->val1&(type))
 
 #ifdef NEW_CARTS
-	#define pc_iscarton(sd)       ( (sd)->sc.data[SC_PUSH_CART] )
+	#define pc_iscarton(sd)   ((sd)->sc.data[SC_PUSH_CART])
 #else
-	#define pc_iscarton(sd)       ( (sd)->sc.option&OPTION_CART )
+	#define pc_iscarton(sd)   ((sd)->sc.option&OPTION_CART)
 #endif
 
-#define pc_isfalcon(sd)       ( (sd)->sc.option&OPTION_FALCON )
-#define pc_isinvisible(sd)    ( (sd)->sc.option&OPTION_INVISIBLE )
-#define pc_is50overweight(sd) ( (sd)->weight*100 >= (sd)->max_weight*battle->bc->natural_heal_weight_rate )
-#define pc_is90overweight(sd) ( (sd)->weight*10 >= (sd)->max_weight*9 )
-#define pc_maxparameter(sd)   ( \
-	( ((sd)->class_&MAPID_UPPERMASK) == MAPID_KAGEROUOBORO \
-	 || ((sd)->class_&MAPID_UPPERMASK) == MAPID_REBELLION \
-	 || ((sd)->class_&MAPID_THIRDMASK) == MAPID_SUPER_NOVICE_E \
-	) ? battle->bc->max_extended_parameter : ((sd)->class_&JOBL_THIRD) ? \
-	    (((sd)->class_&JOBL_BABY) ? battle->bc->max_baby_third_parameter : battle->bc->max_third_parameter ) : \
-	    (((sd)->class_&JOBL_BABY) ? battle->bc->max_baby_parameter : battle->bc->max_parameter) \
-	)
+#define pc_isfalcon(sd)       ((sd)->sc.option&OPTION_FALCON)
+#define pc_isinvisible(sd)    ((sd)->sc.option&OPTION_INVISIBLE)
+#define pc_is50overweight(sd) ((sd)->weight * 100 >= (sd)->max_weight * battle->bc->natural_heal_weight_rate)
+#define pc_is90overweight(sd) ((sd)->weight * 10 >= (sd)->max_weight * 9)
+#define pc_maxparameter(sd)   ((sd)->class_&JOBL_BABY ? battle_config.max_baby_parameter : battle_config.max_parameter)
 /// Generic check for mounts
-#define pc_hasmount(sd)       ( (sd)->sc.option&(OPTION_RIDING|OPTION_WUGRIDER|OPTION_DRAGON|OPTION_MADOGEAR) )
-/// Knight classes Peco / Gryphon
-#define pc_isridingpeco(sd)   ( (sd)->sc.option&(OPTION_RIDING) )
-/// Ranger Warg
-#define pc_iswug(sd)       ( (sd)->sc.option&OPTION_WUG )
-#define pc_isridingwug(sd) ( (sd)->sc.option&OPTION_WUGRIDER )
-/// Mechanic Magic Gear
-#define pc_ismadogear(sd) ( (sd)->sc.option&OPTION_MADOGEAR )
-/// Rune Knight Dragon
-#define pc_isridingdragon(sd) ( (sd)->sc.option&OPTION_DRAGON )
+#define pc_hasmount(sd)       ((sd)->sc.option&(OPTION_RIDING))
 
 #define pc_stop_walking(sd, type) (unit->stop_walking(&(sd)->bl, (type)))
 #define pc_stop_attack(sd)        (unit->stop_attack(&(sd)->bl))
@@ -938,10 +922,7 @@ END_ZEROED_BLOCK; /* End */
 	int (*setoption) (struct map_session_data *sd,int type);
 	int (*setcart) (struct map_session_data* sd, int type);
 	void (*setfalcon) (struct map_session_data *sd, bool flag);
-	void (*setridingpeco) (struct map_session_data *sd, bool flag);
-	void (*setmadogear) (struct map_session_data *sd, bool flag);
-	void (*setridingdragon) (struct map_session_data *sd, unsigned int type);
-	void (*setridingwug) (struct map_session_data *sd, bool flag);
+	void (*setmount) (struct map_session_data *sd, bool flag);
 	int (*changelook) (struct map_session_data *sd,int type,int val);
 	int (*equiplookall) (struct map_session_data *sd);
 

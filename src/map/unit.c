@@ -1141,24 +1141,18 @@ int unit_can_move(struct block_list *bl) {
  * Resume running after a walk delay
  *------------------------------------------*/
 
-int unit_resume_running(int tid, int64 tick, int id, intptr_t data) {
-
+int unit_resume_running(int tid, int64 tick, int id, intptr_t data)
+{
 	struct unit_data *ud = (struct unit_data *)data;
 	struct map_session_data *sd = map->id2sd(id);
 
-	if(sd && pc_isridingwug(sd))
-		clif->skill_nodamage(ud->bl,ud->bl,RA_WUGDASH,ud->skill_lv,
-		                     sc_start4(ud->bl,ud->bl,status->skill2sc(RA_WUGDASH),100,ud->skill_lv,unit->getdir(ud->bl),0,0,1));
-	else
-		clif->skill_nodamage(ud->bl,ud->bl,TK_RUN,ud->skill_lv,
-		                     sc_start4(ud->bl,ud->bl,status->skill2sc(TK_RUN),100,ud->skill_lv,unit->getdir(ud->bl),0,0,0));
+	if (sd)
+		clif->skill_nodamage(ud->bl, ud->bl, TK_RUN, ud->skill_lv, sc_start4(ud->bl, ud->bl, status->skill2sc(TK_RUN), 100, ud->skill_lv, unit->getdir(ud->bl), 0, 0, 0));
 
 	if (sd) clif->walkok(sd);
 
 	return 0;
-
 }
-
 
 /*==========================================
  * Applies walk delay to character, considering that
@@ -1879,15 +1873,15 @@ int unit_attack(struct block_list *src,int target_id,int continuous) {
 
 	if (src->type == BL_PC) {
 		struct map_session_data *sd = BL_UCAST(BL_PC, src);
-		if( target->type == BL_NPC ) { // monster npcs [Valaris]
+		if (target->type == BL_NPC) { // monster npcs [Valaris]
 			npc->click(sd, BL_UCAST(BL_NPC, target)); // submitted by leinsirk10 [Celest]
 			return 0;
 		}
-		if( pc_is90overweight(sd) || pc_isridingwug(sd) ) { // overweight or mounted on warg - stop attacking
+		if (pc_is90overweight(sd)) { // overweight or mounted on warg - stop attacking
 			unit->stop_attack(src);
 			return 0;
 		}
-		if( !pc->can_attack(sd, target_id) ) {
+		if (!pc->can_attack(sd, target_id)) {
 			unit->stop_attack(src);
 			return 0;
 		}

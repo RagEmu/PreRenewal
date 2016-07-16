@@ -620,9 +620,9 @@ int pc_makesavestatus(struct map_session_data *sd)
 	//Only copy the Cart/Peco/Falcon options, the rest are handled via
 	//status change load/saving. [Skotlex]
 #ifdef NEW_CARTS
-	sd->status.option = sd->sc.option&(OPTION_INVISIBLE|OPTION_FALCON|OPTION_RIDING|OPTION_DRAGON|OPTION_WUG|OPTION_WUGRIDER|OPTION_MADOGEAR);
+	sd->status.option = sd->sc.option&(OPTION_INVISIBLE|OPTION_FALCON|OPTION_RIDING);
 #else
-	sd->status.option = sd->sc.option&(OPTION_INVISIBLE|OPTION_CART|OPTION_FALCON|OPTION_RIDING|OPTION_DRAGON|OPTION_WUG|OPTION_WUGRIDER|OPTION_MADOGEAR);
+	sd->status.option = sd->sc.option&(OPTION_INVISIBLE|OPTION_CART|OPTION_FALCON|OPTION_RIDING);
 #endif
 	if (sd->sc.data[SC_JAILED]) { //When Jailed, do not move last point.
 		if(pc_isdead(sd)){
@@ -976,10 +976,6 @@ int pc_isequip(struct map_session_data *sd,int n)
 		if ( (sd->state.active && !pc_iscarton(sd)) // check if sc data is already loaded.
 			&& (sd->status.class_ == JOB_GENETIC_T || sd->status.class_ == JOB_GENETIC) ) {
 			clif->msgtable(sd, MSG_ITEM_NEED_CART);
-			return 0;
-		}
-		if ( !pc_ismadogear(sd) && (sd->status.class_ == JOB_MECHANIC_T || sd->status.class_ == JOB_MECHANIC) ) {
-			clif->msgtable(sd, MSG_ITEM_NEED_MADO);
 			return 0;
 		}
 	}
@@ -7243,14 +7239,6 @@ int pc_resetskill(struct map_session_data* sd, int flag)
 			i &= ~OPTION_RIDING;
 		if( i&OPTION_FALCON && pc->checkskill(sd, HT_FALCON) )
 			i &= ~OPTION_FALCON;
-		if( i&OPTION_DRAGON && pc->checkskill(sd, RK_DRAGONTRAINING) )
-			i &= ~OPTION_DRAGON;
-		if( i&OPTION_WUG && pc->checkskill(sd, RA_WUGMASTERY) )
-			i &= ~OPTION_WUG;
-		if( i&OPTION_WUGRIDER && pc->checkskill(sd, RA_WUGRIDER) )
-			i &= ~OPTION_WUGRIDER;
-		if( i&OPTION_MADOGEAR && ( sd->class_&MAPID_THIRDMASK ) == MAPID_MECHANIC )
-			i &= ~OPTION_MADOGEAR;
 #ifndef NEW_CARTS
 		if( i&OPTION_CART && pc->checkskill(sd, MC_PUSHCART) )
 			i &= ~OPTION_CART;
@@ -8443,35 +8431,27 @@ int pc_jobchange(struct map_session_data *sd,int job, int upper)
 
 	//Remove peco/cart/falcon
 	i = sd->sc.option;
-	if( i&OPTION_RIDING && (!pc->checkskill(sd, KN_RIDING) || (sd->class_&MAPID_THIRDMASK) == MAPID_RUNE_KNIGHT) )
+	if (i&OPTION_RIDING && !pc->checkskill(sd, KN_RIDING))
 		i&=~OPTION_RIDING;
-	if( i&OPTION_FALCON && !pc->checkskill(sd, HT_FALCON) )
+	if (i&OPTION_FALCON && !pc->checkskill(sd, HT_FALCON))
 		i&=~OPTION_FALCON;
-	if( i&OPTION_DRAGON && !pc->checkskill(sd,RK_DRAGONTRAINING) )
-		i&=~OPTION_DRAGON;
-	if( i&OPTION_WUGRIDER && !pc->checkskill(sd,RA_WUGMASTERY) )
-		i&=~OPTION_WUGRIDER;
-	if( i&OPTION_WUG && !pc->checkskill(sd,RA_WUGMASTERY) )
-		i&=~OPTION_WUG;
-	if( i&OPTION_MADOGEAR ) //You do not need a skill for this.
-		i&=~OPTION_MADOGEAR;
 #ifndef NEW_CARTS
-	if( i&OPTION_CART && !pc->checkskill(sd, MC_PUSHCART) )
+	if (i&OPTION_CART && !pc->checkskill(sd, MC_PUSHCART))
 		i&=~OPTION_CART;
 #else
-	if( sd->sc.data[SC_PUSH_CART] && !pc->checkskill(sd, MC_PUSHCART) )
+	if (sd->sc.data[SC_PUSH_CART] && !pc->checkskill(sd, MC_PUSHCART))
 		pc->setcart(sd, 0);
 #endif
-	if(i != sd->sc.option)
+	if (i != sd->sc.option)
 		pc->setoption(sd, i);
 
-	if(homun_alive(sd->hd) && !pc->checkskill(sd, AM_CALLHOMUN))
+	if (homun_alive(sd->hd) && !pc->checkskill(sd, AM_CALLHOMUN))
 		homun->vaporize(sd, HOM_ST_REST);
 
-	if(sd->status.manner < 0)
-		clif->changestatus(sd,SP_MANNER,sd->status.manner);
+	if (sd->status.manner < 0)
+		clif->changestatus(sd, SP_MANNER, sd->status.manner);
 
-	status_calc_pc(sd,SCO_FORCE);
+	status_calc_pc(sd, SCO_FORCE);
 	pc->checkallowskill(sd);
 	pc->equiplookall(sd);
 
@@ -8587,37 +8567,39 @@ int pc_changelook(struct map_session_data *sd,int type,int val)
 /*==========================================
  * Give an option (type) to player (sd) and display it to client
  *------------------------------------------*/
-int pc_setoption(struct map_session_data *sd,int type)
+int pc_setoption(struct map_session_data *sd, int type)
 {
-	int p_type, new_look=0;
+	int p_type, new_look = 0;
 	nullpo_ret(sd);
 	p_type = sd->sc.option;
 
-	//Option has to be changed client-side before the class sprite or it won't always work (eg: Wedding sprite) [Skotlex]
-	sd->sc.option=type;
+	// Option has to be changed client-side before the class sprite or it won't always work (eg: Wedding sprite) [Skotlex]
+	sd->sc.option = type;
 	clif->changeoption(&sd->bl);
 
-	if( (type&OPTION_RIDING && !(p_type&OPTION_RIDING)) || (type&OPTION_DRAGON && !(p_type&OPTION_DRAGON) && pc->checkskill(sd,RK_DRAGONTRAINING) > 0) ) {
+	if (type&OPTION_RIDING && !(p_type&OPTION_RIDING)) {
 		// Mounting
-		clif->sc_load(&sd->bl,sd->bl.id,AREA,SI_RIDING, 0, 0, 0);
-		status_calc_pc(sd,SCO_NONE);
-	} else if( (!(type&OPTION_RIDING) && p_type&OPTION_RIDING) || (!(type&OPTION_DRAGON) && p_type&OPTION_DRAGON) ) {
+		clif->sc_load(&sd->bl, sd->bl.id, AREA, SI_RIDING, 0, 0, 0);
+		status_calc_pc(sd, SCO_NONE);
+	}
+	else if (!(type&OPTION_RIDING) && p_type&OPTION_RIDING) {
 		// Dismount
-		clif->sc_end(&sd->bl,sd->bl.id,AREA,SI_RIDING);
-		status_calc_pc(sd,SCO_NONE);
+		clif->sc_end(&sd->bl, sd->bl.id, AREA, SI_RIDING);
+		status_calc_pc(sd, SCO_NONE);
 	}
 
 #ifndef NEW_CARTS
-	if( type&OPTION_CART && !( p_type&OPTION_CART ) ) { //Cart On
+	if (type&OPTION_CART && !(p_type&OPTION_CART)) { // Cart On
 		clif->cartlist(sd);
 		clif->updatestatus(sd, SP_CARTINFO);
-		if(pc->checkskill(sd, MC_PUSHCART) < 10)
-			status_calc_pc(sd,SCO_NONE); //Apply speed penalty.
-	} else if( !( type&OPTION_CART ) && p_type&OPTION_CART ){ //Cart Off
+		if (pc->checkskill(sd, MC_PUSHCART) < 10)
+			status_calc_pc(sd, SCO_NONE); // Apply speed penalty.
+	}
+	else if (!( type&OPTION_CART) && p_type&OPTION_CART) { // Cart Off
 		clif->clearcart(sd->fd);
-		if(pc->checkskill(sd, MC_PUSHCART) < 10)
-			status_calc_pc(sd,SCO_NONE); //Remove speed penalty.
-		if ( sd->equip_index[EQI_AMMO] > 0 )
+		if (pc->checkskill(sd, MC_PUSHCART) < 10)
+			status_calc_pc(sd, SCO_NONE); // Remove speed penalty.
+		if (sd->equip_index[EQI_AMMO] > 0)
 			pc->unequipitem(sd, sd->equip_index[EQI_AMMO], PCUNEQUIPITEM_FORCE);
 	}
 #endif
@@ -8626,37 +8608,6 @@ int pc_setoption(struct map_session_data *sd,int type)
 		clif->sc_load(&sd->bl,sd->bl.id,AREA,SI_FALCON, 0, 0, 0);
 	else if (!(type&OPTION_FALCON) && p_type&OPTION_FALCON) //Falcon OFF
 		clif->sc_end(&sd->bl,sd->bl.id,AREA,SI_FALCON);
-
-	if( type&OPTION_WUGRIDER && !(p_type&OPTION_WUGRIDER) ) { // Mounting
-		clif->sc_load(&sd->bl,sd->bl.id,AREA,SI_WUGRIDER, 0, 0, 0);
-		status_calc_pc(sd,SCO_NONE);
-	} else if( !(type&OPTION_WUGRIDER) && p_type&OPTION_WUGRIDER ) { // Dismount
-		clif->sc_end(&sd->bl,sd->bl.id,AREA,SI_WUGRIDER);
-		status_calc_pc(sd,SCO_NONE);
-	}
-
-	if( (type&OPTION_MADOGEAR && !(p_type&OPTION_MADOGEAR))
-	|| (!(type&OPTION_MADOGEAR) && p_type&OPTION_MADOGEAR) ) {
-		int i;
-		status_calc_pc(sd, SCO_NONE);
-
-		// End all SCs that can be reset when mado is taken off
-		for( i = 0; i < SC_MAX; i++ ) {
-			if ( !sd->sc.data[i] || !status->get_sc_type(i) )
-				continue;
-			if ( status->get_sc_type(i)&SC_MADO_NO_RESET )
-				continue;
-			switch (i) {
-				case SC_BERSERK:
-				case SC_SATURDAY_NIGHT_FEVER:
-					sd->sc.data[i]->val2 = 0;
-					break;
-			}
-			status_change_end(&sd->bl, (sc_type)i, INVALID_TIMER);
-		}
-		if ( sd->equip_index[EQI_AMMO] > 0 )
-			pc->unequipitem(sd, sd->equip_index[EQI_AMMO], PCUNEQUIPITEM_FORCE);
-	}
 
 	if (type&OPTION_FLYING && !(p_type&OPTION_FLYING))
 		new_look = JOB_STAR_GLADIATOR2;
@@ -8760,92 +8711,22 @@ void pc_setfalcon(struct map_session_data *sd, bool flag)
 }
 
 /**
- * Mounts/dismounts a Peco or Gryphon.
+ * Mounts/dismounts a Peco.
  *
  * The target player needs the required skills in order to mount a peco.
  *
  * @param sd Target player.
  * @param flag New state.
  **/
-void pc_setridingpeco(struct map_session_data *sd, bool flag)
+void pc_setmount(struct map_session_data *sd, bool flag)
 {
 	nullpo_retv(sd);
 	if (flag) {
 		if (pc->checkskill(sd, KN_RIDING))
-			pc->setoption(sd, sd->sc.option|OPTION_RIDING);
-	} else if (pc_isridingpeco(sd)) {
+			pc->setoption(sd, sd->sc.option | OPTION_RIDING);
+	}
+	else if (pc_hasmount(sd)) {
 		pc->setoption(sd, sd->sc.option&~OPTION_RIDING);
-	}
-}
-
-/**
- * Gives/removes a Mado Gear.
- *
- * The target player needs to be the correct class in order to obtain a mado gear.
- *
- * @param sd Target player.
- * @param flag New state.
- **/
-void pc_setmadogear(struct map_session_data *sd, bool flag)
-{
-	nullpo_retv(sd);
-	if (flag) {
-		if ((sd->class_&MAPID_THIRDMASK) == MAPID_MECHANIC)
-			pc->setoption(sd, sd->sc.option|OPTION_MADOGEAR);
-	} else if (pc_ismadogear(sd)) {
-		pc->setoption(sd, sd->sc.option&~OPTION_MADOGEAR);
-	}
-}
-
-/**
- * Mounts/dismounts a dragon.
- *
- * The target player needs the required skills in order to mount a dragon.
- *
- * @param sd Target player.
- * @param type New state. This must be a valid OPTION_DRAGON* or 0.
- **/
-void pc_setridingdragon(struct map_session_data *sd, unsigned int type)
-{
-	nullpo_retv(sd);
-	if (type&OPTION_DRAGON) {
-		// Ensure only one dragon is set at a time.
-		if (type&OPTION_DRAGON1)
-			type = OPTION_DRAGON1;
-		else if (type&OPTION_DRAGON2)
-			type = OPTION_DRAGON2;
-		else if (type&OPTION_DRAGON3)
-			type = OPTION_DRAGON3;
-		else if (type&OPTION_DRAGON4)
-			type = OPTION_DRAGON4;
-		else if (type&OPTION_DRAGON5)
-			type = OPTION_DRAGON5;
-		else
-			type = OPTION_DRAGON1;
-
-		if (pc->checkskill(sd, RK_DRAGONTRAINING))
-			pc->setoption(sd, (sd->sc.option&~OPTION_DRAGON)|type);
-	} else if (pc_isridingdragon(sd)) {
-		pc->setoption(sd,sd->sc.option&~OPTION_DRAGON); // remove dragon
-	}
-}
-
-/**
- * Mounts/dismounts a wug.
- *
- * The target player needs the required skills in order to mount a wug.
- *
- * @param sd Target player.
- * @param flag New state.
- **/
-void pc_setridingwug(struct map_session_data *sd, bool flag)
-{
-	nullpo_retv(sd);
-	if (flag) {
-		if (pc->checkskill(sd, RA_WUGRIDER) > 0)
-			pc->setoption(sd,sd->sc.option|OPTION_WUGRIDER);
-	} else if (pc_isridingwug(sd)) {
-		pc->setoption(sd,sd->sc.option&~OPTION_WUGRIDER); // remove wug
 	}
 }
 
@@ -10345,32 +10226,6 @@ void pc_setstand(struct map_session_data *sd) {
 }
 
 /**
- * Mechanic (MADO GEAR)
- **/
-void pc_overheat(struct map_session_data *sd, int val) {
-	int heat = val, skill_lv,
-		limit[] = { 10, 20, 28, 46, 66 };
-
-	nullpo_retv(sd);
-	if( !pc_ismadogear(sd) || sd->sc.data[SC_OVERHEAT] )
-		return; // already burning
-
-	skill_lv = cap_value(pc->checkskill(sd,NC_MAINFRAME),0,4);
-	if( sd->sc.data[SC_OVERHEAT_LIMITPOINT] ) {
-		heat += sd->sc.data[SC_OVERHEAT_LIMITPOINT]->val1;
-		status_change_end(&sd->bl,SC_OVERHEAT_LIMITPOINT,INVALID_TIMER);
-	}
-
-	heat = max(0,heat); // Avoid negative HEAT
-	if( heat >= limit[skill_lv] )
-		sc_start(NULL,&sd->bl,SC_OVERHEAT,100,0,1000);
-	else
-		sc_start(NULL,&sd->bl,SC_OVERHEAT_LIMITPOINT,100,heat,30000);
-
-	return;
-}
-
-/**
  * Check if player is autolooting given itemID.
  */
 bool pc_isautolooting(struct map_session_data *sd, int nameid)
@@ -11757,10 +11612,7 @@ void pc_defaults(void) {
 	pc->setoption = pc_setoption;
 	pc->setcart = pc_setcart;
 	pc->setfalcon = pc_setfalcon;
-	pc->setridingpeco = pc_setridingpeco;
-	pc->setmadogear = pc_setmadogear;
-	pc->setridingdragon = pc_setridingdragon;
-	pc->setridingwug = pc_setridingwug;
+	pc->setmount = pc_setmount;
 	pc->changelook = pc_changelook;
 	pc->equiplookall = pc_equiplookall;
 
@@ -11825,7 +11677,6 @@ void pc_defaults(void) {
 	pc->disguise = pc_disguise;
 	pc->isautolooting = pc_isautolooting;
 
-	pc->overheat = pc_overheat;
 	pc->banding = pc_banding;
 
 	pc->itemcd_do = pc_itemcd_do;

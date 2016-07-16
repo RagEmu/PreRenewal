@@ -603,8 +603,6 @@ int64 battle_addmastery(struct map_session_data *sd,struct block_list *target,in
 		damage += (skill_lv * 5);
 	if( (skill_lv = pc->checkskill(sd,NC_RESEARCHFE)) > 0 && (st->def_ele == ELE_FIRE || st->def_ele == ELE_EARTH) )
 		damage += (skill_lv * 10);
-	if( pc_ismadogear(sd) )
-		damage += 15 * pc->checkskill(sd, NC_MADOLICENCE);
 	if((skill_lv = pc->checkskill(sd,HT_BEASTBANE)) > 0 && (st->race==RC_BRUTE || st->race==RC_INSECT) ) {
 		damage += (skill_lv * 4);
 		if (sd->sc.data[SC_SOULLINK] && sd->sc.data[SC_SOULLINK]->val2 == SL_HUNTER)
@@ -629,10 +627,8 @@ int64 battle_addmastery(struct map_session_data *sd,struct block_list *target,in
 			break;
 		case W_1HSPEAR:
 		case W_2HSPEAR:
-			if ((skill_lv = pc->checkskill(sd,KN_SPEARMASTERY)) > 0) {
-				if (pc_isridingdragon(sd))
-					damage += (skill_lv * 10);
-				else if (pc_isridingpeco(sd))
+			if ((skill_lv = pc->checkskill(sd, KN_SPEARMASTERY)) > 0) {
+				if (pc_hasmount(sd))
 					damage += (skill_lv * 5);
 				else
 					damage += (skill_lv * 4);
@@ -2852,7 +2848,7 @@ int64 battle_calc_damage(struct block_list *src,struct block_list *bl,struct Dam
 		if (skill_id)
 			mob->skill_event(md, src, timer->gettick(), MSC_SKILLUSED|(skill_id<<16));
 	}
-	if (t_sd && pc_ismadogear(t_sd) && rnd()%100 < 50) {
+	if (t_sd && rnd()%100 < 50) {
 		int element = -1;
 		if (!skill_id || (element = skill->get_ele(skill_id, skill_lv)) == -1) {
 			// Take weapon's element
@@ -6092,7 +6088,6 @@ static const struct battle_data {
 	{ "natural_heal_weight_rate",           &battle_config.natural_heal_weight_rate,        50,     50,     101             },
 	{ "arrow_decrement",                    &battle_config.arrow_decrement,                 1,      0,      2,              },
 	{ "max_aspd",                           &battle_config.max_aspd,                        190,    100,    199,            },
-	{ "max_third_aspd",                     &battle_config.max_third_aspd,                  193,    100,    199,            },
 	{ "max_walk_speed",                     &battle_config.max_walk_speed,                  300,    100,    100*DEFAULT_WALK_SPEED, },
 	{ "max_lv",                             &battle_config.max_lv,                          99,     0,      MAX_LEVEL,      },
 	{ "aura_lv",                            &battle_config.aura_lv,                         99,     0,      INT_MAX,        },
@@ -6321,9 +6316,6 @@ static const struct battle_data {
 	/**
 	 * rAthena
 	 **/
-	{ "max_third_parameter",                &battle_config.max_third_parameter,             130,    10,     10000,          },
-	{ "max_baby_third_parameter",           &battle_config.max_baby_third_parameter,        117,    10,     10000,          },
-	{ "max_extended_parameter",             &battle_config.max_extended_parameter,          125,    10,     10000,          },
 	{ "atcommand_max_stat_bypass",          &battle_config.atcommand_max_stat_bypass,       0,      0,      100,            },
 	{ "skill_amotion_leniency",             &battle_config.skill_amotion_leniency,          90,     0,      300             },
 	{ "mvp_tomb_enabled",                   &battle_config.mvp_tomb_enabled,                1,      0,      1               },
@@ -6332,7 +6324,6 @@ static const struct battle_data {
 	{ "vendchat_near_hiddennpc",            &battle_config.vendchat_near_hiddennpc,         0,      0,      1               },
 	{ "atcommand_mobinfo_type",             &battle_config.atcommand_mobinfo_type,          0,      0,      1               },
 	{ "homunculus_max_level",               &battle_config.hom_max_level,                   99,     0,      MAX_LEVEL,      },
-	{ "homunculus_S_max_level",             &battle_config.hom_S_max_level,                 150,    0,      MAX_LEVEL,      },
 	{ "mob_size_influence",                 &battle_config.mob_size_influence,              0,      0,      1,              },
 	{ "bowling_bash_area",                  &battle_config.bowling_bash_area,               0,      0,      20,             },
 	/**
@@ -6548,20 +6539,20 @@ void battle_set_defaults(void) {
 		*battle_data[i].val = battle_data[i].defval;
 }
 
-void battle_adjust_conf(void) {
-	battle_config.monster_max_aspd = 2000 - battle_config.monster_max_aspd*10;
-	battle_config.max_aspd = 2000 - battle_config.max_aspd*10;
-	battle_config.max_third_aspd = 2000 - battle_config.max_third_aspd*10;
-	battle_config.max_walk_speed = 100*DEFAULT_WALK_SPEED/battle_config.max_walk_speed;
+void battle_adjust_conf(void)
+{
+	battle_config.monster_max_aspd = 2000 - battle_config.monster_max_aspd * 10;
+	battle_config.max_aspd = 2000 - battle_config.max_aspd * 10;
+	battle_config.max_walk_speed = 100 * DEFAULT_WALK_SPEED / battle_config.max_walk_speed;
 	battle_config.max_cart_weight *= 10;
 
-	if(battle_config.max_def > 100 && !battle_config.weapon_defense_type) // added by [Skotlex]
+	if (battle_config.max_def > 100 && !battle_config.weapon_defense_type) // added by [Skotlex]
 		battle_config.max_def = 100;
 
-	if(battle_config.min_hitrate > battle_config.max_hitrate)
+	if (battle_config.min_hitrate > battle_config.max_hitrate)
 		battle_config.min_hitrate = battle_config.max_hitrate;
 
-	if(battle_config.pet_max_atk1 > battle_config.pet_max_atk2) //Skotlex
+	if (battle_config.pet_max_atk1 > battle_config.pet_max_atk2) // Skotlex
 		battle_config.pet_max_atk1 = battle_config.pet_max_atk2;
 
 	if (battle_config.day_duration && battle_config.day_duration < 60000) // added by [Yor]
@@ -6570,35 +6561,35 @@ void battle_adjust_conf(void) {
 		battle_config.night_duration = 60000;
 
 #if PACKETVER < 20100427
-	if( battle_config.feature_buying_store ) {
+	if (battle_config.feature_buying_store) {
 		ShowWarning("conf/battle/feature.conf buying_store is enabled but it requires PACKETVER 2010-04-27 or newer, disabling...\n");
 		battle_config.feature_buying_store = 0;
 	}
 #endif
 
 #if PACKETVER < 20100803
-	if( battle_config.feature_search_stores ) {
+	if (battle_config.feature_search_stores) {
 		ShowWarning("conf/battle/feature.conf search_stores is enabled but it requires PACKETVER 2010-08-03 or newer, disabling...\n");
 		battle_config.feature_search_stores = 0;
 	}
 #endif
 
 #if PACKETVER < 20130724
-	if( battle_config.feature_banking ) {
+	if (battle_config.feature_banking) {
 		ShowWarning("conf/battle/feature.conf banking is enabled but it requires PACKETVER 2013-07-24 or newer, disabling...\n");
 		battle_config.feature_banking = 0;
 	}
 #endif
 
 #if PACKETVER < 20141022
-	if( battle_config.feature_roulette ) {
+	if (battle_config.feature_roulette) {
 		ShowWarning("conf/battle/feature.conf roulette is enabled but it requires PACKETVER 2014-10-22 or newer, disabling...\n");
 		battle_config.feature_roulette = 0;
 	}
 #endif
 
 #if PACKETVER > 20120000 && PACKETVER < 20130515 /* exact date (when it started) not known */
-	if( battle_config.feature_auction == 1 ) {
+	if (battle_config.feature_auction == 1) {
 		ShowWarning("conf/battle/feature.conf:feature.auction is enabled but it is not stable on PACKETVER "EXPAND_AND_QUOTE(PACKETVER)", disabling...\n");
 		ShowWarning("conf/battle/feature.conf:feature.auction change value to '2' to silence this warning and maintain it enabled\n");
 		battle_config.feature_auction = 0;

@@ -9368,10 +9368,8 @@ void clif_parse_LoadEndAck(int fd, struct map_session_data *sd) {
 
 		if (pc_isfalcon(sd))
 			clif->status_change(&sd->bl, SI_FALCON, 1, 0, 0, 0, 0);
-		if (pc_isridingpeco(sd) || pc_isridingdragon(sd))
+		if (pc_hasmount(sd))
 			clif->status_change(&sd->bl, SI_RIDING, 1, 0, 0, 0, 0);
-		else if (pc_isridingwug(sd))
-			clif->status_change(&sd->bl, SI_WUGRIDER, 1, 0, 0, 0, 0);
 
 		if(sd->status.manner < 0)
 			sc_start(NULL,&sd->bl,SC_NOCHAT,100,0,0);
@@ -10874,17 +10872,18 @@ void clif_parse_GetItemFromCart(int fd,struct map_session_data *sd)
 void clif_parse_RemoveOption(int fd,struct map_session_data *sd) __attribute__((nonnull (2)));
 /// Request to remove cart/falcon/peco/dragon (CZ_REQ_CARTOFF).
 /// 012a
-void clif_parse_RemoveOption(int fd,struct map_session_data *sd)
+void clif_parse_RemoveOption(int fd, struct map_session_data *sd)
 {
-	if (pc_isridingpeco(sd) || pc_isfalcon(sd) || pc_isridingdragon(sd) || pc_ismadogear(sd)) {
+	if (pc_hasmount(sd) || pc_isfalcon(sd)) {
 		// priority to remove this option before we can clear cart
-		pc->setoption(sd,sd->sc.option&~(OPTION_RIDING|OPTION_FALCON|OPTION_DRAGON|OPTION_MADOGEAR));
-	} else {
+		pc->setoption(sd, sd->sc.option&~(OPTION_RIDING | OPTION_FALCON));
+	}
+	else {
 #ifdef NEW_CARTS
 		if (sd->sc.data[SC_PUSH_CART])
-			pc->setcart(sd,0);
+			pc->setcart(sd, 0);
 #else // not NEW_CARTS
-		pc->setoption(sd,sd->sc.option&~OPTION_CART);
+		pc->setoption(sd, sd->sc.option&~OPTION_CART);
 #endif // NEW_CARTS
 	}
 }
